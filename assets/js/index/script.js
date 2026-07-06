@@ -74,7 +74,7 @@ function init() {
   gsap.registerPlugin(ScrollTrigger);
   customDropdown();
   createFilterTab();
-  getDateLightPick();
+  // getDateLightPick();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -99,3 +99,39 @@ window.addEventListener("beforeunload", () => {
   if (!isLinkClicked) window.scrollTo(0, 0);
   isLinkClicked = false;
 });
+// ==== ĐỔI MẬT KHẨU Ở ĐÂY ====
+const CORRECT_PASSWORD = "hitek2026";
+
+const SESSION_KEY = "site_unlocked";
+
+const loginScreen = document.getElementById("login-screen");
+// const realContent = document.getElementById("real-content");
+const passwordInput = document.getElementById("password-input");
+const loginBtn = document.getElementById("login-btn");
+const errorMsg = document.getElementById("error-msg");
+
+function unlockSite() {
+  loginScreen.style.display = "none";
+  // realContent.style.display = "block";
+  sessionStorage.setItem(SESSION_KEY, "true");
+}
+
+function checkPassword() {
+  if (passwordInput.value === CORRECT_PASSWORD) {
+    unlockSite();
+  } else {
+    errorMsg.style.display = "block";
+    passwordInput.value = "";
+    passwordInput.focus();
+  }
+}
+
+loginBtn.addEventListener("click", checkPassword);
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") checkPassword();
+});
+
+// Nếu đã từng nhập đúng trong phiên này (session) thì khỏi hỏi lại
+if (sessionStorage.getItem(SESSION_KEY) === "true") {
+  unlockSite();
+}

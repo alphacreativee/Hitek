@@ -31,6 +31,17 @@
 </head>
 
 <body>
+  <!-- login -->
+  <script>
+    fetch("./components/login.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("login-screen").innerHTML = data;
+      });
+  </script>
+
+
+  <div id="login-screen"></div>
   <!-- layout -->
   <!-- header -->
   <script>
