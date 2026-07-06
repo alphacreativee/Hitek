@@ -101,19 +101,17 @@ window.addEventListener("beforeunload", () => {
 });
 // ==== ĐỔI MẬT KHẨU Ở ĐÂY ====
 const CORRECT_PASSWORD = "hitek2026";
-
 const SESSION_KEY = "site_unlocked";
 
 const loginScreen = document.getElementById("login-screen");
-// const realContent = document.getElementById("real-content");
 const passwordInput = document.getElementById("password-input");
 const loginBtn = document.getElementById("login-btn");
 const errorMsg = document.getElementById("error-msg");
 
 function unlockSite() {
   loginScreen.style.display = "none";
-  // realContent.style.display = "block";
   sessionStorage.setItem(SESSION_KEY, "true");
+  removeInspectBlock(); // tắt chặn inspect sau khi login thành công
 }
 
 function checkPassword() {
@@ -134,4 +132,44 @@ passwordInput.addEventListener("keydown", (e) => {
 // Nếu đã từng nhập đúng trong phiên này (session) thì khỏi hỏi lại
 if (sessionStorage.getItem(SESSION_KEY) === "true") {
   unlockSite();
+}
+
+// ============================================
+// CHẶN INSPECT NHẸ — CHỈ áp dụng khi CHƯA đăng
+// nhập. Sau khi login thành công sẽ tự động tắt
+// chặn, cho phép inspect bình thường trở lại.
+// (Chỉ cản người không rành kỹ thuật, KHÔNG phải
+// bảo mật thật sự — vẫn bypass được qua menu
+// trình duyệt hoặc view-source:)
+// ============================================
+
+function blockContextMenu(e) {
+  e.preventDefault();
+}
+
+function blockDevtoolsKeys(e) {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey &&
+      e.shiftKey &&
+      (e.key === "I" || e.key === "J" || e.key === "C")) ||
+    (e.ctrlKey && e.key === "u")
+  ) {
+    e.preventDefault();
+  }
+}
+
+function addInspectBlock() {
+  document.addEventListener("contextmenu", blockContextMenu);
+  document.addEventListener("keydown", blockDevtoolsKeys);
+}
+
+function removeInspectBlock() {
+  document.removeEventListener("contextmenu", blockContextMenu);
+  document.removeEventListener("keydown", blockDevtoolsKeys);
+}
+
+// Chỉ bật chặn ngay từ đầu nếu CHƯA từng đăng nhập trong phiên này
+if (sessionStorage.getItem(SESSION_KEY) !== "true") {
+  addInspectBlock();
 }
