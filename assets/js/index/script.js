@@ -2,7 +2,7 @@
 import {
   customDropdown,
   createFilterTab,
-  getDateLightPick,
+  getDateLightPick
 } from "../../main/js/global.min.js";
 
 const $ = jQuery;
@@ -50,8 +50,8 @@ function initParallaxSwiper(swiperEl, options = {}) {
           if (image) image.style.transition = `${speed}ms ${easing}`;
         });
       },
-      ...(options.on || {}),
-    },
+      ...(options.on || {})
+    }
   });
 }
 
@@ -65,8 +65,8 @@ function initSwiper() {
   const swiperParallax = initParallaxSwiper(swiperEl, {
     navigation: {
       nextEl: containerSwiperEl.querySelector(".swiper-button-next"),
-      prevEl: containerSwiperEl.querySelector(".swiper-button-prev"),
-    },
+      prevEl: containerSwiperEl.querySelector(".swiper-button-prev")
+    }
   });
 }
 
@@ -95,81 +95,81 @@ document.addEventListener("click", (e) => {
   }
 });
 
-window.addEventListener("beforeunload", () => {
-  if (!isLinkClicked) window.scrollTo(0, 0);
-  isLinkClicked = false;
-});
-// ==== ĐỔI MẬT KHẨU Ở ĐÂY ====
-const CORRECT_PASSWORD = "hitek2026";
-const SESSION_KEY = "site_unlocked";
+// window.addEventListener("beforeunload", () => {
+//   if (!isLinkClicked) window.scrollTo(0, 0);
+//   isLinkClicked = false;
+// });
+// // ==== ĐỔI MẬT KHẨU Ở ĐÂY ====
+// const CORRECT_PASSWORD = "hitek2026";
+// const SESSION_KEY = "site_unlocked";
 
-const loginScreen = document.getElementById("login-screen");
-const passwordInput = document.getElementById("password-input");
-const loginBtn = document.getElementById("login-btn");
-const errorMsg = document.getElementById("error-msg");
+// const loginScreen = document.getElementById("login-screen");
+// const passwordInput = document.getElementById("password-input");
+// const loginBtn = document.getElementById("login-btn");
+// const errorMsg = document.getElementById("error-msg");
 
-function unlockSite() {
-  loginScreen.style.display = "none";
-  sessionStorage.setItem(SESSION_KEY, "true");
-  removeInspectBlock(); // tắt chặn inspect sau khi login thành công
-}
+// function unlockSite() {
+//   loginScreen.style.display = "none";
+//   sessionStorage.setItem(SESSION_KEY, "true");
+//   removeInspectBlock(); // tắt chặn inspect sau khi login thành công
+// }
 
-function checkPassword() {
-  if (passwordInput.value === CORRECT_PASSWORD) {
-    unlockSite();
-  } else {
-    errorMsg.style.display = "block";
-    passwordInput.value = "";
-    passwordInput.focus();
-  }
-}
+// function checkPassword() {
+//   if (passwordInput.value === CORRECT_PASSWORD) {
+//     unlockSite();
+//   } else {
+//     errorMsg.style.display = "block";
+//     passwordInput.value = "";
+//     passwordInput.focus();
+//   }
+// }
 
-loginBtn.addEventListener("click", checkPassword);
-passwordInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") checkPassword();
-});
+// loginBtn.addEventListener("click", checkPassword);
+// passwordInput.addEventListener("keydown", (e) => {
+//   if (e.key === "Enter") checkPassword();
+// });
 
-// Nếu đã từng nhập đúng trong phiên này (session) thì khỏi hỏi lại
-if (sessionStorage.getItem(SESSION_KEY) === "true") {
-  unlockSite();
-}
+// // Nếu đã từng nhập đúng trong phiên này (session) thì khỏi hỏi lại
+// if (sessionStorage.getItem(SESSION_KEY) === "true") {
+//   unlockSite();
+// }
 
-// ============================================
-// CHẶN INSPECT NHẸ — CHỈ áp dụng khi CHƯA đăng
-// nhập. Sau khi login thành công sẽ tự động tắt
-// chặn, cho phép inspect bình thường trở lại.
-// (Chỉ cản người không rành kỹ thuật, KHÔNG phải
-// bảo mật thật sự — vẫn bypass được qua menu
-// trình duyệt hoặc view-source:)
-// ============================================
+// // ============================================
+// // CHẶN INSPECT NHẸ — CHỈ áp dụng khi CHƯA đăng
+// // nhập. Sau khi login thành công sẽ tự động tắt
+// // chặn, cho phép inspect bình thường trở lại.
+// // (Chỉ cản người không rành kỹ thuật, KHÔNG phải
+// // bảo mật thật sự — vẫn bypass được qua menu
+// // trình duyệt hoặc view-source:)
+// // ============================================
 
-function blockContextMenu(e) {
-  e.preventDefault();
-}
+// function blockContextMenu(e) {
+//   e.preventDefault();
+// }
 
-function blockDevtoolsKeys(e) {
-  if (
-    e.key === "F12" ||
-    (e.ctrlKey &&
-      e.shiftKey &&
-      (e.key === "I" || e.key === "J" || e.key === "C")) ||
-    (e.ctrlKey && e.key === "u")
-  ) {
-    e.preventDefault();
-  }
-}
+// function blockDevtoolsKeys(e) {
+//   if (
+//     e.key === "F12" ||
+//     (e.ctrlKey &&
+//       e.shiftKey &&
+//       (e.key === "I" || e.key === "J" || e.key === "C")) ||
+//     (e.ctrlKey && e.key === "u")
+//   ) {
+//     e.preventDefault();
+//   }
+// }
 
-function addInspectBlock() {
-  document.addEventListener("contextmenu", blockContextMenu);
-  document.addEventListener("keydown", blockDevtoolsKeys);
-}
+// function addInspectBlock() {
+//   document.addEventListener("contextmenu", blockContextMenu);
+//   document.addEventListener("keydown", blockDevtoolsKeys);
+// }
 
-function removeInspectBlock() {
-  document.removeEventListener("contextmenu", blockContextMenu);
-  document.removeEventListener("keydown", blockDevtoolsKeys);
-}
+// function removeInspectBlock() {
+//   document.removeEventListener("contextmenu", blockContextMenu);
+//   document.removeEventListener("keydown", blockDevtoolsKeys);
+// }
 
-// Chỉ bật chặn ngay từ đầu nếu CHƯA từng đăng nhập trong phiên này
-if (sessionStorage.getItem(SESSION_KEY) !== "true") {
-  addInspectBlock();
-}
+// // Chỉ bật chặn ngay từ đầu nếu CHƯA từng đăng nhập trong phiên này
+// if (sessionStorage.getItem(SESSION_KEY) !== "true") {
+//   addInspectBlock();
+// }
