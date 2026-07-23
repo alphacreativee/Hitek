@@ -70,10 +70,25 @@ function initSwiper() {
   });
 }
 
+function sectionOverview() {
+  if ($("section.overview").length < 1) return;
+
+  const toggleInput = $(".overview-switcher .toggle-checkbox");
+
+  toggleInput.on("change", function () {
+    const isDark = $(this).is(":checked");
+    const theme = isDark ? "dark" : "light";
+
+    $(".overview-main__item").removeClass("active");
+    $(`.overview-main__${theme}`).addClass("active");
+  });
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   customDropdown();
   createFilterTab();
+  sectionOverview();
   // getDateLightPick();
 }
 

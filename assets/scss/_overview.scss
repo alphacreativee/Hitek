@@ -1,0 +1,194 @@
+// overview
+.overview {
+  height: calc(100dvh - 47px);
+  position: relative;
+
+  &-logo {
+    width: 75px;
+    height: auto;
+
+    position: fixed;
+    z-index: 99;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &-switcher {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 10;
+
+    label {
+      cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+      top: 24px;
+      right: 24px;
+    }
+
+    .toggle-checkbox {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .toggle-slot {
+      position: relative;
+      height: 40px;
+      width: 80px;
+      border-radius: 10em;
+      background-color: white;
+      box-shadow: inset 1px 1px 2px 0 rgba(0, 0, 0, 0.25);
+      transition: background-color 250ms;
+    }
+
+    .toggle-checkbox:checked ~ .toggle-slot {
+      background-color: var(--color-black);
+    }
+
+    .toggle-button {
+      transform: translateY(-50%);
+      top: 50%;
+      left: 4px;
+      position: absolute;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      background-color: transparent;
+      transition:
+        background-color 250ms,
+        border-color 250ms,
+        transform 500ms ease;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        inset: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .icon-moon {
+        opacity: 0;
+      }
+    }
+
+    .toggle-checkbox:checked ~ .toggle-slot .toggle-button {
+      transform: translate(calc(100% + 8px), -50%);
+
+      .icon-sun {
+        opacity: 0;
+      }
+
+      .icon-moon {
+        opacity: 1;
+      }
+    }
+
+    .sun-icon {
+      position: absolute;
+      height: 32px;
+      width: 32px;
+    }
+
+    .moon-icon-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 4px;
+      height: 32px;
+      width: 32px;
+      opacity: 1;
+      transform: translate(4px, -50%) rotate(15deg);
+      transform-origin: 50% 50%;
+      transition:
+        opacity 150ms,
+        transform 500ms ease;
+
+      animation: fadePulse 3s ease-in-out infinite;
+    }
+
+    .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
+      opacity: 1;
+    }
+
+    .moon-icon {
+      position: absolute;
+      height: 32px;
+      width: 32px;
+    }
+
+    .sun-icon-wrapper {
+      position: absolute;
+      top: 50%;
+      right: 4px;
+      height: 32px;
+      width: 32px;
+      opacity: 1;
+      transform: translate(0, -50%) rotate(0deg);
+      transform-origin: 50% 50%;
+      transition:
+        opacity 150ms,
+        transform 500ms ease;
+
+      animation: spinReverse 20s linear infinite;
+    }
+
+    .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
+      opacity: 0;
+    }
+  }
+
+  &-main {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    &__item {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.8s ease;
+
+      &.active {
+        z-index: 3;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
+
+@keyframes fadePulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spinReverse {
+  0% {
+    transform: translate(0, -50%) rotate(0deg);
+  }
+  50% {
+    transform: translate(0, -50%) rotate(360deg);
+  }
+  100% {
+    transform: translate(0, -50%) rotate(0deg);
+  }
+}
