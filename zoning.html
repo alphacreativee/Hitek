@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoiana - Zoning</title>
+    <!-- import favicon -->
+    <link rel="icon" href="./assets/images/favicon.svg" />
+    <!-- meta -->
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <!-- meta -->
+    <link rel="stylesheet" href="./assets/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lenis.css" />
+    <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
+    <!-- end meta -->
+    <!-- link custom css page -->
+    <link rel="stylesheet" href="./assets/main/css/style.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/zoning.min.css" />
+    <!-- end link custom css page -->
+    <!-- scrollRestoration -->
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- login -->
+    <script>
+      fetch("./components/login.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("login-screen").innerHTML = data;
+        });
+    </script>
+
+    <div id="login-screen"></div>
+    <!-- layout -->
+    <!-- header -->
+    <script>
+      fetch("./components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+          const currentPath = window.location.pathname || "/";
+
+          const navLinks = document.querySelectorAll(".header-menu ul>li>a");
+          navLinks.forEach((link) => {
+            const linkPath = link.getAttribute("href");
+
+            // Normalize paths for comparison
+            let normalizedCurrentPath = currentPath;
+            let normalizedLinkPath = linkPath;
+
+            // Remove leading "./" from link path
+            if (normalizedLinkPath.startsWith("./")) {
+              normalizedLinkPath = normalizedLinkPath.substring(1);
+            }
+
+            // Get the last segment of the path
+            const currentSegment = normalizedCurrentPath.split("/").pop() || "";
+            const linkSegment = normalizedLinkPath.split("/").pop() || "";
+
+            // Check if current path is root or ends with /
+            const isRootPath =
+              currentPath === "/" ||
+              currentPath.endsWith("/") ||
+              currentSegment === "";
+
+            // Check if link is home/index
+            const isHomeLink =
+              linkPath === "/" ||
+              linkPath === "./" ||
+              linkPath === "./index.html" ||
+              linkPath === "index.html" ||
+              linkSegment === "index.html";
+
+            // Match logic
+            const isMatch =
+              normalizedLinkPath === normalizedCurrentPath || // Exact match
+              currentSegment === linkSegment || // Segment match
+              (isRootPath && isHomeLink) || // Root path matches home link
+              (currentPath.endsWith(normalizedLinkPath) &&
+                normalizedLinkPath !== "/");
+
+            if (isMatch) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
+    <header id="header" class="header position-fixed"></header>
+    <!-- end header -->
+    <main>
+      <section class="zoning">
+        <div class="zoning-map" data-zoning-map>
+          <div class="zoning-map-inner" data-zoning-map-inner></div>
+        </div>
+
+        <aside class="zoning-filter" data-zoning-filter>
+          <button
+            class="zoning-filter-close"
+            type="button"
+            aria-label="Close filter"
+            data-zoning-filter-toggle
+          ></button>
+
+          <div class="zoning-filter-content">
+            <div class="zoning-filter-group">
+              <p>Villa</p>
+              <div class="zoning-filter-options">
+                <button type="button">All</button>
+                <button type="button" class="active">A</button>
+                <button type="button">B</button>
+                <button type="button">C</button>
+                <button type="button">D</button>
+                <button type="button">E</button>
+                <button type="button">F</button>
+                <button type="button">G</button>
+              </div>
+            </div>
+
+            <div class="zoning-filter-group">
+              <p>Bedrooms</p>
+              <div class="zoning-filter-options">
+                <button type="button" class="active">All</button>
+                <button type="button">2</button>
+                <button type="button">3</button>
+                <button type="button">4</button>
+              </div>
+            </div>
+
+            <div class="zoning-filter-group">
+              <p>Floor Area</p>
+              <div class="zoning-filter-options">
+                <button type="button" class="active">All</button>
+                <button type="button">100</button>
+                <button type="button">200</button>
+                <button type="button">300</button>
+              </div>
+            </div>
+
+            <div class="zoning-filter-group">
+              <p>View</p>
+              <div class="zoning-filter-options">
+                <button type="button">All</button>
+                <button type="button">Beach</button>
+                <button type="button">Lake</button>
+                <button type="button">Park</button>
+                <button type="button">Garden</button>
+                <button type="button" class="active">Golf Course</button>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="zoning-filter-search"
+            type="button"
+            aria-label="Open filter"
+            data-zoning-filter-toggle
+          ></button>
+        </aside>
+
+        <div class="zoning-controls">
+          <button type="button" data-zoning-zoom-in aria-label="Zoom in">
+            +
+          </button>
+          <button type="button" data-zoning-zoom-out aria-label="Zoom out">
+            -
+          </button>
+          <button type="button" data-zoning-return aria-label="Return"></button>
+        </div>
+
+        <aside class="zoning-card">
+          <div class="zoning-card-media">
+            <div class="zoning-card-actions">
+              <button type="button" aria-label="Share"></button>
+              <button type="button" aria-label="Favorite"></button>
+            </div>
+
+            <div class="wrapper-slider-parallax">
+              <div
+                class="swiper"
+                slider-parallax
+                slider-pagination="bullets"
+                slider-autoplay
+              >
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="image">
+                      <img src="./assets/images/draf/thumb-villa.jpg" alt="" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="image">
+                      <img src="./assets/images/bg-contact.avif" alt="" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="image">
+                      <img src="./assets/images/draf/thumb-villa.jpg" alt="" />
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="image">
+                      <img src="./assets/images/bg-contact.avif" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="slider-pagination"></div>
+              </div>
+            </div>
+          </div>
+          <div class="zoning-card-body">
+            <p>Area A</p>
+            <h2>Villa <em>A1.53</em></h2>
+            <div class="zoning-card-meta">
+              <strong>2 bedrooms</strong>
+              <strong>200 sqm</strong>
+            </div>
+            <button type="button">Add to compare</button>
+            <a href="./floor-plan.html">Detail</a>
+          </div>
+        </aside>
+
+        <div class="zoning-compare">
+          <p>Please choose 2 or 3 villas to compare</p>
+          <div class="zoning-compare-row">
+            <div class="zoning-compare-item">
+              <strong>C1.32</strong>
+              <span>C - 3 bed - 200 sqm</span>
+              <button type="button" aria-label="Remove"></button>
+            </div>
+            <div class="zoning-compare-item">
+              <strong>C1.21</strong>
+              <span>C - 4 bed - 300 sqm</span>
+              <button type="button" aria-label="Remove"></button>
+            </div>
+            <div class="zoning-compare-item">
+              <strong>C1.1</strong>
+              <span>C - 2 bed - 300 sqm</span>
+              <button type="button" aria-label="Remove"></button>
+            </div>
+            <button type="button" class="zoning-compare-submit">
+              Compare selected
+            </button>
+            <button type="button" class="zoning-compare-cancel">Cancel</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- layout -->
+    <!-- footer -->
+    <script>
+      fetch("./components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer").innerHTML = data;
+        });
+    </script>
+
+    <footer id="footer"></footer>
+    <!-- end footer -->
+    <!-- end layout -->
+
+    <script src="./assets/libs/jquery-3.7.1.js"></script>
+    <script src="./assets/libs/lenis.min.js"></script>
+    <script src="./assets/libs/gsap.min.js"></script>
+    <script src="./assets/libs/ScrollTrigger.min.js"></script>
+    <script src="./assets/libs/SplitText.min.js"></script>
+    <script src="./assets/libs/bootstrap.bundle.min.js"></script>
+    <script src="./assets/libs/swiper-bundle.min.js"></script>
+    <script src="./assets/libs/moment.min.js"></script>
+    <script src="./assets/libs/lightpick.min.js"></script>
+    <!-- import custom js -->
+    <script type="module" src="./assets/main/js/script.min.js"></script>
+    <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
+
+    <!-- end import custom js -->
+  </body>
+</html>
+<!-- https://gsap.com/community/forums/topic/30338-circular-carouselslider/ -->

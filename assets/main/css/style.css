@@ -897,6 +897,98 @@ body {
   display: none;
 }
 
+a.aloading,
+button.aloading {
+  pointer-events: none;
+  position: relative;
+}
+a.aloading::after,
+button.aloading::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  border-top: 2px solid var(--color-white);
+  border-right: 2px solid var(--color-white);
+  width: 20px;
+  height: 20px;
+  animation: spin-animation 1s linear infinite;
+  z-index: 2;
+  background: 0 0;
+}
+@keyframes spin-animation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+[slider-parallax],
+.wrapper-slider-parallax {
+  position: relative;
+}
+[slider-parallax] .swiper-slide,
+.wrapper-slider-parallax .swiper-slide {
+  overflow: hidden;
+}
+[slider-parallax] .swiper-slide .image,
+.wrapper-slider-parallax .swiper-slide .image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+[slider-parallax] .swiper-slide .image img,
+.wrapper-slider-parallax .swiper-slide .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+[slider-parallax] .swiper-arrow,
+.wrapper-slider-parallax .swiper-arrow {
+  z-index: 3;
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+[slider-parallax] .swiper-arrow:hover,
+.wrapper-slider-parallax .swiper-arrow:hover {
+  border-color: var(--color-primary-3);
+}
+[slider-parallax] .swiper-arrow.arrow-prev,
+.wrapper-slider-parallax .swiper-arrow.arrow-prev {
+  left: 56px;
+}
+[slider-parallax] .swiper-arrow.arrow-next,
+.wrapper-slider-parallax .swiper-arrow.arrow-next {
+  right: 56px;
+}
+[slider-parallax] .slider-title,
+.wrapper-slider-parallax .slider-title {
+  left: 16px;
+  bottom: 16px;
+  position: absolute;
+  z-index: 3;
+}
+[slider-parallax] .slider-pagination,
+.wrapper-slider-parallax .slider-pagination {
+  right: 16px;
+  bottom: 16px;
+  position: absolute;
+  z-index: 3;
+}
+
+@media (max-width: 991px) {
+  .wrapper-slider-parallax .swiper-arrow {
+    color: var(--color-black);
+    border-color: var(--color-black);
+  }
+}
+
 .header {
   top: auto;
   bottom: 0;

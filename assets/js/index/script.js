@@ -2,7 +2,8 @@
 import {
   customDropdown,
   createFilterTab,
-  getDateLightPick
+  getDateLightPick,
+  sliderParallax
 } from "../../main/js/global.min.js";
 
 const $ = jQuery;
@@ -57,16 +58,39 @@ function initParallaxSwiper(swiperEl, options = {}) {
 
 function initSwiper() {
   const containerSwiperEl = document.querySelector(".container-swiper");
-  if (!containerSwiperEl) return;
 
-  const swiperEl = containerSwiperEl.querySelector(".swiper-el-parallax");
-  if (!swiperEl) return;
+  if (containerSwiperEl) {
+    const swiperEl = containerSwiperEl.querySelector(".swiper-el-parallax");
 
-  const swiperParallax = initParallaxSwiper(swiperEl, {
-    navigation: {
-      nextEl: containerSwiperEl.querySelector(".swiper-button-next"),
-      prevEl: containerSwiperEl.querySelector(".swiper-button-prev")
+    if (swiperEl) {
+      initParallaxSwiper(swiperEl, {
+        navigation: {
+          nextEl: containerSwiperEl.querySelector(".swiper-button-next"),
+          prevEl: containerSwiperEl.querySelector(".swiper-button-prev")
+        }
+      });
     }
+  }
+}
+
+function initZoningCardSlider() {
+  document.querySelectorAll(".zoning-card [slider-parallax]").forEach((swiperEl) => {
+    if (swiperEl.swiper) return;
+
+    initParallaxSwiper(swiperEl, {
+      autoplay: swiperEl.hasAttribute("slider-autoplay")
+        ? {
+            delay: 3500,
+            disableOnInteraction: false
+          }
+        : false,
+      pagination: swiperEl.hasAttribute("slider-pagination")
+        ? {
+            el: swiperEl.querySelector(".slider-pagination"),
+            clickable: true
+          }
+        : false
+    });
   });
 }
 
@@ -84,17 +108,181 @@ function sectionOverview() {
   });
 }
 
+function zoningFilter(zoningEl) {
+  const filterToggles = zoningEl.querySelectorAll(
+    "[data-zoning-filter-toggle]"
+  );
+  if (!filterToggles.length) return;
+
+  let filterTimer = null;
+
+  const setFilterExpanded = (isExpanded) => {
+    filterToggles.forEach((toggle) => {
+      toggle.setAttribute("aria-expanded", String(isExpanded));
+    });
+  };
+
+  const clearFilterTimer = () => {
+    if (filterTimer) {
+      window.clearTimeout(filterTimer);
+      filterTimer = null;
+    }
+  };
+
+  const collapseFilter = () => {
+    clearFilterTimer();
+    zoningEl.classList.remove("is-filter-expanding");
+    zoningEl.classList.add("is-filter-collapsing");
+    setFilterExpanded(false);
+
+    filterTimer = window.setTimeout(() => {
+      zoningEl.classList.add("is-filter-collapsed");
+      zoningEl.classList.remove("is-filter-collapsing");
+      filterTimer = null;
+    }, 220);
+  };
+
+  const expandFilter = () => {
+    clearFilterTimer();
+    zoningEl.classList.remove("is-filter-collapsed", "is-filter-collapsing");
+    zoningEl.classList.add("is-filter-expanding");
+    setFilterExpanded(true);
+
+    filterTimer = window.setTimeout(() => {
+      zoningEl.classList.remove("is-filter-expanding");
+      filterTimer = null;
+    }, 380);
+  };
+
+  filterToggles.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (zoningEl.classList.contains("is-filter-collapsed")) {
+        expandFilter();
+        return;
+      }
+
+      if (zoningEl.classList.contains("is-filter-expanding")) return;
+
+      collapseFilter();
+    });
+  });
+}
+
+function zoningScale(zoningEl) {
+  const map = zoningEl.querySelector("[data-zoning-map]");
+  const mapInner = zoningEl.querySelector("[data-zoning-map-inner]");
+  const zoomInBtn = zoningEl.querySelector("[data-zoning-zoom-in]");
+  const zoomOutBtn = zoningEl.querySelector("[data-zoning-zoom-out]");
+  const returnBtn = zoningEl.querySelector("[data-zoning-return]");
+  if (!map || !mapInner) return;
+
+  const minZoom = 1;
+  const maxZoom = 2.5;
+  const zoomStep = 0.25;
+  let zoom = 1;
+  let panX = 0;
+  let panY = 0;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartPanX = 0;
+  let dragStartPanY = 0;
+  let isDragging = false;
+
+  const clampPan = () => {
+    const maxPanX = ((zoom - 1) * map.clientWidth) / 2;
+    const maxPanY = ((zoom - 1) * map.clientHeight) / 2;
+    panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
+    panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
+  };
+
+  const updateZoom = () => {
+    clampPan();
+    mapInner.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${zoom})`;
+    zoningEl.classList.toggle("is-map-zoomed", zoom > minZoom);
+    if (zoomOutBtn) zoomOutBtn.disabled = zoom <= minZoom;
+    if (zoomInBtn) zoomInBtn.disabled = zoom >= maxZoom;
+  };
+
+  const setZoom = (value) => {
+    zoom = Math.min(maxZoom, Math.max(minZoom, value));
+    if (zoom === minZoom) {
+      panX = 0;
+      panY = 0;
+    }
+    updateZoom();
+  };
+
+  zoomInBtn?.addEventListener("click", () => {
+    setZoom(zoom + zoomStep);
+  });
+
+  zoomOutBtn?.addEventListener("click", () => {
+    setZoom(zoom - zoomStep);
+  });
+
+  returnBtn?.addEventListener("click", () => {
+    setZoom(minZoom);
+  });
+
+  map?.addEventListener("pointerdown", (event) => {
+    if (zoom <= minZoom) return;
+
+    isDragging = true;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragStartPanX = panX;
+    dragStartPanY = panY;
+    zoningEl.classList.add("is-map-dragging");
+    map.setPointerCapture(event.pointerId);
+  });
+
+  map?.addEventListener("pointermove", (event) => {
+    if (!isDragging) return;
+
+    panX = dragStartPanX + event.clientX - dragStartX;
+    panY = dragStartPanY + event.clientY - dragStartY;
+    updateZoom();
+  });
+
+  const endDrag = (event) => {
+    if (!isDragging) return;
+
+    isDragging = false;
+    zoningEl.classList.remove("is-map-dragging");
+    if (map.hasPointerCapture(event.pointerId)) {
+      map.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  map?.addEventListener("pointerup", endDrag);
+  map?.addEventListener("pointercancel", endDrag);
+  window.addEventListener("resize", updateZoom);
+
+  updateZoom();
+}
+
+function zoning() {
+  const zoningEl = document.querySelector(".zoning");
+  if (!zoningEl) return;
+
+  zoningFilter(zoningEl);
+  zoningScale(zoningEl);
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   customDropdown();
   createFilterTab();
   sectionOverview();
+  zoning();
+  sliderParallax();
   // getDateLightPick();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   init();
   initSwiper();
+  initZoningCardSlider();
 });
 
 let isLinkClicked = false;
