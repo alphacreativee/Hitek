@@ -28,12 +28,107 @@
   }
 
   .zoning-map-inner {
+    position: relative;
     width: 100%;
     height: 100%;
-    background: url("../../images/zoning-map.webp") center / cover no-repeat;
     transform: scale(1);
     transform-origin: center center;
     transition: transform 0.35s ease;
+  }
+
+  .zoning-map-fit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    aspect-ratio: 5276 / 2944;
+    transform: translate(-50%, -50%);
+  }
+
+  @supports (width: max(100%, 100vh)) {
+    .zoning-map-fit {
+      width: max(100%, calc(100dvh * 5276 / 2944));
+    }
+  }
+
+  .zoning-map-image,
+  .zoning-map-overlay,
+  .zoning-map-labels,
+  .zoning-map-overlay svg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .zoning-map-image {
+    object-fit: fill;
+    pointer-events: none;
+  }
+
+  .zoning-map-overlay {
+    z-index: 1;
+  }
+
+  .zoning-map-overlay svg {
+    overflow: hidden;
+  }
+
+  .zoning-map-overlay path[data-title] {
+    fill-opacity: 1;
+    stroke: #ffffff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    stroke-width: 0.75;
+    vector-effect: non-scaling-stroke;
+    cursor: pointer;
+    outline: none;
+    pointer-events: all;
+    transition:
+      fill 0.18s ease,
+      fill-opacity 0.18s ease,
+      stroke-opacity 0.18s ease;
+  }
+
+  .zoning-map-overlay path[data-title]:hover,
+  .zoning-map-overlay path[data-title].is-hovered {
+    fill: rgb(250, 186, 107);
+    fill-opacity: 1;
+  }
+
+  .zoning-map-overlay path[data-title].is-selected {
+    fill: rgb(250, 186, 107);
+    fill-opacity: 1;
+    stroke: rgb(250, 186, 107);
+  }
+
+  .zoning-map-overlay path[data-title]:focus,
+  .zoning-map-overlay path[data-title]:focus-visible {
+    outline: none;
+  }
+
+  .zoning-map-labels {
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .zoning-map-labels span {
+    position: absolute;
+    color: #ffffff;
+    font-size: clamp(4px, 0.52vw, 9px);
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+    transform: translate(-50%, -50%) rotate(var(--label-rotate, 0deg));
+  }
+
+  .zoning-map-labels span[data-title^="F"] {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
 
   .zoning-filter {
@@ -267,6 +362,18 @@
     border-radius: 20px;
     background-color: #204f4b;
     color: #ffffff;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(16px);
+    transition:
+      opacity 0.24s ease,
+      transform 0.24s ease;
+  }
+
+  &.is-card-open .zoning-card {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .zoning-card-media {
@@ -410,7 +517,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .zoning-card-meta strong {
+  .zoning-card-meta li {
     font-size: 15px;
     font-weight: 700;
     line-height: 20px;

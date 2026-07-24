@@ -100,7 +100,26 @@
     <main>
       <section class="zoning">
         <div class="zoning-map" data-zoning-map>
-          <div class="zoning-map-inner" data-zoning-map-inner></div>
+          <div class="zoning-map-inner" data-zoning-map-inner>
+            <div class="zoning-map-fit">
+              <img
+                class="zoning-map-image"
+                src="./assets/images/zoning-map.webp"
+                alt="Zoning map"
+                draggable="false"
+              />
+              <div
+                class="zoning-map-overlay"
+                data-zoning-map-overlay
+                aria-label="Interactive zoning lots"
+              ></div>
+              <div
+                class="zoning-map-labels"
+                data-zoning-map-labels
+                aria-hidden="true"
+              ></div>
+            </div>
+          </div>
         </div>
 
         <aside class="zoning-filter" data-zoning-filter>
@@ -112,49 +131,47 @@
           ></button>
 
           <div class="zoning-filter-content">
-            <div class="zoning-filter-group">
+            <div class="zoning-filter-group" data-filter-group="villa">
               <p>Villa</p>
               <div class="zoning-filter-options">
-                <button type="button">All</button>
-                <button type="button" class="active">A</button>
-                <button type="button">B</button>
-                <button type="button">C</button>
-                <button type="button">D</button>
-                <button type="button">E</button>
-                <button type="button">F</button>
-                <button type="button">G</button>
+                <button type="button" class="active" value="all">All</button>
+                <button type="button" value="a">A</button>
+                <button type="button" value="b">B</button>
+                <button type="button" value="c">C</button>
+                <button type="button" value="d">D</button>
+                <button type="button" value="e">E</button>
+                <button type="button" value="f">F</button>
+                <button type="button" value="g">G</button>
               </div>
             </div>
 
-            <div class="zoning-filter-group">
+            <div class="zoning-filter-group" data-filter-group="bedroom">
               <p>Bedrooms</p>
               <div class="zoning-filter-options">
-                <button type="button" class="active">All</button>
-                <button type="button">2</button>
-                <button type="button">3</button>
-                <button type="button">4</button>
+                <button type="button" class="active" value="all">All</button>
+                <button type="button" value="2">2</button>
+                <button type="button" value="3">3</button>
+                <button type="button" value="4">4</button>
               </div>
             </div>
 
-            <div class="zoning-filter-group">
+            <div class="zoning-filter-group" data-filter-group="floor_area">
               <p>Floor Area</p>
               <div class="zoning-filter-options">
-                <button type="button" class="active">All</button>
-                <button type="button">100</button>
-                <button type="button">200</button>
-                <button type="button">300</button>
+                <button type="button" class="active" value="all">All</button>
+                <button type="button" value="100">100</button>
+                <button type="button" value="200">200</button>
+                <button type="button" value="300">300</button>
               </div>
             </div>
 
-            <div class="zoning-filter-group">
+            <div class="zoning-filter-group" data-filter-group="view">
               <p>View</p>
               <div class="zoning-filter-options">
-                <button type="button">All</button>
-                <button type="button">Beach</button>
-                <button type="button">Lake</button>
-                <button type="button">Park</button>
-                <button type="button">Garden</button>
-                <button type="button" class="active">Golf Course</button>
+                <button type="button" class="active" value="all">All</button>
+                <button type="button" value="beach">Beach</button>
+                <button type="button" value="golf_coures">Golf Course</button>
+                <button type="button" value="lagoon">Lagoon</button>
               </div>
             </div>
           </div>
@@ -177,7 +194,7 @@
           <button type="button" data-zoning-return aria-label="Return"></button>
         </div>
 
-        <aside class="zoning-card">
+        <aside class="zoning-card" data-zoning-card>
           <div class="zoning-card-media">
             <div class="zoning-card-actions">
               <button type="button" aria-label="Share"></button>
@@ -218,14 +235,17 @@
             </div>
           </div>
           <div class="zoning-card-body">
-            <p>Area A</p>
-            <h2>Villa <em>A1.53</em></h2>
-            <div class="zoning-card-meta">
-              <strong>2 bedrooms</strong>
-              <strong>200 sqm</strong>
-            </div>
-            <button type="button">Add to compare</button>
-            <a href="./floor-plan.html">Detail</a>
+            <p data-zoning-card-area>Area A</p>
+            <h2>Villa <em data-zoning-card-title>A1.53</em></h2>
+            <ul class="zoning-card-meta">
+              <li>Floor plan: 200 sqm</li>
+              <li>View: Garden</li>
+              <li>Bedroom: 2</li>
+            </ul>
+            <button type="button" data-zoning-card-compare>
+              Add to compare
+            </button>
+            <a href="./floor-plan.html" data-zoning-card-detail>Detail</a>
           </div>
         </aside>
 

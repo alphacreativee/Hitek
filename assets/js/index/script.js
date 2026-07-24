@@ -168,6 +168,271 @@ function zoningFilter(zoningEl) {
   });
 }
 
+function zoningLots(zoningEl) {
+  const overlay = zoningEl.querySelector("[data-zoning-map-overlay]");
+  const labels = zoningEl.querySelector("[data-zoning-map-labels]");
+  const card = zoningEl.querySelector("[data-zoning-card]");
+  if (!overlay || !card) return;
+
+  const cardArea = card.querySelector("[data-zoning-card-area]");
+  const cardTitle = card.querySelector("[data-zoning-card-title]");
+  const cardMeta = card.querySelector(".zoning-card-meta");
+  const cardDetail = card.querySelector("[data-zoning-card-detail]");
+  const cardCompare = card.querySelector("[data-zoning-card-compare]");
+  const cardSlider = card.querySelector("[slider-parallax]");
+  let selectedPath = null;
+  let villaDataByName = new Map();
+  const lotColors = {
+    A: "rgb(116, 140, 176)",
+    B: "rgb(89, 89, 153)",
+    C: "rgb(164, 104, 176)",
+    D: "rgb(51, 166, 149)",
+    E: "rgb(161, 109, 87)",
+    F: "rgb(99, 171, 97)",
+    G: "rgb(135, 72, 72)"
+  };
+  const defaultGallery = [
+    "./assets/images/draf/thumb-villa.jpg",
+    "./assets/images/bg-contact.avif",
+    "./assets/images/draf/thumb-villa.jpg",
+    "./assets/images/bg-contact.avif"
+  ];
+  const villaGalleries = {
+    default: defaultGallery
+  };
+
+  const getLotAreaKey = (title) => title.match(/^[A-Z]/)?.[0] || "";
+  const getLotUrl = (title) => `./floor-plan.html?villa=${encodeURIComponent(title)}`;
+  const getLotGallery = (title) => villaGalleries[title] || villaGalleries.default;
+
+  const selectLot = (path) => {
+    const title = path.dataset.title;
+    if (!title) return;
+    const data = villaDataByName.get(title) || {
+      id: "",
+      name: title,
+      villa: getLotAreaKey(title),
+      bedroom: "",
+      floor_area: "",
+      view: "",
+      detail_url: getLotUrl(title)
+    };
+
+    selectedPath?.classList.remove("is-selected");
+    selectedPath = path;
+    selectedPath.classList.add("is-selected");
+
+    if (cardArea) cardArea.textContent = data.villa ? `Area ${data.villa}` : "Area";
+    if (cardTitle) cardTitle.textContent = data.name || title;
+    if (cardMeta) {
+      const floorPlan = data.floor_area ? `${data.floor_area} sqm` : "";
+      cardMeta.innerHTML = `
+        <li>Floor plan: ${floorPlan}</li>
+        <li>View: ${data.view || ""}</li>
+        <li>Bedroom: ${data.bedroom || ""}</li>
+      `;
+    }
+    if (cardDetail) cardDetail.href = data.detail_url || getLotUrl(title);
+    if (cardCompare) cardCompare.dataset.id = data.id || "";
+    updateCardGallery(getLotGallery(title));
+    zoningEl.classList.add("is-card-open");
+  };
+
+  const updateCardGallery = (images) => {
+    const wrapper = cardSlider?.querySelector(".swiper-wrapper");
+    if (!cardSlider || !wrapper || !images?.length) return;
+
+    if (cardSlider.swiper) {
+      cardSlider.swiper.destroy(true, true);
+    }
+
+    wrapper.innerHTML = images
+      .map(
+        (src) => `
+          <div class="swiper-slide">
+            <div class="image">
+              <img src="${src}" alt="" />
+            </div>
+          </div>
+        `
+      )
+      .join("");
+
+    initParallaxSwiper(cardSlider, {
+      autoplay: cardSlider.hasAttribute("slider-autoplay")
+        ? {
+            delay: 3500,
+            disableOnInteraction: false
+          }
+        : false,
+      pagination: cardSlider.hasAttribute("slider-pagination")
+        ? {
+            el: cardSlider.querySelector(".slider-pagination"),
+            clickable: true
+          }
+        : false
+    });
+  };
+
+  const getPathPoints = (path) => {
+    const pathData = path.dataset.originalD || path.getAttribute("d");
+    const tokens = [...pathData.matchAll(/([MLHVQZ])|(-?\d+(?:\.\d+)?)/g)]
+      .map((match) => match[0]);
+    const points = [];
+    let command = "";
+    let x = 0;
+    let y = 0;
+    let startX = 0;
+    let startY = 0;
+    let index = 0;
+
+    while (index < tokens.length) {
+      if (/^[A-Z]$/.test(tokens[index])) {
+        command = tokens[index];
+        index += 1;
+      }
+
+      if (command === "M" || command === "L") {
+        x = Number(tokens[index]);
+        y = Number(tokens[index + 1]);
+        index += 2;
+        if (command === "M") {
+          startX = x;
+          startY = y;
+          command = "L";
+        }
+        points.push({ x, y });
+      } else if (command === "H") {
+        x = Number(tokens[index]);
+        index += 1;
+        points.push({ x, y });
+      } else if (command === "V") {
+        y = Number(tokens[index]);
+        index += 1;
+        points.push({ x, y });
+      } else if (command === "Q") {
+        index += 2;
+        x = Number(tokens[index]);
+        y = Number(tokens[index + 1]);
+        index += 2;
+        points.push({ x, y });
+      } else if (command === "Z") {
+        points.push({ x: startX, y: startY });
+        command = "";
+      } else {
+        break;
+      }
+    }
+
+    return points;
+  };
+
+  const getPathLabelAngle = (path) => {
+    const points = getPathPoints(path);
+    let longestEdge = { angle: 0, length: 0 };
+
+    points.forEach((point, index) => {
+      const nextPoint = points[index + 1];
+      if (!nextPoint) return;
+
+      const dx = nextPoint.x - point.x;
+      const dy = nextPoint.y - point.y;
+      const length = Math.hypot(dx, dy);
+      if (length <= longestEdge.length) return;
+
+      longestEdge = {
+        angle: Math.atan2(dy, dx) * (180 / Math.PI),
+        length
+      };
+    });
+
+    let angle = longestEdge.angle;
+    if (angle > 90) angle -= 180;
+    if (angle < -90) angle += 180;
+    return angle;
+  };
+
+  const createLotLabels = (svg) => {
+    if (!labels) return;
+
+    labels.innerHTML = "";
+    const viewBox = svg.viewBox.baseVal;
+    if (!viewBox.width || !viewBox.height) return;
+
+    svg.querySelectorAll("path[data-title]").forEach((path) => {
+      const title = path.dataset.title;
+      if (!title) return;
+
+      const box = path.getBBox();
+      const area = getLotAreaKey(title);
+      const label = document.createElement("span");
+      label.textContent = title;
+      label.dataset.title = title;
+      label.dataset.villa = area;
+      label.style.left = `${((box.x + box.width / 2 - viewBox.x) / viewBox.width) * 100}%`;
+      label.style.top = `${((box.y + box.height / 2 - viewBox.y) / viewBox.height) * 100}%`;
+      label.style.setProperty("--label-rotate", `${getPathLabelAngle(path)}deg`);
+      labels.appendChild(label);
+    });
+  };
+
+  Promise.all([
+    fetch("./assets/images/zoning-map-titled.svg").then((response) => {
+      if (!response.ok) throw new Error("Could not load zoning SVG");
+      return response.text();
+    }),
+    fetch("./assets/data/zoning-villas.json").then((response) => {
+      if (!response.ok) throw new Error("Could not load zoning data");
+      return response.json();
+    })
+  ])
+    .then(([svgText, villas]) => {
+      villaDataByName = new Map(villas.map((villa) => [villa.name, villa]));
+      overlay.innerHTML = svgText;
+      const svg = overlay.querySelector("svg");
+      if (!svg) return;
+
+      svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+      svg.setAttribute("aria-hidden", "true");
+      createLotLabels(svg);
+      svg.querySelectorAll("path[data-title]").forEach((path, index) => {
+        const area = getLotAreaKey(path.dataset.title || "");
+        const color = lotColors[area];
+        if (color) {
+          path.setAttribute("fill", color);
+        }
+        path.setAttribute("fill-opacity", "1");
+
+        path.setAttribute("tabindex", "0");
+        path.setAttribute("role", "button");
+        path.setAttribute("aria-label", path.dataset.title);
+
+        path.addEventListener("mouseenter", () => {
+          path.classList.add("is-hovered");
+        });
+
+        path.addEventListener("mouseleave", () => {
+          path.classList.remove("is-hovered");
+        });
+
+        path.addEventListener("click", (event) => {
+          event.stopPropagation();
+          selectLot(path);
+        });
+
+        path.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+
+          event.preventDefault();
+          selectLot(path);
+        });
+      });
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
+}
+
 function zoningScale(zoningEl) {
   const map = zoningEl.querySelector("[data-zoning-map]");
   const mapInner = zoningEl.querySelector("[data-zoning-map-inner]");
@@ -226,6 +491,7 @@ function zoningScale(zoningEl) {
 
   map?.addEventListener("pointerdown", (event) => {
     if (zoom <= minZoom) return;
+    if (event.target.closest?.("path[data-title]")) return;
 
     isDragging = true;
     dragStartX = event.clientX;
@@ -266,6 +532,7 @@ function zoning() {
   if (!zoningEl) return;
 
   zoningFilter(zoningEl);
+  zoningLots(zoningEl);
   zoningScale(zoningEl);
 }
 
