@@ -64,7 +64,7 @@
 .zoning .zoning-map-overlay svg {
   overflow: hidden;
 }
-.zoning .zoning-map-overlay path[data-title] {
+.zoning .zoning-map-overlay path[data-id] {
   fill-opacity: 1;
   stroke: #ffffff;
   stroke-linecap: round;
@@ -77,19 +77,24 @@
   pointer-events: all;
   transition: fill 0.18s ease, fill-opacity 0.18s ease, stroke-opacity 0.18s ease;
 }
-.zoning .zoning-map-overlay path[data-title]:hover,
-.zoning .zoning-map-overlay path[data-title].is-hovered {
+.zoning .zoning-map-overlay path[data-id]:hover,
+.zoning .zoning-map-overlay path[data-id].is-hovered {
   fill: rgb(250, 186, 107);
   fill-opacity: 1;
 }
-.zoning .zoning-map-overlay path[data-title].is-selected {
+.zoning .zoning-map-overlay path[data-id].is-selected {
   fill: rgb(250, 186, 107);
   fill-opacity: 1;
   stroke: rgb(250, 186, 107);
 }
-.zoning .zoning-map-overlay path[data-title]:focus,
-.zoning .zoning-map-overlay path[data-title]:focus-visible {
+.zoning .zoning-map-overlay path[data-id]:focus,
+.zoning .zoning-map-overlay path[data-id]:focus-visible {
   outline: none;
+}
+.zoning .zoning-map-overlay path[data-id].is-filter-hidden,
+.zoning .zoning-map-labels span.is-filter-hidden {
+  display: none;
+  pointer-events: none;
 }
 .zoning .zoning-map-labels {
   z-index: 2;
@@ -262,36 +267,11 @@
   width: 32px;
   height: 32px;
   border-radius: 7px;
-  background-color: #004b57;
+  background-color: rgba(20, 20, 20, 0.75);
   color: #ffffff;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1;
-}
-.zoning .zoning-controls button:disabled {
-  cursor: default;
-  opacity: 0.7;
-}
-.zoning .zoning-controls [data-zoning-return]::before {
-  content: "";
-  position: absolute;
-  top: 9px;
-  left: 9px;
-  width: 12px;
-  height: 12px;
-  border: 2px solid #ffffff;
-  border-right-color: transparent;
-  border-radius: 50%;
-}
-.zoning .zoning-controls [data-zoning-return]::after {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-right: 6px solid #ffffff;
-  transform: rotate(35deg);
 }
 .zoning .zoning-card {
   position: absolute;
@@ -366,23 +346,44 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 4;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 .zoning .zoning-card-actions button {
-  position: relative;
-  width: 27px;
-  height: 27px;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.25);
-}
-.zoning .zoning-card-actions button::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 6px;
   border: 1px solid #ffffff;
   border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+.zoning .zoning-card-actions button:hover {
+  background-color: #ebe6dc;
+}
+.zoning .zoning-card-action-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+.zoning .zoning-card-action-icon-share {
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 15 20 C 14.167 20 13.458 19.708 12.875 19.125 C 12.292 18.542 12 17.833 12 17 C 12 16.9 12.025 16.667 12.075 16.3 L 5.05 12.2 C 4.783 12.45 4.475 12.646 4.125 12.788 C 3.775 12.93 3.4 13.001 3 13 C 2.167 13 1.458 12.708 0.875 12.125 C 0.292 11.542 0 10.833 0 10 C 0 9.167 0.292 8.458 0.875 7.875 C 1.458 7.292 2.167 7 3 7 C 3.4 7 3.775 7.071 4.125 7.213 C 4.475 7.355 4.783 7.551 5.05 7.8 L 12.075 3.7 C 12.042 3.583 12.021 3.471 12.013 3.363 C 12.005 3.255 12.001 3.134 12 3 C 12 2.167 12.292 1.458 12.875 0.875 C 13.458 0.292 14.167 0 15 0 C 15.833 0 16.542 0.292 17.125 0.875 C 17.708 1.458 18 2.167 18 3 C 18 3.833 17.708 4.542 17.125 5.125 C 16.542 5.708 15.833 6 15 6 C 14.6 6 14.225 5.929 13.875 5.787 C 13.525 5.645 13.217 5.449 12.95 5.2 L 5.925 9.3 C 5.958 9.417 5.979 9.529 5.988 9.638 C 5.997 9.747 6.001 9.867 6 10 C 5.999 10.133 5.995 10.254 5.988 10.363 C 5.981 10.472 5.96 10.585 5.925 10.7 L 12.95 14.8 C 13.217 14.55 13.525 14.354 13.875 14.213 C 14.225 14.072 14.6 14.001 15 14 C 15.833 14 16.542 14.292 17.125 14.875 C 17.708 15.458 18 16.167 18 17 C 18 17.833 17.708 18.542 17.125 19.125 C 16.542 19.708 15.833 20 15 20'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 15 20 C 14.167 20 13.458 19.708 12.875 19.125 C 12.292 18.542 12 17.833 12 17 C 12 16.9 12.025 16.667 12.075 16.3 L 5.05 12.2 C 4.783 12.45 4.475 12.646 4.125 12.788 C 3.775 12.93 3.4 13.001 3 13 C 2.167 13 1.458 12.708 0.875 12.125 C 0.292 11.542 0 10.833 0 10 C 0 9.167 0.292 8.458 0.875 7.875 C 1.458 7.292 2.167 7 3 7 C 3.4 7 3.775 7.071 4.125 7.213 C 4.475 7.355 4.783 7.551 5.05 7.8 L 12.075 3.7 C 12.042 3.583 12.021 3.471 12.013 3.363 C 12.005 3.255 12.001 3.134 12 3 C 12 2.167 12.292 1.458 12.875 0.875 C 13.458 0.292 14.167 0 15 0 C 15.833 0 16.542 0.292 17.125 0.875 C 17.708 1.458 18 2.167 18 3 C 18 3.833 17.708 4.542 17.125 5.125 C 16.542 5.708 15.833 6 15 6 C 14.6 6 14.225 5.929 13.875 5.787 C 13.525 5.645 13.217 5.449 12.95 5.2 L 5.925 9.3 C 5.958 9.417 5.979 9.529 5.988 9.638 C 5.997 9.747 6.001 9.867 6 10 C 5.999 10.133 5.995 10.254 5.988 10.363 C 5.981 10.472 5.96 10.585 5.925 10.7 L 12.95 14.8 C 13.217 14.55 13.525 14.354 13.875 14.213 C 14.225 14.072 14.6 14.001 15 14 C 15.833 14 16.542 14.292 17.125 14.875 C 17.708 15.458 18 16.167 18 17 C 18 17.833 17.708 18.542 17.125 19.125 C 16.542 19.708 15.833 20 15 20'/%3E%3C/svg%3E");
+}
+.zoning .zoning-card-action-icon-wishlist {
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 18.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10.1 15.55 L 10 15.65 L 9.89 15.55 C 5.14 11.24 2 8.39 2 5.5 C 2 3.5 3.5 2 5.5 2 C 7.04 2 8.54 3 9.07 4.36 L 10.93 4.36 C 11.46 3 12.96 2 14.5 2 C 16.5 2 18 3.5 18 5.5 C 18 8.39 14.86 11.24 10.1 15.55 M 14.5 0 C 12.76 0 11.09 0.81 10 2.08 C 8.91 0.81 7.24 0 5.5 0 C 2.42 0 0 2.41 0 5.5 C 0 9.27 3.4 12.36 8.55 17.03 L 10 18.35 L 11.45 17.03 C 16.6 12.36 20 9.27 20 5.5 C 20 2.41 17.58 0 14.5 0'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 18.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10.1 15.55 L 10 15.65 L 9.89 15.55 C 5.14 11.24 2 8.39 2 5.5 C 2 3.5 3.5 2 5.5 2 C 7.04 2 8.54 3 9.07 4.36 L 10.93 4.36 C 11.46 3 12.96 2 14.5 2 C 16.5 2 18 3.5 18 5.5 C 18 8.39 14.86 11.24 10.1 15.55 M 14.5 0 C 12.76 0 11.09 0.81 10 2.08 C 8.91 0.81 7.24 0 5.5 0 C 2.42 0 0 2.41 0 5.5 C 0 9.27 3.4 12.36 8.55 17.03 L 10 18.35 L 11.45 17.03 C 16.6 12.36 20 9.27 20 5.5 C 20 2.41 17.58 0 14.5 0'/%3E%3C/svg%3E");
 }
 .zoning .zoning-card-dots {
   position: absolute;

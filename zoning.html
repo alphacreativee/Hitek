@@ -122,7 +122,7 @@
           </div>
         </div>
 
-        <aside class="zoning-filter" data-zoning-filter>
+        <div class="zoning-filter" data-zoning-filter>
           <button
             class="zoning-filter-close"
             type="button"
@@ -182,7 +182,7 @@
             aria-label="Open filter"
             data-zoning-filter-toggle
           ></button>
-        </aside>
+        </div>
 
         <div class="zoning-controls">
           <button type="button" data-zoning-zoom-in aria-label="Zoom in">
@@ -191,14 +191,24 @@
           <button type="button" data-zoning-zoom-out aria-label="Zoom out">
             -
           </button>
-          <button type="button" data-zoning-return aria-label="Return"></button>
+          <button type="button" data-zoning-return aria-label="Return">
+            ⟲
+          </button>
         </div>
 
-        <aside class="zoning-card" data-zoning-card>
+        <div class="zoning-card" data-zoning-card>
           <div class="zoning-card-media">
             <div class="zoning-card-actions">
-              <button type="button" aria-label="Share"></button>
-              <button type="button" aria-label="Favorite"></button>
+              <button type="button" aria-label="Share">
+                <span
+                  class="zoning-card-action-icon zoning-card-action-icon-share"
+                ></span>
+              </button>
+              <button type="button" aria-label="Favorite">
+                <span
+                  class="zoning-card-action-icon zoning-card-action-icon-wishlist"
+                ></span>
+              </button>
             </div>
 
             <div class="wrapper-slider-parallax">
@@ -247,7 +257,7 @@
             </button>
             <a href="./floor-plan.html" data-zoning-card-detail>Detail</a>
           </div>
-        </aside>
+        </div>
 
         <div class="zoning-compare">
           <p>Please choose 2 or 3 villas to compare</p>
@@ -300,6 +310,7 @@
     <script src="./assets/libs/lightpick.min.js"></script>
     <!-- import custom js -->
     <script type="module" src="./assets/main/js/script.min.js"></script>
+    <script type="module" src="./assets/main/js/zoning.min.js"></script>
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 
     <!-- end import custom js -->
