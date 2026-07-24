@@ -1,6 +1,6 @@
 :root {
-  --font-heading: "", sans-serif;
-  --font-body: "", sans-serif;
+  --font-heading: "Boska Variable", serif;
+  --font-body: "Montserrat", sans-serif;
   --color-black: #000000;
   --color-white: #ffffff;
   --color-primary: #1f4f4b;
@@ -831,6 +831,11 @@ body {
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: grayscale !important;
+}
+
+body,
+* {
+  font-family: var(--font-body);
 }
 
 #login-screen {

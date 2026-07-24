@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Boska Variable';
+    src: url('BoskaVariable-ExtraLight.eot');
+    src: url('BoskaVariable-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('BoskaVariable-ExtraLight.woff2') format('woff2'),
+        url('BoskaVariable-ExtraLight.woff') format('woff'),
+        url('BoskaVariable-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Boska Variable';
+    src: url('BoskaVariable-ExtralightItalic.eot');
+    src: url('BoskaVariable-ExtralightItalic.eot?#iefix') format('embedded-opentype'),
+        url('BoskaVariable-ExtralightItalic.woff2') format('woff2'),
+        url('BoskaVariable-ExtralightItalic.woff') format('woff'),
+        url('BoskaVariable-ExtralightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
