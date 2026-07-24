@@ -417,14 +417,17 @@
   padding-bottom: 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   color: #dfa95f;
+  font-family: var(--font-body);
   font-size: 36px;
-  font-weight: 700;
-  line-height: 44px;
+  font-weight: 600;
+  line-height: 58px;
 }
 .zoning .zoning-card-body h2 em {
-  font-family: "Boska", var(--font-heading);
+  font-family: var(--font-heading);
+  font-size: 36px;
   font-style: italic;
   font-weight: 500;
+  line-height: 58px;
 }
 .zoning .zoning-card-meta {
   display: flex;
