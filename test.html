@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoiana - Floor Plan</title>
+    <link rel="icon" href="./assets/images/favicon.svg" />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <link rel="stylesheet" href="./assets/fonts/Boska/font.css" />
+    <link rel="stylesheet" href="./assets/fonts/Montserrat/font.css" />
+    <link rel="stylesheet" href="./assets/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lenis.css" />
+    <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/style.min.css" />
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+    </script>
+  </head>
+
+  <script src="./vtour/tour.js"></script>
+
+  <body>
+    <script>
+      fetch("./components/login.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("login-screen").innerHTML = data;
+        });
+    </script>
+
+    <div id="login-screen"></div>
+
+    <script>
+      fetch("./components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+          const currentPath = window.location.pathname || "/";
+
+          const navLinks = document.querySelectorAll(".header-menu ul>li>a");
+          navLinks.forEach((link) => {
+            const linkPath = link.getAttribute("href");
+            let normalizedCurrentPath = currentPath;
+            let normalizedLinkPath = linkPath;
+
+            if (normalizedLinkPath.startsWith("./")) {
+              normalizedLinkPath = normalizedLinkPath.substring(1);
+            }
+
+            const currentSegment = normalizedCurrentPath.split("/").pop() || "";
+            const linkSegment = normalizedLinkPath.split("/").pop() || "";
+            const isRootPath =
+              currentPath === "/" ||
+              currentPath.endsWith("/") ||
+              currentSegment === "";
+            const isHomeLink =
+              linkPath === "/" ||
+              linkPath === "./" ||
+              linkPath === "./index.html" ||
+              linkPath === "index.html" ||
+              linkSegment === "index.html";
+            const isMatch =
+              normalizedLinkPath === normalizedCurrentPath ||
+              currentSegment === linkSegment ||
+              (isRootPath && isHomeLink) ||
+              (currentPath.endsWith(normalizedLinkPath) &&
+                normalizedLinkPath !== "/");
+
+            if (isMatch) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
+    <header id="header" class="header position-fixed"></header>
+
+    <main>
+      <section class="floor-plan-page">
+        <div class="floor-plan-page__viewer">
+          <div
+            class="floor-plan-page__vtour"
+            id="floorplan-vtour"
+            aria-label="Floor plan 360 view"
+          ></div>
+        </div>
+
+        <div class="floor-plan-page__filter" data-floorplan-filter>
+          <button
+            class="floor-plan-page__filter-close"
+            type="button"
+            aria-label="Close filter"
+            data-floorplan-filter-toggle
+          ></button>
+
+          <div class="floor-plan-page__filter-content">
+            <div class="floor-plan-page__filter-group">
+              <p>Villa</p>
+              <div class="floor-plan-page__filter-options">
+                <button type="button" data-floorplan-villa="C">C</button>
+                <button type="button" data-floorplan-villa="D">D</button>
+                <button type="button" data-floorplan-villa="F">F</button>
+              </div>
+            </div>
+
+            <div class="floor-plan-page__filter-group">
+              <p>Floor</p>
+              <div class="floor-plan-page__filter-options">
+                <button type="button" data-floorplan-floor="1">Floor 1</button>
+                <button type="button" data-floorplan-floor="2">Floor 2</button>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="floor-plan-page__filter-open"
+            type="button"
+            aria-label="Open filter"
+            data-floorplan-filter-toggle
+          ></button>
+        </div>
+
+        <aside class="floor-plan-page__plan" aria-label="Floor plan">
+          <button
+            class="floor-plan-page__plan-close"
+            type="button"
+            aria-label="Close floor plan"
+            data-floorplan-plan-toggle
+          ></button>
+          <button
+            class="floor-plan-page__plan-open"
+            type="button"
+            aria-label="Open floor plan"
+            data-floorplan-plan-toggle
+          ></button>
+          <div class="floor-plan-page__plan-figure">
+            <img
+              class="floor-plan-page__plan-image"
+              src="./assets/images/floorplan/C/Villa_C_F1.png"
+              alt="Floor plan"
+              data-floorplan-image
+            />
+            <div
+              class="floor-plan-page__marker-list"
+              data-floorplan-markers
+            ></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      fetch("./components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer").innerHTML = data;
+        });
+    </script>
+
+    <footer id="footer"></footer>
+
+    <script src="./assets/libs/jquery-3.7.1.js"></script>
+    <script src="./assets/libs/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./assets/main/js/floorplan.min.js"></script>
+  </body>
+</html>

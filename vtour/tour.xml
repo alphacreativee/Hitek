@@ -71,44 +71,58 @@
 	
 
 	
-	<scene name="scene_360_view01_mat_tien" title="360_View01_Mat Tien" onstart="" thumburl="panos/360_View01_Mat_Tien.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_360_view05_phong_ngu_tang_1" title="360_View05_Phong ngu tang 1" onstart="" thumburl="panos/360_View05_Phong_ngu_tang_1.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/360_View01_Mat_Tien.tiles/preview.jpg" />
+		<preview url="panos/360_View05_Phong_ngu_tang_1.tiles/preview.jpg" />
 
 		<image>
-			<cube url="panos/360_View01_Mat_Tien.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/360_View05_Phong_ngu_tang_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
 
 	</scene>
 
-	<scene name="scene_360_view02_phong_khach" title="360_View02_Phong khach" onstart="" thumburl="panos/360_View02_Phong_khach.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_360_view06_phong_ngu_tang_2" title="360_View06_Phong ngu tang 2" onstart="" thumburl="panos/360_View06_Phong_ngu_tang_2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/360_View02_Phong_khach.tiles/preview.jpg" />
+		<preview url="panos/360_View06_Phong_ngu_tang_2.tiles/preview.jpg" />
 
 		<image>
-			<cube url="panos/360_View02_Phong_khach.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/360_View06_Phong_ngu_tang_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
 
 	</scene>
 
-	<scene name="scene_360_view04_phong_master" title="360_View04_Phong master" onstart="" thumburl="panos/360_View04_Phong_master.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_360_view08_san_truoc" title="360_View08_San truoc" onstart="" thumburl="panos/360_View08_San_truoc.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/360_View04_Phong_master.tiles/preview.jpg" />
+		<preview url="panos/360_View08_San_truoc.tiles/preview.jpg" />
 
 		<image>
-			<cube url="panos/360_View04_Phong_master.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/360_View08_San_truoc.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_view10_ban_cong_tang_2" title="360_View10_Ban cong tang 2" onstart="" thumburl="panos/360_View10_Ban_cong_tang_2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_View10_Ban_cong_tang_2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_View10_Ban_cong_tang_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
 
 	</scene>
