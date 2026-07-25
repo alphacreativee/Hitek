@@ -91,7 +91,6 @@ function zoningFilter(zoningEl) {
   const getComparableValue = (value) => normalizeFilterValue(value);
 
   const formatFilterLabel = (field, value) => {
-    if (field === "floor_area") return `${value} sqm`;
     return String(value);
   };
 

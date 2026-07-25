@@ -87,10 +87,92 @@ function sectionOverview() {
   });
 }
 
+function gallery() {
+  const $gallery = $(".galleryTab");
+  if ($gallery.length < 1) return;
+
+  const $grid = $gallery.find("[data-gallery-list]");
+  const $filters = $gallery.find(".filter-button[data-type]");
+  let lightbox = null;
+
+  function getVisibleItems() {
+    return $grid.find(".gallery-item").filter(function () {
+      return $(this).css("display") !== "none";
+    });
+  }
+
+  function rebuildLightbox() {
+    const elements = getVisibleItems()
+      .map(function () {
+        const $item = $(this);
+        const $image = $item.find("img").first();
+        const title =
+          $item.data("gallery-title") ||
+          $item.find(".gallery-caption").text().trim() ||
+          $image.attr("alt") ||
+          "";
+
+        return {
+          href: $item.attr("href") || $image.attr("src"),
+          type: "image",
+          title
+        };
+      })
+      .get();
+
+    if (lightbox) {
+      lightbox.destroy();
+    }
+
+    lightbox = GLightbox({
+      elements,
+      touchNavigation: true,
+      loop: true
+    });
+  }
+
+  function filterGallery(type) {
+    $grid.find(".gallery-item").each(function () {
+      const $item = $(this);
+      const isVisible = type === "type-all" || $item.hasClass(type);
+      $item.toggle(isVisible);
+    });
+
+    rebuildLightbox();
+  }
+
+  filterGallery($filters.filter(".active").data("type") || "type-all");
+
+  $filters.on("click.gallery", function () {
+    const type = $(this).data("type");
+
+    $filters.removeClass("active");
+    $(this).addClass("active");
+
+    gsap
+      .timeline()
+      .to($grid, { autoAlpha: 0, duration: 0.25 })
+      .call(() => filterGallery(type))
+      .to($grid, { autoAlpha: 1, duration: 0.25 });
+  });
+
+  $grid.on("click.gallery", ".gallery-item", function (event) {
+    event.preventDefault();
+
+    const visibleItems = getVisibleItems().toArray();
+    const index = visibleItems.indexOf(this);
+    if (index < 0) return;
+
+    rebuildLightbox();
+    lightbox.openAt(index);
+  });
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   customDropdown();
   createFilterTab();
+  gallery();
   sectionOverview();
   sliderParallax();
   // getDateLightPick();
