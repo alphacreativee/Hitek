@@ -44,7 +44,9 @@ function initZoningParallaxSwiper(swiperEl, options = {}) {
 }
 
 function initZoningCardSlider() {
-  document.querySelectorAll(".zoning-card [slider-parallax]").forEach((swiperEl) => {
+  document.querySelectorAll(
+    ".zoning-card [slider-parallax], .zoning-compare__modal [slider-parallax]"
+  ).forEach((swiperEl) => {
     if (swiperEl.swiper) return;
 
     initZoningParallaxSwiper(swiperEl, {
@@ -629,6 +631,21 @@ function zoningScale(zoningEl) {
   updateZoom();
 }
 
+function zoningCompareModal(zoningEl) {
+  const compareSubmit = zoningEl.querySelector(".zoning-compare-submit");
+  const compareModal = zoningEl.querySelector(".zoning-compare__modal");
+  const compareModalClose = compareModal?.querySelector(".btn-close");
+  if (!compareSubmit || !compareModal) return;
+
+  compareSubmit.addEventListener("click", () => {
+    compareModal.classList.toggle("show");
+  });
+
+  compareModalClose?.addEventListener("click", () => {
+    compareModal.classList.remove("show");
+  });
+}
+
 function zoning() {
   const zoningEl = document.querySelector(".zoning");
   if (!zoningEl) return;
@@ -636,6 +653,7 @@ function zoning() {
   const filterApi = zoningFilter(zoningEl);
   zoningLots(zoningEl, filterApi);
   zoningScale(zoningEl);
+  zoningCompareModal(zoningEl);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

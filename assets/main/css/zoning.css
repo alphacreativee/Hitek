@@ -550,3 +550,264 @@
   border: 1px solid #6d9695;
   color: #6d9695;
 }
+
+.zoning-compare__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(32, 79, 75, 0.86);
+  backdrop-filter: blur(7px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.zoning-compare__modal.show {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+.zoning-compare__modal .modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  height: 100%;
+  max-height: none;
+  padding: 32px 0;
+}
+.zoning-compare__modal .title {
+  color: rgb(228, 174, 110);
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 58px;
+  text-align: center;
+}
+.zoning-compare__modal .filter-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.zoning-compare__modal .filter-list-button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.zoning-compare__modal .filter-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.zoning-compare__modal .filter-button.active,
+.zoning-compare__modal .filter-button:hover {
+  border-color: #dfa95f;
+  background-color: #dfa95f;
+  color: #ffffff;
+}
+.zoning-compare__modal .filter-section-result {
+  width: 100%;
+  max-height: calc(100vh - 190px);
+  overflow: auto;
+}
+.zoning-compare__modal .box {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  border-radius: 18px;
+}
+.zoning-compare__modal .box-item {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+.zoning-compare__modal .box-item > .name {
+  padding: 16px 16px 0;
+  color: #003f46;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+.zoning-compare__modal .box-item > .subname {
+  padding: 2px 16px 12px;
+  color: #6d9695;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.zoning-compare__modal .box-item > .image {
+  padding: 0 12px 12px;
+}
+.zoning-compare__modal .box-item > .image img {
+  width: 100%;
+  border-radius: 10px;
+}
+.zoning-compare__modal .zoning-compare-card {
+  overflow: hidden;
+  border-radius: 14px;
+  background-color: #ffffff;
+  color: #003f46;
+}
+.zoning-compare__modal .zoning-compare-card-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px 14px 0 0;
+  background-color: #f3f3f3;
+}
+.zoning-compare__modal .zoning-compare-card-media .wrapper-slider-parallax {
+  width: 100%;
+  height: 100%;
+}
+.zoning-compare__modal .zoning-compare-card-media .swiper {
+  width: 100%;
+  aspect-ratio: 350/208;
+}
+.zoning-compare__modal .zoning-compare-card-media .swiper-slide {
+  height: auto;
+}
+.zoning-compare__modal .zoning-compare-card-media .swiper-slide .image {
+  width: 100%;
+  height: 100%;
+}
+.zoning-compare__modal .zoning-compare-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.zoning-compare__modal .zoning-compare-card-media .slider-pagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  pointer-events: auto;
+}
+.zoning-compare__modal .zoning-compare-card-media .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  margin: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.55);
+  opacity: 1;
+}
+.zoning-compare__modal .zoning-compare-card-media .swiper-pagination-bullet-active {
+  background-color: #ffffff;
+}
+.zoning-compare__modal .zoning-compare-card-actions {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  display: flex;
+  gap: 10px;
+}
+.zoning-compare__modal .zoning-compare-card-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 6px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  background-color: rgba(32, 79, 75, 0.45);
+  transition: background-color 0.2s ease;
+}
+.zoning-compare__modal .zoning-compare-card-actions button:hover {
+  background-color: #ebe6dc;
+}
+.zoning-compare__modal .zoning-compare-card-actions .zoning-card-action-icon {
+  background-color: #ffffff;
+}
+.zoning-compare__modal .zoning-compare-card-actions button:hover .zoning-card-action-icon {
+  background-color: #003f46;
+}
+.zoning-compare__modal .zoning-compare-card-body {
+  padding: 20px 16px 16px;
+}
+.zoning-compare__modal .zoning-compare-card-body p {
+  margin-bottom: 8px;
+  color: #003f46;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.zoning-compare__modal .zoning-compare-card-body h2 {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 63, 70, 0.12);
+  color: #dfa95f;
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 42px;
+}
+.zoning-compare__modal .zoning-compare-card-body h2 em {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 42px;
+}
+.zoning-compare__modal .zoning-compare-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.zoning-compare__modal .zoning-compare-card-meta li {
+  color: #003f46;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.zoning-compare__modal .btn-close {
+  width: auto;
+  height: 36px;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: unset;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 1;
+  background: transparent;
+}
+@media (max-width: 991px) {
+  .zoning-compare__modal .modal-wrapper {
+    max-width: calc(100% - 32px);
+  }
+  .zoning-compare__modal .box {
+    grid-template-columns: 1fr;
+  }
+}

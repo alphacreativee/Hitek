@@ -6,7 +6,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=100"
+        "detail_url": "./floor-plan.html?villa=100",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 101,
@@ -15,7 +17,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=101"
+        "detail_url": "./floor-plan.html?villa=101",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 102,
@@ -24,7 +28,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=102"
+        "detail_url": "./floor-plan.html?villa=102",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 103,
@@ -33,7 +39,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=103"
+        "detail_url": "./floor-plan.html?villa=103",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 104,
@@ -42,7 +50,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=104"
+        "detail_url": "./floor-plan.html?villa=104",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 105,
@@ -51,7 +61,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=105"
+        "detail_url": "./floor-plan.html?villa=105",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 106,
@@ -60,7 +72,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=106"
+        "detail_url": "./floor-plan.html?villa=106",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 107,
@@ -69,7 +83,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=107"
+        "detail_url": "./floor-plan.html?villa=107",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 108,
@@ -78,7 +94,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=108"
+        "detail_url": "./floor-plan.html?villa=108",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 109,
@@ -87,7 +105,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=109"
+        "detail_url": "./floor-plan.html?villa=109",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 110,
@@ -96,7 +116,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=110"
+        "detail_url": "./floor-plan.html?villa=110",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 111,
@@ -105,7 +127,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=111"
+        "detail_url": "./floor-plan.html?villa=111",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 112,
@@ -114,7 +138,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=112"
+        "detail_url": "./floor-plan.html?villa=112",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 113,
@@ -123,7 +149,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=113"
+        "detail_url": "./floor-plan.html?villa=113",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 114,
@@ -132,7 +160,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=114"
+        "detail_url": "./floor-plan.html?villa=114",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 115,
@@ -141,7 +171,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=115"
+        "detail_url": "./floor-plan.html?villa=115",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 116,
@@ -150,7 +182,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=116"
+        "detail_url": "./floor-plan.html?villa=116",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 117,
@@ -159,7 +193,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=117"
+        "detail_url": "./floor-plan.html?villa=117",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 118,
@@ -168,7 +204,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=118"
+        "detail_url": "./floor-plan.html?villa=118",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 119,
@@ -177,7 +215,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=119"
+        "detail_url": "./floor-plan.html?villa=119",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 120,
@@ -186,7 +226,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=120"
+        "detail_url": "./floor-plan.html?villa=120",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 121,
@@ -195,7 +237,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=121"
+        "detail_url": "./floor-plan.html?villa=121",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 122,
@@ -204,7 +248,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=122"
+        "detail_url": "./floor-plan.html?villa=122",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 123,
@@ -213,7 +259,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=123"
+        "detail_url": "./floor-plan.html?villa=123",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 124,
@@ -222,7 +270,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=124"
+        "detail_url": "./floor-plan.html?villa=124",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 125,
@@ -231,7 +281,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=125"
+        "detail_url": "./floor-plan.html?villa=125",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 126,
@@ -240,7 +292,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=126"
+        "detail_url": "./floor-plan.html?villa=126",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 127,
@@ -249,7 +303,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=127"
+        "detail_url": "./floor-plan.html?villa=127",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 128,
@@ -258,7 +314,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=128"
+        "detail_url": "./floor-plan.html?villa=128",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 129,
@@ -267,7 +325,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=129"
+        "detail_url": "./floor-plan.html?villa=129",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 130,
@@ -276,7 +336,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=130"
+        "detail_url": "./floor-plan.html?villa=130",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 131,
@@ -285,7 +347,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=131"
+        "detail_url": "./floor-plan.html?villa=131",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 132,
@@ -294,7 +358,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=132"
+        "detail_url": "./floor-plan.html?villa=132",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 133,
@@ -303,7 +369,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=133"
+        "detail_url": "./floor-plan.html?villa=133",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 134,
@@ -312,7 +380,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=134"
+        "detail_url": "./floor-plan.html?villa=134",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 135,
@@ -321,7 +391,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=135"
+        "detail_url": "./floor-plan.html?villa=135",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 136,
@@ -330,7 +402,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=136"
+        "detail_url": "./floor-plan.html?villa=136",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 137,
@@ -339,7 +413,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=137"
+        "detail_url": "./floor-plan.html?villa=137",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 138,
@@ -348,7 +424,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=138"
+        "detail_url": "./floor-plan.html?villa=138",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 139,
@@ -357,7 +435,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=139"
+        "detail_url": "./floor-plan.html?villa=139",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 140,
@@ -366,7 +446,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=140"
+        "detail_url": "./floor-plan.html?villa=140",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 141,
@@ -375,7 +457,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=141"
+        "detail_url": "./floor-plan.html?villa=141",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 142,
@@ -384,7 +468,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=142"
+        "detail_url": "./floor-plan.html?villa=142",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 143,
@@ -393,7 +479,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=143"
+        "detail_url": "./floor-plan.html?villa=143",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 144,
@@ -402,7 +490,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=144"
+        "detail_url": "./floor-plan.html?villa=144",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 145,
@@ -411,7 +501,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=145"
+        "detail_url": "./floor-plan.html?villa=145",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 146,
@@ -420,7 +512,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=146"
+        "detail_url": "./floor-plan.html?villa=146",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 147,
@@ -429,7 +523,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=147"
+        "detail_url": "./floor-plan.html?villa=147",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 148,
@@ -438,7 +534,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=148"
+        "detail_url": "./floor-plan.html?villa=148",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 149,
@@ -447,7 +545,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=149"
+        "detail_url": "./floor-plan.html?villa=149",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 150,
@@ -456,7 +556,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=150"
+        "detail_url": "./floor-plan.html?villa=150",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 151,
@@ -465,7 +567,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=151"
+        "detail_url": "./floor-plan.html?villa=151",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 152,
@@ -474,7 +578,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=152"
+        "detail_url": "./floor-plan.html?villa=152",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 153,
@@ -483,7 +589,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=153"
+        "detail_url": "./floor-plan.html?villa=153",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 154,
@@ -492,7 +600,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=154"
+        "detail_url": "./floor-plan.html?villa=154",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 155,
@@ -501,7 +611,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=155"
+        "detail_url": "./floor-plan.html?villa=155",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 156,
@@ -510,7 +622,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=156"
+        "detail_url": "./floor-plan.html?villa=156",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 157,
@@ -519,7 +633,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=157"
+        "detail_url": "./floor-plan.html?villa=157",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 158,
@@ -528,7 +644,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=158"
+        "detail_url": "./floor-plan.html?villa=158",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 159,
@@ -537,7 +655,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=159"
+        "detail_url": "./floor-plan.html?villa=159",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 160,
@@ -546,7 +666,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=160"
+        "detail_url": "./floor-plan.html?villa=160",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 161,
@@ -555,7 +677,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=161"
+        "detail_url": "./floor-plan.html?villa=161",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 162,
@@ -564,7 +688,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=162"
+        "detail_url": "./floor-plan.html?villa=162",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 163,
@@ -573,7 +699,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=163"
+        "detail_url": "./floor-plan.html?villa=163",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 164,
@@ -582,7 +710,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=164"
+        "detail_url": "./floor-plan.html?villa=164",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 165,
@@ -591,7 +721,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=165"
+        "detail_url": "./floor-plan.html?villa=165",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 166,
@@ -600,7 +732,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=166"
+        "detail_url": "./floor-plan.html?villa=166",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 167,
@@ -609,7 +743,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=167"
+        "detail_url": "./floor-plan.html?villa=167",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 168,
@@ -618,7 +754,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=168"
+        "detail_url": "./floor-plan.html?villa=168",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 169,
@@ -627,7 +765,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=169"
+        "detail_url": "./floor-plan.html?villa=169",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 170,
@@ -636,7 +776,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=170"
+        "detail_url": "./floor-plan.html?villa=170",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 171,
@@ -645,7 +787,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=171"
+        "detail_url": "./floor-plan.html?villa=171",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 172,
@@ -654,7 +798,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=172"
+        "detail_url": "./floor-plan.html?villa=172",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 173,
@@ -663,7 +809,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=173"
+        "detail_url": "./floor-plan.html?villa=173",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 174,
@@ -672,7 +820,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=174"
+        "detail_url": "./floor-plan.html?villa=174",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 175,
@@ -681,7 +831,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=175"
+        "detail_url": "./floor-plan.html?villa=175",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 176,
@@ -690,7 +842,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=176"
+        "detail_url": "./floor-plan.html?villa=176",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 177,
@@ -699,7 +853,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=177"
+        "detail_url": "./floor-plan.html?villa=177",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 178,
@@ -708,7 +864,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=178"
+        "detail_url": "./floor-plan.html?villa=178",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 179,
@@ -717,7 +875,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=179"
+        "detail_url": "./floor-plan.html?villa=179",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 180,
@@ -726,7 +886,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=180"
+        "detail_url": "./floor-plan.html?villa=180",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 181,
@@ -735,7 +897,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=181"
+        "detail_url": "./floor-plan.html?villa=181",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 182,
@@ -744,7 +908,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=182"
+        "detail_url": "./floor-plan.html?villa=182",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 183,
@@ -753,7 +919,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=183"
+        "detail_url": "./floor-plan.html?villa=183",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 184,
@@ -762,7 +930,9 @@
         "bedroom": 3,
         "floor_area": 544,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=184"
+        "detail_url": "./floor-plan.html?villa=184",
+        "floorplan_1": "./assets/images/floorplan/C/Villa_C_F1.png",
+        "floorplan_2": "./assets/images/floorplan/C/Villa_C_F2.png"
     },
     {
         "id": 185,
@@ -771,7 +941,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=185"
+        "detail_url": "./floor-plan.html?villa=185",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 186,
@@ -780,7 +952,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=186"
+        "detail_url": "./floor-plan.html?villa=186",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 187,
@@ -789,7 +963,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=187"
+        "detail_url": "./floor-plan.html?villa=187",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 188,
@@ -798,7 +974,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=188"
+        "detail_url": "./floor-plan.html?villa=188",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 189,
@@ -807,7 +985,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=189"
+        "detail_url": "./floor-plan.html?villa=189",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 190,
@@ -816,7 +996,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=190"
+        "detail_url": "./floor-plan.html?villa=190",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 191,
@@ -825,7 +1007,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=191"
+        "detail_url": "./floor-plan.html?villa=191",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 192,
@@ -834,7 +1018,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=192"
+        "detail_url": "./floor-plan.html?villa=192",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 193,
@@ -843,7 +1029,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=193"
+        "detail_url": "./floor-plan.html?villa=193",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 194,
@@ -852,7 +1040,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=194"
+        "detail_url": "./floor-plan.html?villa=194",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 195,
@@ -861,7 +1051,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=195"
+        "detail_url": "./floor-plan.html?villa=195",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 196,
@@ -870,7 +1062,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=196"
+        "detail_url": "./floor-plan.html?villa=196",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 197,
@@ -879,7 +1073,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=197"
+        "detail_url": "./floor-plan.html?villa=197",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 198,
@@ -888,7 +1084,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=198"
+        "detail_url": "./floor-plan.html?villa=198",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 199,
@@ -897,7 +1095,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=199"
+        "detail_url": "./floor-plan.html?villa=199",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 200,
@@ -906,7 +1106,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=200"
+        "detail_url": "./floor-plan.html?villa=200",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 201,
@@ -915,7 +1117,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=201"
+        "detail_url": "./floor-plan.html?villa=201",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 202,
@@ -924,7 +1128,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=202"
+        "detail_url": "./floor-plan.html?villa=202",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 203,
@@ -933,7 +1139,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=203"
+        "detail_url": "./floor-plan.html?villa=203",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 204,
@@ -942,7 +1150,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=204"
+        "detail_url": "./floor-plan.html?villa=204",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 205,
@@ -951,7 +1161,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=205"
+        "detail_url": "./floor-plan.html?villa=205",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 206,
@@ -960,7 +1172,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=206"
+        "detail_url": "./floor-plan.html?villa=206",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 207,
@@ -969,7 +1183,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=207"
+        "detail_url": "./floor-plan.html?villa=207",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 208,
@@ -978,7 +1194,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=208"
+        "detail_url": "./floor-plan.html?villa=208",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 209,
@@ -987,7 +1205,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=209"
+        "detail_url": "./floor-plan.html?villa=209",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 210,
@@ -996,7 +1216,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=210"
+        "detail_url": "./floor-plan.html?villa=210",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 211,
@@ -1005,7 +1227,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=211"
+        "detail_url": "./floor-plan.html?villa=211",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 212,
@@ -1014,7 +1238,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=212"
+        "detail_url": "./floor-plan.html?villa=212",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 213,
@@ -1023,7 +1249,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=213"
+        "detail_url": "./floor-plan.html?villa=213",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 214,
@@ -1032,7 +1260,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=214"
+        "detail_url": "./floor-plan.html?villa=214",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 215,
@@ -1041,7 +1271,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=215"
+        "detail_url": "./floor-plan.html?villa=215",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 216,
@@ -1050,7 +1282,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=216"
+        "detail_url": "./floor-plan.html?villa=216",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 217,
@@ -1059,7 +1293,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=217"
+        "detail_url": "./floor-plan.html?villa=217",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 218,
@@ -1068,7 +1304,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=218"
+        "detail_url": "./floor-plan.html?villa=218",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 219,
@@ -1077,7 +1315,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=219"
+        "detail_url": "./floor-plan.html?villa=219",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 220,
@@ -1086,7 +1326,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=220"
+        "detail_url": "./floor-plan.html?villa=220",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 221,
@@ -1095,7 +1337,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=221"
+        "detail_url": "./floor-plan.html?villa=221",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 222,
@@ -1104,7 +1348,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=222"
+        "detail_url": "./floor-plan.html?villa=222",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 223,
@@ -1113,7 +1359,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=223"
+        "detail_url": "./floor-plan.html?villa=223",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 224,
@@ -1122,7 +1370,9 @@
         "bedroom": 4,
         "floor_area": 630,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=224"
+        "detail_url": "./floor-plan.html?villa=224",
+        "floorplan_1": "./assets/images/floorplan/D/Villa_D_F1.png",
+        "floorplan_2": "./assets/images/floorplan/D/Villa_D_F2.png"
     },
     {
         "id": 225,
@@ -1131,7 +1381,9 @@
         "bedroom": 7,
         "floor_area": 2208,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=225"
+        "detail_url": "./floor-plan.html?villa=225",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 226,
@@ -1140,7 +1392,9 @@
         "bedroom": 9,
         "floor_area": 3132,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=226"
+        "detail_url": "./floor-plan.html?villa=226",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 227,
@@ -1149,7 +1403,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=227"
+        "detail_url": "./floor-plan.html?villa=227",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 228,
@@ -1158,7 +1414,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=228"
+        "detail_url": "./floor-plan.html?villa=228",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 229,
@@ -1167,7 +1425,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=229"
+        "detail_url": "./floor-plan.html?villa=229",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 230,
@@ -1176,7 +1436,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=230"
+        "detail_url": "./floor-plan.html?villa=230",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 231,
@@ -1185,7 +1447,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=231"
+        "detail_url": "./floor-plan.html?villa=231",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 232,
@@ -1194,7 +1458,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=232"
+        "detail_url": "./floor-plan.html?villa=232",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 233,
@@ -1203,7 +1469,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=233"
+        "detail_url": "./floor-plan.html?villa=233",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 234,
@@ -1212,7 +1480,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=234"
+        "detail_url": "./floor-plan.html?villa=234",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 235,
@@ -1221,7 +1491,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=235"
+        "detail_url": "./floor-plan.html?villa=235",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 236,
@@ -1230,7 +1502,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=236"
+        "detail_url": "./floor-plan.html?villa=236",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 237,
@@ -1239,7 +1513,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=237"
+        "detail_url": "./floor-plan.html?villa=237",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 238,
@@ -1248,7 +1524,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=238"
+        "detail_url": "./floor-plan.html?villa=238",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 239,
@@ -1257,7 +1535,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=239"
+        "detail_url": "./floor-plan.html?villa=239",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 240,
@@ -1266,7 +1546,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=240"
+        "detail_url": "./floor-plan.html?villa=240",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 241,
@@ -1275,7 +1557,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=241"
+        "detail_url": "./floor-plan.html?villa=241",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 242,
@@ -1284,7 +1568,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=242"
+        "detail_url": "./floor-plan.html?villa=242",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 243,
@@ -1293,7 +1579,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=243"
+        "detail_url": "./floor-plan.html?villa=243",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 244,
@@ -1302,7 +1590,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=244"
+        "detail_url": "./floor-plan.html?villa=244",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 245,
@@ -1311,7 +1601,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=245"
+        "detail_url": "./floor-plan.html?villa=245",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 246,
@@ -1320,7 +1612,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=246"
+        "detail_url": "./floor-plan.html?villa=246",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 247,
@@ -1329,7 +1623,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=247"
+        "detail_url": "./floor-plan.html?villa=247",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 248,
@@ -1338,7 +1634,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=248"
+        "detail_url": "./floor-plan.html?villa=248",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 249,
@@ -1347,7 +1645,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=249"
+        "detail_url": "./floor-plan.html?villa=249",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 250,
@@ -1356,7 +1656,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=250"
+        "detail_url": "./floor-plan.html?villa=250",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 251,
@@ -1365,7 +1667,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=251"
+        "detail_url": "./floor-plan.html?villa=251",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 252,
@@ -1374,7 +1678,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=252"
+        "detail_url": "./floor-plan.html?villa=252",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 253,
@@ -1383,7 +1689,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=253"
+        "detail_url": "./floor-plan.html?villa=253",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 254,
@@ -1392,7 +1700,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=254"
+        "detail_url": "./floor-plan.html?villa=254",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 255,
@@ -1401,7 +1711,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=255"
+        "detail_url": "./floor-plan.html?villa=255",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 256,
@@ -1410,7 +1722,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=256"
+        "detail_url": "./floor-plan.html?villa=256",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 257,
@@ -1419,7 +1733,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=257"
+        "detail_url": "./floor-plan.html?villa=257",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 258,
@@ -1428,7 +1744,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=258"
+        "detail_url": "./floor-plan.html?villa=258",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 259,
@@ -1437,7 +1755,9 @@
         "bedroom": 3,
         "floor_area": 360,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=259"
+        "detail_url": "./floor-plan.html?villa=259",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 260,
@@ -1446,7 +1766,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=260"
+        "detail_url": "./floor-plan.html?villa=260",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 261,
@@ -1455,7 +1777,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=261"
+        "detail_url": "./floor-plan.html?villa=261",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 262,
@@ -1464,7 +1788,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=262"
+        "detail_url": "./floor-plan.html?villa=262",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 263,
@@ -1473,7 +1799,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=263"
+        "detail_url": "./floor-plan.html?villa=263",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 264,
@@ -1482,7 +1810,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=264"
+        "detail_url": "./floor-plan.html?villa=264",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 265,
@@ -1491,7 +1821,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=265"
+        "detail_url": "./floor-plan.html?villa=265",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 266,
@@ -1500,7 +1832,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=266"
+        "detail_url": "./floor-plan.html?villa=266",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 267,
@@ -1509,7 +1843,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=267"
+        "detail_url": "./floor-plan.html?villa=267",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 268,
@@ -1518,7 +1854,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=268"
+        "detail_url": "./floor-plan.html?villa=268",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 269,
@@ -1527,7 +1865,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=269"
+        "detail_url": "./floor-plan.html?villa=269",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 270,
@@ -1536,7 +1876,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=270"
+        "detail_url": "./floor-plan.html?villa=270",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 271,
@@ -1545,7 +1887,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=271"
+        "detail_url": "./floor-plan.html?villa=271",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 272,
@@ -1554,7 +1898,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=272"
+        "detail_url": "./floor-plan.html?villa=272",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 273,
@@ -1563,7 +1909,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=273"
+        "detail_url": "./floor-plan.html?villa=273",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 274,
@@ -1572,7 +1920,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=274"
+        "detail_url": "./floor-plan.html?villa=274",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 275,
@@ -1581,7 +1931,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=275"
+        "detail_url": "./floor-plan.html?villa=275",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 276,
@@ -1590,7 +1942,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=276"
+        "detail_url": "./floor-plan.html?villa=276",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 277,
@@ -1599,7 +1953,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=277"
+        "detail_url": "./floor-plan.html?villa=277",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 278,
@@ -1608,7 +1964,9 @@
         "bedroom": 4,
         "floor_area": 840,
         "view": "Beach",
-        "detail_url": "./floor-plan.html?villa=278"
+        "detail_url": "./floor-plan.html?villa=278",
+        "floorplan_1": "./assets/images/floorplan/F/Villa_F_F1.png",
+        "floorplan_2": "./assets/images/floorplan/F/Villa_F_F2.png"
     },
     {
         "id": 279,
@@ -1617,7 +1975,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=279"
+        "detail_url": "./floor-plan.html?villa=279",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 280,
@@ -1626,7 +1986,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=280"
+        "detail_url": "./floor-plan.html?villa=280",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 281,
@@ -1635,7 +1997,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=281"
+        "detail_url": "./floor-plan.html?villa=281",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 282,
@@ -1644,7 +2008,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=282"
+        "detail_url": "./floor-plan.html?villa=282",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 283,
@@ -1653,7 +2019,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=283"
+        "detail_url": "./floor-plan.html?villa=283",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 284,
@@ -1662,7 +2030,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=284"
+        "detail_url": "./floor-plan.html?villa=284",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 285,
@@ -1671,7 +2041,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=285"
+        "detail_url": "./floor-plan.html?villa=285",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 286,
@@ -1680,7 +2052,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=286"
+        "detail_url": "./floor-plan.html?villa=286",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 287,
@@ -1689,7 +2063,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=287"
+        "detail_url": "./floor-plan.html?villa=287",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 288,
@@ -1698,7 +2074,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=288"
+        "detail_url": "./floor-plan.html?villa=288",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 289,
@@ -1707,7 +2085,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Lagoon",
-        "detail_url": "./floor-plan.html?villa=289"
+        "detail_url": "./floor-plan.html?villa=289",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 290,
@@ -1716,7 +2096,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=290"
+        "detail_url": "./floor-plan.html?villa=290",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 291,
@@ -1725,7 +2107,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=291"
+        "detail_url": "./floor-plan.html?villa=291",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 292,
@@ -1734,7 +2118,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=292"
+        "detail_url": "./floor-plan.html?villa=292",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 293,
@@ -1743,7 +2129,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=293"
+        "detail_url": "./floor-plan.html?villa=293",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 294,
@@ -1752,7 +2140,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=294"
+        "detail_url": "./floor-plan.html?villa=294",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 295,
@@ -1761,7 +2151,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=295"
+        "detail_url": "./floor-plan.html?villa=295",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 296,
@@ -1770,7 +2162,9 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=296"
+        "detail_url": "./floor-plan.html?villa=296",
+        "floorplan_1": "",
+        "floorplan_2": ""
     },
     {
         "id": 297,
@@ -1779,6 +2173,8 @@
         "bedroom": 4,
         "floor_area": 702,
         "view": "Golf Course",
-        "detail_url": "./floor-plan.html?villa=297"
+        "detail_url": "./floor-plan.html?villa=297",
+        "floorplan_1": "",
+        "floorplan_2": ""
     }
 ]
