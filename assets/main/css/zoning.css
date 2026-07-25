@@ -469,7 +469,6 @@
   right: 8px;
   bottom: 8px;
   z-index: 4;
-  width: min(894px, 100vw - 40px);
   padding: 16px;
   border-radius: 18px;
   background-color: #ffffff;

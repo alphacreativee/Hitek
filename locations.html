@@ -31,6 +31,8 @@
     </script>
   </head>
 
+  <script src="./vtour/tour.js"></script>
+
   <body>
     <!-- login -->
     <script>
@@ -123,10 +125,20 @@
           </div>
           <div class="overview-main">
             <div class="overview-main__light active overview-main__item">
-              <img src="./assets/images/bg-contact.avif" alt="">
+              <div
+                class="overview-vtour"
+                id="overview-vtour-light"
+                data-vtour-scene="scene_360_view01_mat_tien"
+                aria-label="360 View Mat Tien"
+              ></div>
             </div>
             <div class="overview-main__dark overview-main__item">
-              <img src="./assets/images/bg-contact.avif" alt="">
+              <div
+                class="overview-vtour"
+                id="overview-vtour-dark"
+                data-vtour-scene="scene_360_view02_phong_khach"
+                aria-label="360 View Phong khach"
+              ></div>
             </div>
           </div>
         </div>

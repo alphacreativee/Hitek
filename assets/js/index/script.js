@@ -77,13 +77,58 @@ function sectionOverview() {
   if ($("section.overview").length < 1) return;
 
   const toggleInput = $(".overview-switcher .toggle-checkbox");
+  const embeddedVtours = new Set();
+
+  function setupOverviewVtour(krpano, sceneName) {
+    krpano.call(`loadscene(${sceneName}, null, MERGE, BLEND(0))`);
+    krpano.set("autorotate.enabled", true);
+    krpano.set("autorotate.waittime", 5);
+    krpano.set("autorotate.accel", 0.25);
+    krpano.set("autorotate.speed", 1);
+    krpano.set("autorotate.horizon", 0);
+    krpano.set("autorotate.tofov", "off");
+    krpano.call(
+      "delayedcall(overview_hide_skin, 0.2, " +
+        "set(layer[skin_layer].visible,false);" +
+        "set(layer[skin_control_bar].visible,false);" +
+        "set(layer[skin_control_bar_bg].visible,false);" +
+        "set(layer[skin_btn_show].visible,false);" +
+        "set(layer[skin_btn_prev_fs].visible,false);" +
+        "set(layer[skin_btn_next_fs].visible,false);" +
+      ");"
+    );
+  }
+
+  function embedOverviewVtour($item) {
+    const vtourEl = $item.find("[data-vtour-scene]")[0];
+    if (!vtourEl || embeddedVtours.has(vtourEl.id)) return;
+    if (typeof embedpano !== "function") return;
+
+    embeddedVtours.add(vtourEl.id);
+
+    embedpano({
+      target: vtourEl.id,
+      xml: "./vtour/tour.xml",
+      html5: "only",
+      mobilescale: 1,
+      passQueryParameters: false,
+      onready(krpano) {
+        setupOverviewVtour(krpano, vtourEl.dataset.vtourScene);
+      }
+    });
+  }
+
+  embedOverviewVtour($(".overview-main__light"));
 
   toggleInput.on("change", function () {
     const isDark = $(this).is(":checked");
     const theme = isDark ? "dark" : "light";
 
     $(".overview-main__item").removeClass("active");
-    $(`.overview-main__${theme}`).addClass("active");
+    const $activeItem = $(`.overview-main__${theme}`);
+
+    $activeItem.addClass("active");
+    embedOverviewVtour($activeItem);
   });
 }
 
