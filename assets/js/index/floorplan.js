@@ -64,7 +64,7 @@ function floorPlan() {
     D: {
       1: {
         scene: "scene_floorplan_villa_d_floor_1",
-        image: "./assets/images/floorplan/floorplan-floor-1.svg",
+        image: "./assets/images/floorplan/D/Villa_D_F1.png",
         markers: [
           {
             id: "d-1-front",
@@ -88,7 +88,7 @@ function floorPlan() {
       },
       2: {
         scene: "scene_floorplan_villa_d_floor_2",
-        image: "./assets/images/floorplan/floorplan-floor-2.svg",
+        image: "./assets/images/floorplan/D/Villa_D_F2.png",
         markers: [
           {
             id: "d-2-master",
@@ -114,7 +114,7 @@ function floorPlan() {
     F: {
       1: {
         scene: "scene_floorplan_villa_f_floor_1",
-        image: "./assets/images/floorplan/floorplan-floor-1.svg",
+        image: "./assets/images/floorplan/F/Villa_F_F1.png",
         markers: [
           {
             id: "f-1-entry",
@@ -138,7 +138,7 @@ function floorPlan() {
       },
       2: {
         scene: "scene_floorplan_villa_f_floor_2",
-        image: "./assets/images/floorplan/floorplan-floor-2.svg",
+        image: "./assets/images/floorplan/F/Villa_F_F2.png",
         markers: [
           {
             id: "f-2-master",
@@ -167,6 +167,7 @@ function floorPlan() {
   let krpano = null;
   let activeMarkerId = null;
   let filterTimer = null;
+  let sceneActivationTimer = null;
 
   const getVillaData = (villa) =>
     floorplanData[villa] || floorplanData[defaultState.villa];
@@ -244,9 +245,40 @@ function floorPlan() {
   function loadScene(sceneName) {
     if (!krpano || !sceneName) return;
 
-    krpano.call(`loadscene(${sceneName}, null, MERGE, BLEND(0))`);
+    krpano.call(`skin_loadscene(${sceneName}, BLEND(0))`);
     krpano.set("autorotate.enabled", false);
     krpano.call("autorotate.stop();");
+  }
+
+  function queueSceneActivation(sceneName) {
+    clearTimeout(sceneActivationTimer);
+    loadScene(sceneName);
+
+    sceneActivationTimer = setTimeout(() => {
+      const currentScene = getFloorData(state.villa, state.floor).scene;
+      if (currentScene === sceneName) loadScene(sceneName);
+    }, 300);
+  }
+
+  function syncGalleryThumbs() {
+    if (!krpano) return;
+
+    const activeScenes = new Set(
+      Object.values(getVillaData(state.villa)).map(
+        (floorData) => floorData.scene
+      )
+    );
+
+    Object.values(floorplanData).forEach((villaData) => {
+      Object.values(villaData).forEach((floorData) => {
+        krpano.set(
+          `scene[${floorData.scene}].skipthumb`,
+          !activeScenes.has(floorData.scene)
+        );
+      });
+    });
+
+    krpano.call("skin_rebuildthumbs();");
   }
 
   function applyState({ shouldUpdateUrl = true } = {}) {
@@ -254,7 +286,8 @@ function floorPlan() {
 
     updateButtons();
     renderPlan(floorData);
-    loadScene(floorData.scene);
+    syncGalleryThumbs();
+    queueSceneActivation(floorData.scene);
 
     if (shouldUpdateUrl) updateUrl();
   }
@@ -264,9 +297,12 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: "./vtour/floorplan.xml",
+      xml: "./vtour/floorplan.xml?v=active-scene-2",
       html5: "only",
       mobilescale: 1,
+      vars: {
+        startscene: getFloorData(state.villa, state.floor).scene
+      },
       passQueryParameters: false,
       onready(pano) {
         krpano = pano;

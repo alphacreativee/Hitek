@@ -1078,6 +1078,10 @@ button.aloading::after {
   letter-spacing: 0.21em;
   line-height: 15px;
   text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+.header-menu .login:hover {
+  background-color: #6d9695;
 }
 
 .banner-intro {
