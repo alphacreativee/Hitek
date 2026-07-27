@@ -447,12 +447,24 @@ function zoningLots(zoningEl, filterApi) {
     return angle;
   };
 
+  const isFHorizontalLabel = (title) => {
+    const match = String(title || "").match(/^F[12]\.(\d+)$/);
+    if (!match) return false;
+
+    const index = Number(match[1]);
+    return index >= 1 && index <= 26;
+  };
+
   const createLotLabels = (svg) => {
     if (!labels) return;
 
     labels.innerHTML = "";
     const viewBox = svg.viewBox.baseVal;
     if (!viewBox.width || !viewBox.height) return;
+    const referenceAngles = {
+      "D2.15": getPathLabelAngle(svg.querySelector('path[data-title="D2.15"]')),
+      "E2.1": getPathLabelAngle(svg.querySelector('path[data-title="E2.1"]'))
+    };
 
     svg.querySelectorAll("path[data-title]").forEach((path) => {
       const title = path.dataset.title;
@@ -468,7 +480,13 @@ function zoningLots(zoningEl, filterApi) {
       }
       label.style.left = `${((box.x + box.width / 2 - viewBox.x) / viewBox.width) * 100}%`;
       label.style.top = `${((box.y + box.height / 2 - viewBox.y) / viewBox.height) * 100}%`;
-      label.style.setProperty("--label-rotate", `${getPathLabelAngle(path)}deg`);
+      const labelAngle =
+        title === "E2.16"
+          ? referenceAngles["E2.1"]
+          : isFHorizontalLabel(title)
+            ? referenceAngles["E2.1"]
+            : getPathLabelAngle(path);
+      label.style.setProperty("--label-rotate", `${labelAngle}deg`);
       labels.appendChild(label);
     });
   };
