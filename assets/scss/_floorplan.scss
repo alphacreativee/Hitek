@@ -100,54 +100,12 @@
 
   &__plan-open {
     right: 10px;
-  }
 
-  &__filter-open::before {
-    content: "";
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 10px;
-    height: 10px;
-    border: 2px solid #0c4a52;
-    border-radius: 50%;
-  }
-
-  &__filter-open::after {
-    content: "";
-    position: absolute;
-    right: 6px;
-    bottom: 6px;
-    width: 7px;
-    height: 2px;
-    background-color: #0c4a52;
-    transform: rotate(45deg);
-    transform-origin: center;
-  }
-
-  &__plan-open::before {
-    content: "";
-    position: absolute;
-    top: 6px;
-    left: 7px;
-    width: 12px;
-    height: 14px;
-    border: 1px solid #0c4a52;
-    border-radius: 2px;
-  }
-
-  &__plan-open::after {
-    content: "";
-    position: absolute;
-    top: 11px;
-    left: 12px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: #dfa95f;
-    box-shadow:
-      -3px -3px 0 -1px #6d9695,
-      3px 4px 0 -1px #6d9695;
+    img {
+      width: 24px;
+      height: 24px;
+      margin: auto;
+    }
   }
 
   &__filter-content {
@@ -282,9 +240,47 @@
 
   &__marker {
     position: absolute;
+    width: 90px;
+    height: 90px;
+    border: 0;
+    border-radius: 50%;
+    background-color: transparent;
+    transform: translate(-50%, -50%);
+    --floorplan-radar-angle: 0deg;
+  }
+
+  &__marker::before,
+  &__marker::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &__marker::before {
+    top: 50%;
+    left: 50%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from -45deg,
+      #1f4f4b 0deg 1deg,
+      rgba(31, 79, 75, 0.6) 1deg 89deg,
+      #1f4f4b 89deg 91deg,
+      rgba(31, 79, 75, 0) 91deg 360deg
+    );
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--floorplan-radar-angle));
+    transform-origin: center;
+    transition: opacity 0.2s ease;
+  }
+
+  &__marker::after {
+    top: 50%;
+    left: 50%;
     width: 17px;
     height: 17px;
-    border: 3px solid #ffffff;
+    border: 1px solid #ffffff;
     border-radius: 50%;
     background-color: #6d9695;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
@@ -294,10 +290,18 @@
       transform 0.2s ease;
   }
 
-  &__marker.active,
-  &__marker:hover {
+  &__marker.active::before {
+    opacity: 1;
+  }
+
+  &__marker.active::after,
+  &__marker:hover::after {
     background-color: #dfa95f;
     transform: translate(-50%, -50%) scale(1.12);
+  }
+
+  &__marker.active::after {
+    animation: floorplan-marker-pulse 1.2s ease-in-out infinite;
   }
 
   &.is-plan-collapsed &__plan {
@@ -342,5 +346,16 @@
       width: 164px;
       padding: 42px 14px 18px;
     }
+  }
+}
+
+@keyframes floorplan-marker-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.28);
   }
 }

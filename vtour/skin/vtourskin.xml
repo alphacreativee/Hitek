@@ -28,9 +28,6 @@
 	               thumbs_scrollbuttons="false"
 	               thumbs_scrollindicator="false"
 	               thumbs_loop="false"
-	               thumbs_controlbar_gap="0"
-	               thumbs_bgroundedge="0"
-	               thumbs_textheight="0"
 	               tooltips_buttons="false"
 	               tooltips_thumbs="false"
 	               tooltips_hotspots="false"
@@ -55,8 +52,6 @@
 	               design_bgborder="0"
 	               design_bgroundedge="1"
 	               design_bgshadow="0 4 10 0x000000 0.3"
-	               design_scroll_bgalpha="0.8"
-	               design_scroll_bgshadow="0 4 10 0x000000 0.3"
 	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
 	               design_thumbborder_padding="2"
 	               design_thumbborder_bgroundedge="0"
@@ -263,9 +258,6 @@
 	<!-- skin_base - the base skin image -->
 	<style name="skin_base" url="calc:vtourskinxmlpath.url + skin_settings.design_skin_images" />
 
-	<!-- skin_icon - custom svg icon sizing -->
-	<style name="skin_icon" width="24" height="24" scale="1" />
-
 
 	<!-- skin_glow - button glowing -->
 	<style name="skin_glow"
@@ -280,7 +272,7 @@
 	<style name="skin_thumbtext_style" type="text" align="bottom" width="100%" y="5" enabled="false" bg="false" bgborder="false" css="calc:skin_settings.design_text_css + ' text-align:center; font-size:10px;'" txtshadow="get:skin_settings.design_text_txtshadow" />
 
 	<!-- skin_hotspotstyle - style for the hotspots -->
-	<style name="skin_hotspotstyle" url="vtourskin_hotspot.png" edge="top" distorted="true"
+	<style name="skin_hotspotstyle" url="icon/hotpot.svg" edge="top" distorted="true"
 	       tooltip=""
 	       linkedscene=""
 	       linkedscene_lookat=""
@@ -288,16 +280,35 @@
 	       use3dtransition="false"
 	       onclick="skin_hotspotstyle_click();"
 	       depth="1000"
-	       scale="0.5"
-	       onover.addevent="tween(scale,0.55);"
-	       onout.addevent="tween(scale,0.5);"
-	       onloaded.addevent="skin_hotspotstyle_setup();"
+	       scale="1.0"
+	       onover.addevent="tween(scale,1.08);"
+	       onout.addevent="tween(scale,1.0);"
+	       onloaded.addevent="skin_hotspotstyle_setup(); skin_hotspotstyle_float();"
 	       />
 
 	<action name="skin_hotspotstyle_setup" scope="local">
 		if(isvalue(caller.linkedscene) AND skin_settings.tooltips_hotspots,
 			copy(caller.tooltip, scene[get(caller.linkedscene)].title);
 			caller.loadstyle(skin_tooltips);
+		);
+	</action>
+
+	<action name="skin_hotspotstyle_float" scope="local">
+		copy(hs_float_name, caller.name);
+		set(caller.alpha, 1.0);
+		set(caller.oy, 0);
+		skin_hotspotstyle_float_step(get(hs_float_name), -10);
+	</action>
+
+	<action name="skin_hotspotstyle_float_step" scope="local" args="hsname, targetoy">
+		if(hotspot[get(hsname)],
+			tween(hotspot[get(hsname)].oy, get(targetoy), 0.8, easeInOutSine,
+				if(targetoy LT 0,
+					skin_hotspotstyle_float_step(get(hsname), 0);
+				  ,
+					skin_hotspotstyle_float_step(get(hsname), -10);
+				);
+			);
 		);
 	</action>
 
@@ -310,10 +321,8 @@
 				skin_scene3dtransition(get(hs_linkedscene),get(caller.linkedscene_hoffset));
 			  ,
 				if(caller.linkedscene_lookat, txtsplit(caller.linkedscene_lookat, ',', hs_lookat_h, hs_lookat_v, hs_lookat_fov); );
-				tween(caller.depth|caller.alpha|caller.oy|caller.rx, 4000|0.0|-50|-60, 0.5, default,
-					skin_loadscene(get(hs_linkedscene), get(skin_settings.loadscene_blend));
-					if(hs_lookat_h !== null, skin_lookat(get(hs_lookat_h), get(hs_lookat_v), get(hs_lookat_fov)); );
-				);
+				skin_loadscene(get(hs_linkedscene), get(skin_settings.loadscene_blend));
+				if(hs_lookat_h !== null, skin_lookat(get(hs_lookat_h), get(hs_lookat_v), get(hs_lookat_fov)); );
 			);
 		);
 	</action>
@@ -372,7 +381,7 @@
 	<!-- skin layout -->
 	<layer name="skin_layer" keep="true" type="container" align="top" width="get:skin_settings.layout_width" maxwidth="get:skin_settings.layout_maxwidth" height="100%" maskchildren="true" visible="false" bgcapture="false" zorder="1">
 		<layer name="skin_scroll_window" type="container" align="bottom" width="100%" height="100%" x="0" y="calc:skin_settings.controlbar_offset + skin_settings.controlbar_height - skin_settings.controlbar_overlap" maskchildren="true" onloaded="skin_calc_opened_closed();" zorder="1" bgroundedge.firefox="1">
-			<layer name="skin_scroll_layer" type="container" align="bottom" width="get:skin_settings.controlbar_width" height="100%" x="0" y="200" y_offset="get:skin_settings.controlbar_overlap" accuracy="1" bgalpha="get:skin_settings.design_scroll_bgalpha" bgcolor="get:skin_settings.design_bgcolor" bgborder="get:skin_settings.design_bgborder" bgroundedge="get:skin_settings.design_bgroundedge" bgshadow="get:skin_settings.design_scroll_bgshadow">
+			<layer name="skin_scroll_layer" type="container" align="bottom" width="get:skin_settings.controlbar_width" height="100%" x="0" y="200" y_offset="get:skin_settings.controlbar_overlap" accuracy="1" bgalpha="get:skin_settings.design_bgalpha" bgcolor="get:skin_settings.design_bgcolor" bgborder="get:skin_settings.design_bgborder" bgroundedge="get:skin_settings.design_bgroundedge" bgshadow="get:skin_settings.design_bgshadow">
 				<layer name="skin_title" type="text" align="lefttop" edge="leftbottom" x="4" y="0" zorder="4" enabled="false" bg="false" css="calc:skin_settings.design_text_css + ' text-align:left; font-style:italic; font-size:12px;'" txtshadow="get:skin_settings.design_text_txtshadow" visible="false" onautosized="skin_video_updateseekbarwidth();" />
 				<layer name="skin_video_controls" type="container" align="lefttop" edge="leftbottom" width="100%" height="18" visible="false">
 					<layer name="skin_video_seekbar_container" type="container" align="lefttop" width="100%" height="100%" bgcapture="true" ondown="skin_video_ondownseeking();" >
@@ -388,7 +397,7 @@
 						<layer name="skin_thumbs_scrollleft"  style="skin_base|skin_glow" crop="0|64|64|64"  align="lefttop"  edge="left"  x="5" y="50" scale="0.5" zorder="2" alpha="1.0" ondown="asyncloop(pressed, layer[skin_thumbs].scrollby(+2,0));" visible="false" />
 						<layer name="skin_thumbs_scrollright" style="skin_base|skin_glow" crop="64|64|64|64" align="righttop" edge="right" x="5" y="50" scale="0.5" zorder="2" alpha="1.0" ondown="asyncloop(pressed, layer[skin_thumbs].scrollby(-2,0));" visible="false" />
 						<layer name="skin_thumbs_scrollindicator" type="container" bgcolor="0xFFFFFF" bgalpha="0.25" align="lefttop" width="0" y="100" height="2" visible="false" enabled="false" />
-						<layer name="skin_thumbs" state="closed" type="scrollarea" direction="h" align="top" width="100%" height="100" zorder="1" bgcolor="get:skin_settings.design_bgcolor" bgalpha="get:skin_settings.design_bgalpha" bgroundedge="get:skin_settings.thumbs_bgroundedge" onloaded="skin_updatethumbsview(false);" onscroll="skin_updatethumbscroll();" />
+						<layer name="skin_thumbs" state="closed" type="scrollarea" direction="h" align="top" width="100%" height="100" zorder="1" onloaded="skin_updatethumbsview(false);" onscroll="skin_updatethumbscroll();" />
 					</layer>
 					<layer name="skin_map_container" type="container" align="leftop" width="100%" height="100%" bgroundedge="get:skin_settings.design_bgroundedge" maskchildren="true">
 						<layer name="skin_map" state="closed" url="" visible="false" align="lefttop" width="100%" height="50%" x="0" y="0" zorder="1" lat="0" lng="0" zoom="10" bgalpha="0" maptype="satellite" onmapready="skin_addmapspots();">
@@ -409,25 +418,25 @@
 
 		<layer name="skin_control_bar" type="container" align="bottom" width="get:skin_settings.controlbar_width" height="calc:skin_settings.controlbar_height" x="0" y="get:skin_settings.controlbar_offset" onloaded="skin_calc_opened_closed();" zorder="3">
 			<layer name="skin_control_bar_buttons" type="container" align="leftbottom" width="100%" height="get:skin_settings.controlbar_height">
-				<layer name="skin_btn_prev"      style="skin_icon|skin_glow" url="icon/arrow-left.svg"  align="left"        x="5"    y="0"  alpha="0.5"  onclick="if(skin_settings.thumbs_loop, skin_nextscene_loop(-1), skin_nextscene(-1) );" />
-				<layer name="skin_btn_thumbs"    style="skin_icon|skin_glow" url="icon/filter.svg"      align="left"        x="50"   y="0"  ondown="skin_showmap(false); skin_showthumbs();" />
-				<layer name="skin_btn_map"       style="skin_icon|skin_glow" url="icon/hotpot.svg"      align="left"        x="90"   y="0"  ondown="skin_showthumbs(false); skin_showmap();" visible="false" />
+				<layer name="skin_btn_prev"      style="skin_base|skin_glow" crop="0|64|64|64"   align="left"        x="5"    y="0"  scale="0.5" alpha="0.5"  onclick="if(skin_settings.thumbs_loop, skin_nextscene_loop(-1), skin_nextscene(-1) );" />
+				<layer name="skin_btn_thumbs"    style="skin_base|skin_glow" crop="0|128|64|64"  align="left"        x="50"   y="0"  scale="0.5" ondown="skin_showmap(false); skin_showthumbs();" />
+				<layer name="skin_btn_map"       style="skin_base|skin_glow" crop="64|128|64|64" align="left"        x="90"   y="0"  scale="0.5" ondown="skin_showthumbs(false); skin_showmap();" visible="false" />
 				<layer name="skin_btn_navi" type="container" align="center" x="0" width="240" height="32">
-					<layer name="skin_btn_left"  style="skin_icon|skin_glow" url="icon/arrow-left.svg"  align="center"      x="-100" y="0"  ondown="set(hlookat_moveforce,-1);" onup="set(hlookat_moveforce,0);" />
-					<layer name="skin_btn_right" style="skin_icon|skin_glow" url="icon/arrow-right.svg" align="center"      x="-60"  y="0"  ondown="set(hlookat_moveforce,+1);" onup="set(hlookat_moveforce,0);" />
-					<layer name="skin_btn_up"    style="skin_icon|skin_glow" url="icon/arrow-up.svg"    align="center"      x="-20"  y="0"  ondown="set(vlookat_moveforce,-1);" onup="set(vlookat_moveforce,0);" />
-					<layer name="skin_btn_down"  style="skin_icon|skin_glow" url="icon/arrow-down.svg"  align="center"      x="+20"  y="0"  ondown="set(vlookat_moveforce,+1);" onup="set(vlookat_moveforce,0);" />
-					<layer name="skin_btn_in"    style="skin_icon|skin_glow" url="icon/plus.svg"        align="center"      x="+60"  y="0"  ondown="set(fov_moveforce,-1);"     onup="set(fov_moveforce,0);" />
-					<layer name="skin_btn_out"   style="skin_icon|skin_glow" url="icon/minus.svg"       align="center"      x="+100" y="0"  ondown="set(fov_moveforce,+1);"     onup="set(fov_moveforce,0);" />
+					<layer name="skin_btn_left"  style="skin_base|skin_glow" crop="0|192|64|64"  align="center"      x="-100" y="0"  scale="0.5" ondown="set(hlookat_moveforce,-1);" onup="set(hlookat_moveforce,0);" />
+					<layer name="skin_btn_right" style="skin_base|skin_glow" crop="64|192|64|64" align="center"      x="-60"  y="0"  scale="0.5" ondown="set(hlookat_moveforce,+1);" onup="set(hlookat_moveforce,0);" />
+					<layer name="skin_btn_up"    style="skin_base|skin_glow" crop="0|256|64|64"  align="center"      x="-20"  y="0"  scale="0.5" ondown="set(vlookat_moveforce,-1);" onup="set(vlookat_moveforce,0);" />
+					<layer name="skin_btn_down"  style="skin_base|skin_glow" crop="64|256|64|64" align="center"      x="+20"  y="0"  scale="0.5" ondown="set(vlookat_moveforce,+1);" onup="set(vlookat_moveforce,0);" />
+					<layer name="skin_btn_in"    style="skin_base|skin_glow" crop="0|320|64|64"  align="center"      x="+60"  y="0"  scale="0.5" ondown="set(fov_moveforce,-1);"     onup="set(fov_moveforce,0);" />
+					<layer name="skin_btn_out"   style="skin_base|skin_glow" crop="64|320|64|64" align="center"      x="+100" y="0"  scale="0.5" ondown="set(fov_moveforce,+1);"     onup="set(fov_moveforce,0);" />
 				</layer>
-				<layer name="skin_btn_gyro"      style="skin_icon|skin_glow" url="icon/zoom.svg"        align="center"      x="+140" y="0"  onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false));" visible="false" />
-				<layer name="skin_btn_vr"        style="skin_glow" url="icon/vr.svg" width="32" height="32" scale="1" align="center"      x="+146" y="0"  onclick="webvr.enterVR();" visible="false" />
-				<layer name="skin_btn_fs"        style="skin_icon|skin_glow" url="icon/zoom.svg"        align="right"       x="90"   y="0"  onclick="switch(fullscreen);" devices="fullscreensupport" />
-				<layer name="skin_btn_hide"      style="skin_icon|skin_glow" url="icon/arrow-down.svg"  align="right"       x="50"   y="0"  onclick="skin_hideskin()" />
+				<layer name="skin_btn_gyro"      style="skin_base|skin_glow" crop="0|384|64|64"  align="center"      x="+140" y="0"  scale="0.5" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false));" visible="false" />
+				<layer name="skin_btn_vr"        style="skin_base|skin_glow" crop="0|0|80|64"    align="center"      x="+146" y="0"  scale="0.5" onclick="webvr.enterVR();" visible="false" />
+				<layer name="skin_btn_fs"        style="skin_base|skin_glow" crop="0|576|64|64"  align="right"       x="90"   y="0"  scale="0.5" onclick="switch(fullscreen);" devices="fullscreensupport" />
+				<layer name="skin_btn_hide"      style="skin_base|skin_glow" crop="0|448|64|64"  align="right"       x="50"   y="0"  scale="0.5" onclick="skin_hideskin()" />
 				<layer name="skin_btn_show" type="container" bgcapture="true" align="bottom" width="100%" height="get:skin_settings.controlbar_height" y="calc:skin_settings.controlbar_height - skin_settings.controlbar_offset_closed" onclick="skin_showskin()" onhover="tween(alpha,1.0);" onout="tween(alpha,0.25);" ondown.touch="onhover();" onup.touch="onout();" visible="false" capture="false" alpha="0.0">
-					<layer name="skin_btn_show_icon" style="skin_icon" url="icon/arrow-up.svg" align="bottom" y="2" enabled="false" />
+					<layer name="skin_btn_show_icon" style="skin_base" crop="64|448|64|64" scale="0.5" align="bottom" y="2" enabled="false" />
 				</layer>
-				<layer name="skin_btn_next"      style="skin_icon|skin_glow" url="icon/arrow-right.svg" align="right"       x="5"    y="0"   alpha="0.5"  onclick="if(skin_settings.thumbs_loop, skin_nextscene_loop(+1), skin_nextscene(+1) );" />
+				<layer name="skin_btn_next"      style="skin_base|skin_glow" crop="64|64|64|64"  align="right"       x="5"    y="0"   scale="0.5" alpha="0.5"  onclick="if(skin_settings.thumbs_loop, skin_nextscene_loop(+1), skin_nextscene(+1) );" />
 				</layer>
 			</layer>
 
@@ -438,10 +447,10 @@
 
 	<!-- previous/next scene buttons for the hidden skin mode -->
 	<layer name="skin_btn_prev_fs" keep="true" type="container" align="lefttop"  x="-50" width="40" height="100%" bgcapture="true" alpha="0.0" enabled="false" capture="false" zorder="2" onclick="skin_nextscene_loop(-1);" onhover="tween(alpha,1.0);" onout="tween(alpha,0.25);" ondown.touch="onhover();" onup.touch="onout();">
-		<layer name="skin_btn_prev_fs_icon" style="skin_icon" url="icon/arrow-left.svg" align="center" enabled="false" />
+		<layer name="skin_btn_prev_fs_icon" style="skin_base" crop="0|64|64|64"  align="center" scale="0.5" enabled="false" />
 	</layer>
 	<layer name="skin_btn_next_fs" keep="true" type="container" align="righttop" x="-50" width="40" height="100%" bgcapture="true" alpha="0.0" enabled="false" capture="false" zorder="2" onclick="skin_nextscene_loop(+1);" onhover="tween(alpha,1.0);" onout="tween(alpha,0.25);" ondown.touch="onhover();" onup.touch="onout();">
-		<layer name="skin_btn_next_fs_icon" style="skin_icon" url="icon/arrow-right.svg" align="center" enabled="false" />
+		<layer name="skin_btn_next_fs_icon" style="skin_base" crop="64|64|64|64" align="center" scale="0.5" enabled="false" />
 	</layer>
 
 
@@ -473,6 +482,8 @@
 	        onloadcomplete="skin_showloading(false);"
 	        onidle="skin_deeplinking_update_url();"
 	        onresize="skin_onresize();"
+	        onenterfullscreen.fullscreensupport="set(layer[skin_btn_fs].crop, '64|576|64|64');"
+	        onexitfullscreen.fullscreensupport="set(layer[skin_btn_fs].crop, '0|576|64|64');"
 	        onkeydown="skin_keydown_event();"
 	        />
 
@@ -527,7 +538,6 @@
 		skin_addthumbs();
 		skin_onresize();
 		skin_updatethumbsview(false);
-		skin_update_thumbborder();
 
 		set(layer[skin_layer].visible, true);
 	</action>
@@ -577,8 +587,7 @@
 			calc(thumbxoffset, thumbwidth + thumbpadding);
 			calc(thumbxcenter, thumbxoffset * 0.5);
 			calc(thumbbarwidth, thumbxoffset * thumbcount + thumbpadding);
-			calc(thumbtextheight, skin_settings.thumbs_text ? skin_settings.thumbs_textheight : 0);
-			calc(thumbbarheight, thumbpadding + thumbheight + thumbtextheight + thumbpadding);
+			calc(thumbbarheight, thumbpadding + thumbheight + thumbpadding);
 
 			if(skin_settings.thumbs_scrollindicator,
 				copy(layer[skin_thumbs_scrollindicator].y, thumbbarheight);
@@ -607,7 +616,6 @@
 					height=get(thumbheight),
 					x=calc(thumbpadding + i*thumbxoffset),
 					y=get(thumbpadding),
-					bgroundedge=get(skin_settings.thumbs_bgroundedge),
 					linkedscene=get(currentscene.name),
 					onclick='copy(layer[skin_thumbborder].parent, name); skin_loadscene(get(linkedscene),get(skin_settings.loadscene_blend));'
 				);
@@ -626,16 +634,7 @@
 					calc(thumbtext, 'skin_thumbtext_' + i);
 					addlayer(get(thumbtext));
 					layer[get(thumbtext)].loadstyle(skin_thumbtext_style);
-					set(layer[get(thumbtext)],
-						keep=true,
-						parent='skin_thumbs',
-						align='lefttop',
-						width=get(thumbwidth),
-						height=get(thumbtextheight),
-						x=calc(thumbpadding + i*thumbxoffset),
-						y=calc(thumbpadding + thumbheight),
-						html=get(currentscene.title)
-					);
+					set(layer[get(thumbtext)], keep=true, parent=get(thumbname), html=get(currentscene.title) );
 				);
 			);
 			
@@ -726,7 +725,7 @@
 
 	<action name="skin_onresize" scope="local">
 		mul(mh, area.pixelheight, -1);
-		if(layer[skin_thumbs].state == 'opened', add(mh,layer[skin_thumbs].height); add(mh,skin_settings.thumbs_controlbar_gap); );
+		if(layer[skin_thumbs].state == 'opened', add(mh,layer[skin_thumbs].height); );
 		if(layer[skin_map].state    == 'opened', sub(hh,area.pixelheight,skin_settings.controlbar_offset); sub(hh,layer[skin_control_bar].height); sub(hh,32); add(mh,hh); add(mh,skin_settings.controlbar_overlap); sub(mh, layer[skin_scroll_layer].y_offset); copy(layer[skin_map].height, hh); );
 		add(mh, layer[skin_scroll_layer].y_offset);
 		set(layer[skin_scroll_layer].y, get(mh));
@@ -744,7 +743,6 @@
 		calc(show_gyrobutton, plugin[skin_gyro].isavailable == true AND (view.vlookatrange == 180 OR global.lpinfo.scene === xml.scene));
 		calc(show_vrbutton,   webvr.isavailable == true);
 		calc(show_fsbutton,   device.fullscreensupport == true);
-		calc(show_hidebutton, skin_settings.controlbar_hidebutton !== false);
 
 		set(lpos,6);
 		set(cpos,0);
@@ -793,9 +791,8 @@
 			if(show_vrbutton, inc(lpos,80));
 		);
 
-		copy(layer[skin_btn_hide].visible, show_hidebutton);
 		copy(layer[skin_btn_hide].x, rpos);
-		if(show_hidebutton, inc(rpos,40));
+		inc(rpos,40);
 
 		copy(layer[skin_btn_fs].visible, show_fsbutton);
 		copy(layer[skin_btn_fs].x, rpos);
@@ -807,17 +804,11 @@
 		if(layer[skin_thumbs].loaded,
 			set(cursceneindex, 0);
 			if(xml.scene, copy(cursceneindex, scene[get(xml.scene)].index));
-		);
-	</action>
-
-	<action name="skin_update_thumbborder" scope="local">
-		set(cursceneindex, 0);
-		if(xml.scene, copy(cursceneindex, scene[get(xml.scene)].index));
-		calc(parentname, 'skin_thumb_' + scene[get(cursceneindex)].thumbindex);
-		if(scene[get(cursceneindex)].thumburl AND scene[get(cursceneindex)].skipthumb != true AND layer[get(parentname)],
-			set(layer[skin_thumbborder], parent=get(parentname), visible=true);
-		  ,
-			set(layer[skin_thumbborder].visible, false);
+			if(scroll == false,
+				layer[skin_thumbs].setcenter(get(scene[get(cursceneindex)].thumbx), get(scene[get(cursceneindex)].thumby));
+			  ,
+				layer[skin_thumbs].scrolltocenter(get(scene[get(cursceneindex)].thumbx), get(scene[get(cursceneindex)].thumby));
+			);
 		);
 	</action>
 
@@ -979,35 +970,13 @@
 			set(layer[skin_thumbborder].visible, false);
 		);
 		
+		layer[skin_thumbs].scrolltocenter(get(scene[get(newscenenameorindex)].thumbx), get(scene[get(newscenenameorindex)].thumby));
+		
 		if(blendmode == null, 
 			blendmode = skin_settings.loadscene_blend;
 		);
 		
 		loadscene(get(scene[get(newscenenameorindex)].name), null, get(skin_settings.loadscene_flags), get(blendmode));
-	</action>
-
-	<action name="skin_rebuildthumbs" scope="local">
-		copy(wasopen, layer[skin_thumbs].state);
-		set(layer[skin_thumbborder], parent=null, visible=false);
-		calc(i,layer.count-1);
-		loop(i GE 0,
-			if(indexof(layer[get(i)].name, 'skin_thumb_') == 0 OR indexof(layer[get(i)].name, 'skin_thumbtext_') == 0,
-				removelayer(get(i),true);
-			);
-			dec(i);
-		);
-
-		skin_addthumbs();
-		skin_updatethumbsview(false);
-		skin_update_thumbborder();
-
-		if(wasopen == 'opened',
-			set(layer[skin_thumbs_container].visible, true);
-			set(layer[skin_thumbs_container].alpha, 1.0);
-			set(layer[skin_thumbs].state, 'opened');
-			set(layer[skin_thumbs].alpha, 1.0);
-			set(layer[skin_scroll_layer].y, calc(-area.pixelheight + layer[skin_thumbs].height + skin_settings.thumbs_controlbar_gap + layer[skin_scroll_layer].y_offset));
-		);
 	</action>
 
 	
@@ -1035,6 +1004,7 @@
 		skin_addthumbs();
 		
 		set(layer[skin_thumbborder], parent=calc('skin_thumb_' + scene[get(xml.scene)].index), visible=true);
+		layer[skin_thumbs].setcenter(get(scene[get(xml.scene)].thumbx), get(scene[get(xml.scene)].thumby));
 	</action>
 
 	<action name="skin_showloading" scope="private:SKINLOADINGCHECK" args="state">
@@ -1131,7 +1101,7 @@
 		if(show,
 			set(layer[skin_thumbs].state, 'opened');
 			tween(layer[skin_thumbs].alpha, 1.0, 0.25);
-			tween(layer[skin_scroll_layer].y, calc(-area.pixelheight + layer[skin_thumbs].height + skin_settings.thumbs_controlbar_gap + layer[skin_scroll_layer].y_offset), 0.5, easeOutQuint);
+			tween(layer[skin_scroll_layer].y, calc(-area.pixelheight + layer[skin_thumbs].height + layer[skin_scroll_layer].y_offset), 0.5, easeOutQuint);
 			set(layer[skin_thumbs_container].visible, true);
 			tween(layer[skin_thumbs_container].alpha, 1.0, 0.25);
 			tween(layer[skin_map].alpha, 0.0, 0.25, default, set(layer[skin_map].visible,false));

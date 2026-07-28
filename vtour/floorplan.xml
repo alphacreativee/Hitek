@@ -1,6 +1,6 @@
-<krpano version="1.24" title="Floor Plan Virtual Tour">
+﻿<krpano version="1.24" title="Floor Plan Virtual Tour">
 
-	<include url="skin/vtourskin.xml?v=active-scene-2" />
+	<include url="skin/vtourskin.xml?v=active-scene-5" />
 
 	<skin_settings maps="false"
 	               maps_type="openstreetmaps"
@@ -49,7 +49,7 @@
 	               controlbar_overlap.fractionalscaling="0"
 	               controlbar_hidebutton="false"
 	               design_skin_images="vtourskin_light.png"
-	               design_bgcolor="0x2D3E50"
+	               design_bgcolor="0x1f4f4b"
 	               design_bgalpha="0.8"
 	               design_bgborder="0"
 	               design_bgroundedge="18"
@@ -72,15 +72,62 @@
 		<image>
 			<cube url="panos/360_View01_Mat_Tien.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
+
+		<hotspot name="spot2074029004" style="skin_hotspotstyle" ath="-0.388" atv="11.721" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_1_front" linkedscene_hoffset="0.0" use3dtransition="false" />
 	</scene>
 
-	<scene name="scene_floorplan_villa_c_floor_2" title="Villa C Floor 2" onstart="" thumburl="panos/360_View02_Phong_khach.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_floorplan_villa_c_floor_1_front" title="Villa C Floor 1 - Tien sanh" onstart="" thumburl="panos/360_View09_Tien_sanh.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_View09_Tien_sanh.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_View09_Tien_sanh.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+		<hotspot name="spot2074040606" style="skin_hotspotstyle" ath="-21.261" atv="6.438" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_1_living" linkedscene_hoffset="0.0" use3dtransition="false" />
+		<hotspot name="spot2074096772" style="skin_hotspotstyle" ath="-178.957" atv="16.716" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_1" linkedscene_hoffset="0.0" use3dtransition="false" />
+	</scene>
+
+	<scene name="scene_floorplan_villa_c_floor_1_living" title="Villa C Floor 1 - Phong khach" onstart="" thumburl="panos/360_View02_Phong_khach.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		<control bouncinglimits="calc:image.cube ? true : false" />
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/360_View02_Phong_khach.tiles/preview.jpg" />
 		<image>
 			<cube url="panos/360_View02_Phong_khach.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
+
+		<hotspot name="spot2074096542" style="skin_hotspotstyle" ath="16.876" atv="16.873" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_1_front" linkedscene_hoffset="0.0" use3dtransition="false" />
+	</scene>
+
+	<scene name="scene_floorplan_villa_c_floor_2" title="Villa C Floor 2 - Phong master" onstart="" thumburl="panos/360_View04_Phong_master.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_View04_Phong_master.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_View04_Phong_master.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+		<hotspot name="spot2074042902" style="skin_hotspotstyle" ath="5.539" atv="18.724" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_2_bed" linkedscene_hoffset="0.0" use3dtransition="false" />
+	</scene>
+
+	<scene name="scene_floorplan_villa_c_floor_2_bed" title="Villa C Floor 2 - Phong ngu" onstart="" thumburl="panos/360_View06_Phong_ngu_tang_2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_View06_Phong_ngu_tang_2.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_View06_Phong_ngu_tang_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+	</scene>
+
+	<scene name="scene_floorplan_villa_c_floor_2_balcony" title="Villa C Floor 2 - Ban cong" onstart="" thumburl="panos/360_View10_Ban_cong_tang_2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_View10_Ban_cong_tang_2.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_View10_Ban_cong_tang_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+		<hotspot name="spot2074097847" style="skin_hotspotstyle" ath="178.444" atv="33.193" depth="1000.0" linkedscene="scene_floorplan_villa_d_floor_1" linkedscene_hoffset="0.0" use3dtransition="false" />
 	</scene>
 
 	<scene name="scene_floorplan_villa_d_floor_1" title="Villa D Floor 1" onstart="" thumburl="panos/360_View04_Phong_master.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
@@ -90,6 +137,8 @@
 		<image>
 			<cube url="panos/360_View04_Phong_master.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
+
+		<hotspot name="spot2074098297" style="skin_hotspotstyle" ath="6.566" atv="26.293" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_2_balcony" linkedscene_hoffset="0.0" use3dtransition="false" />
 	</scene>
 
 	<scene name="scene_floorplan_villa_d_floor_2" title="Villa D Floor 2" onstart="" thumburl="panos/360_VIew03_Phong_master_WC.tiles/thumb.jpg" lat="" lng="" alt="" heading="">

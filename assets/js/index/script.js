@@ -108,7 +108,7 @@ function sectionOverview() {
 
     embedpano({
       target: vtourEl.id,
-      xml: "./vtour/tour.xml",
+      xml: "./vtour/overview.xml?v=overview-1",
       html5: "only",
       mobilescale: 1,
       passQueryParameters: false,

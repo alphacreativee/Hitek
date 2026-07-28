@@ -1685,47 +1685,10 @@ button.aloading::after {
 .floor-plan-page__plan-open {
   right: 10px;
 }
-.floor-plan-page__filter-open::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 10px;
-  height: 10px;
-  border: 2px solid #0c4a52;
-  border-radius: 50%;
-}
-.floor-plan-page__filter-open::after {
-  content: "";
-  position: absolute;
-  right: 6px;
-  bottom: 6px;
-  width: 7px;
-  height: 2px;
-  background-color: #0c4a52;
-  transform: rotate(45deg);
-  transform-origin: center;
-}
-.floor-plan-page__plan-open::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 7px;
-  width: 12px;
-  height: 14px;
-  border: 1px solid #0c4a52;
-  border-radius: 2px;
-}
-.floor-plan-page__plan-open::after {
-  content: "";
-  position: absolute;
-  top: 11px;
-  left: 12px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: #dfa95f;
-  box-shadow: -3px -3px 0 -1px #6d9695, 3px 4px 0 -1px #6d9695;
+.floor-plan-page__plan-open img {
+  width: 24px;
+  height: 24px;
+  margin: auto;
 }
 .floor-plan-page__filter-content {
   display: flex;
@@ -1828,18 +1791,52 @@ button.aloading::after {
 }
 .floor-plan-page__marker {
   position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  transform: translate(-50%, -50%);
+  --floorplan-radar-angle: 0deg;
+}
+.floor-plan-page__marker::before, .floor-plan-page__marker::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.floor-plan-page__marker::before {
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: conic-gradient(from -45deg, #1f4f4b 0deg 1deg, rgba(31, 79, 75, 0.6) 1deg 89deg, #1f4f4b 89deg 91deg, rgba(31, 79, 75, 0) 91deg 360deg);
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--floorplan-radar-angle));
+  transform-origin: center;
+  transition: opacity 0.2s ease;
+}
+.floor-plan-page__marker::after {
+  top: 50%;
+  left: 50%;
   width: 17px;
   height: 17px;
-  border: 3px solid #ffffff;
+  border: 1px solid #ffffff;
   border-radius: 50%;
   background-color: #6d9695;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
   transform: translate(-50%, -50%);
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.floor-plan-page__marker.active, .floor-plan-page__marker:hover {
+.floor-plan-page__marker.active::before {
+  opacity: 1;
+}
+.floor-plan-page__marker.active::after, .floor-plan-page__marker:hover::after {
   background-color: #dfa95f;
   transform: translate(-50%, -50%) scale(1.12);
+}
+.floor-plan-page__marker.active::after {
+  animation: floorplan-marker-pulse 1.2s ease-in-out infinite;
 }
 .floor-plan-page.is-plan-collapsed .floor-plan-page__plan {
   clip-path: inset(0 0 calc(100% - 46px) calc(100% - 46px) round 12px);
@@ -1875,5 +1872,14 @@ button.aloading::after {
     bottom: 70px;
     width: 164px;
     padding: 42px 14px 18px;
+  }
+}
+
+@keyframes floorplan-marker-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.28);
   }
 }
