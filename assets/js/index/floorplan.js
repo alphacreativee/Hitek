@@ -92,7 +92,7 @@ function floorPlan() {
     },
     D: {
       1: {
-        scene: "scene_floorplan_villa_d_floor_1",
+        scene: "scene_260619_vr360_villad1_11_v01",
         image: "./assets/images/floorplan/D/Villa_D_F1.png",
         markers: [
           {
@@ -100,55 +100,62 @@ function floorPlan() {
             x: 50,
             y: 90,
             radar: 0,
-            scene: "scene_floorplan_villa_d_floor_1"
+            scene: "scene_260619_vr360_villad1_11_v01" // 260619_VR360_VillaD1.11_V01
           },
           {
             id: "d-1-lounge",
-            x: 78,
-            y: 42,
+            x: 50.67,
+            y: 68.42,
             radar: 0,
-            scene: "scene_floorplan_villa_d_floor_2"
+            scene: "scene_260619_vr360_villad1_11_v03" // 260619_VR360_VillaD1.11_V03
           },
           {
             id: "d-1-garden",
-            x: 22,
-            y: 55,
+            x: 41.67,
+            y: 58.05,
             radar: 0,
-            scene: "scene_floorplan_villa_d_floor_1"
+            scene: "scene_260619_vr360_villad1_11_v07" // 260619_VR360_VillaD1.11_V07
+          },
+          {
+            id: "d-1-8",
+            x: 37.67,
+            y: 49.57,
+            radar: 0,
+            scene: "scene_260619_vr360_villad1_11_v08" // 260619_VR360_VillaD1.11_V08
           }
         ]
       },
       2: {
-        scene: "scene_floorplan_villa_d_floor_2",
+        scene: "scene_260619_vr360_villad1_11_v14",
         image: "./assets/images/floorplan/D/Villa_D_F2.png",
         markers: [
           {
             id: "d-2-master",
-            x: 26,
-            y: 22,
+            x: 51.33,
+            y: 68.66,
             radar: 0,
-            scene: "scene_floorplan_villa_d_floor_2"
+            scene: "scene_260619_vr360_villad1_11_v14" // 260619_VR360_VillaD1.11_V14
           },
           {
             id: "d-2-bath",
-            x: 74,
-            y: 50,
+            x: 41.33,
+            y: 78.32,
             radar: 0,
-            scene: "scene_floorplan_villa_d_floor_2"
+            scene: "scene_260619_vr360_villad1_11_v15" // 260619_VR360_VillaD1.11_V15
           },
           {
             id: "d-2-balcony",
-            x: 26,
-            y: 76,
+            x: 37.33,
+            y: 61.59,
             radar: 0,
-            scene: "scene_floorplan_villa_d_floor_1"
+            scene: "scene_260619_vr360_villad1_11_v16" // 260619_VR360_VillaD1.11_V16
           }
         ]
       }
     },
     F: {
       1: {
-        scene: "scene_floorplan_villa_f_floor_1",
+        scene: "scene_360_villaf_view11_lanscape_truoc_nha_copy",
         image: "./assets/images/floorplan/F/Villa_F_F1.png",
         markers: [
           {
@@ -156,48 +163,48 @@ function floorPlan() {
             x: 50,
             y: 90,
             radar: 0,
-            scene: "scene_floorplan_villa_f_floor_1"
+            scene: "scene_360_villaf_view11_lanscape_truoc_nha_copy" // 360_VillaF_View11_Lanscape truoc nha copy
           },
           {
             id: "f-1-pool",
-            x: 78,
-            y: 42,
+            x: 35,
+            y: 52.87,
             radar: 0,
-            scene: "scene_floorplan_villa_f_floor_2"
+            scene: "scene_360_villaf_view05_phong_bep_copy" // 360_VillaF_View05_Phong Bep copy
           },
           {
             id: "f-1-dining",
-            x: 22,
-            y: 55,
+            x: 39.67,
+            y: 34.48,
             radar: 0,
-            scene: "scene_floorplan_villa_f_floor_1"
+            scene: "scene_360_villaf_view04_phong_khach_copy" // 360_VillaF_View04_Phong Khach copy
+          },
+          {
+            id: "f-1-gym",
+            x: 66.33,
+            y: 78.32,
+            radar: 0,
+            scene: "scene_360_villaf_view12_p_gym_copy" // 360_VillaF_View12_P gym copy
           }
         ]
       },
       2: {
-        scene: "scene_floorplan_villa_f_floor_2",
+        scene: "scene_360_villaf_view18_pngu_tang2_2",
         image: "./assets/images/floorplan/F/Villa_F_F2.png",
         markers: [
           {
             id: "f-2-master",
-            x: 74,
-            y: 22,
+            x: 68.33,
+            y: 54.75,
             radar: 0,
-            scene: "scene_floorplan_villa_f_floor_2"
+            scene: "scene_360_villaf_view18_pngu_tang2_2" // 360_VillaF_View18_Pngu_Tang2_2
           },
           {
             id: "f-2-family",
-            x: 26,
-            y: 50,
+            x: 53,
+            y: 64.41,
             radar: 0,
-            scene: "scene_floorplan_villa_f_floor_1"
-          },
-          {
-            id: "f-2-view",
-            x: 74,
-            y: 76,
-            radar: 0,
-            scene: "scene_floorplan_villa_f_floor_2"
+            scene: "scene_360_villaf_view19_p_family_room_tang2" // 360_VillaF_View19_P Family room_Tang2
           }
         ]
       }
@@ -210,6 +217,7 @@ function floorPlan() {
   let filterTimer = null;
   let sceneActivationTimer = null;
   let radarFrame = null;
+  let galleryVilla = null;
 
   const getVillaData = (villa) =>
     floorplanData[villa] || floorplanData[defaultState.villa];
@@ -349,9 +357,6 @@ function floorPlan() {
     krpano.set("layer[skin_thumbborder].bgborder", "3 0xFFFFFF 1.0");
     krpano.set("layer[skin_thumbborder].bgroundedge", 4);
     krpano.set("layer[skin_thumbborder].visible", true);
-    krpano.call(
-      `layer[skin_thumbs].scrolltocenter(get(scene[${sceneName}].thumbx), get(scene[${sceneName}].thumby));`
-    );
   }
 
   function updateRadarAngle() {
@@ -421,8 +426,28 @@ function floorPlan() {
     }, 300);
   }
 
-  function syncGalleryThumbs() {
+  function rebuildControlThumbs() {
     if (!krpano) return;
+
+    krpano.set("layer[skin_thumbborder].parent", null);
+    krpano.set("layer[skin_thumbborder].visible", false);
+
+    const layerCount = parseInt(krpano.get("layer.count"), 10) || 0;
+    for (let index = layerCount - 1; index >= 0; index -= 1) {
+      const layerName = krpano.get(`layer[${index}].name`);
+      if (layerName && layerName.indexOf("skin_thumb_") === 0) {
+        krpano.call(`removelayer(${layerName}, true);`);
+      }
+    }
+
+    krpano.call(
+      "skin_addthumbs(); skin_onresize(); skin_updatethumbsview(false);"
+    );
+  }
+
+  function syncGalleryThumbs({ force = false } = {}) {
+    if (!krpano) return;
+    if (!force && galleryVilla === state.villa) return;
 
     const activeScenes = new Set();
     Object.values(getVillaData(state.villa)).forEach((floorData) => {
@@ -447,7 +472,8 @@ function floorPlan() {
       });
     });
 
-    krpano.call("skin_rebuildthumbs();");
+    rebuildControlThumbs();
+    galleryVilla = state.villa;
   }
 
   function syncFloorplanFromScene(sceneName) {
@@ -500,7 +526,7 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: "./vtour/floorplan.xml?v=floorplan-scenes-6",
+      xml: "./vtour/floorplan.xml?v=floorplan-scenes-11",
       html5: "only",
       mobilescale: 1,
       vars: {
@@ -535,7 +561,7 @@ function floorPlan() {
 
   $page.on("click", "[data-floorplan-villa]", function () {
     state.villa = normalizeVilla($(this).data("floorplanVilla"));
-    state.floor = normalizeFloor(state.villa, state.floor);
+    state.floor = normalizeFloor(state.villa, defaultState.floor);
     activeMarkerId = null;
     applyState();
   });

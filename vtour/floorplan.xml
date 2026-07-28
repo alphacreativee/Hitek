@@ -1,6 +1,6 @@
 <krpano version="1.24" title="Floor Plan Virtual Tour">
 
-	<include url="skin/vtourskin.xml?v=active-scene-5" />
+	<include url="skin/vtourskin.xml?v=active-scene-6" />
 
 	<skin_settings maps="false"
 	               maps_type="openstreetmaps"
@@ -171,44 +171,123 @@
 			<cube url="panos/360_View10_Ban_cong_tang_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
 
-		<hotspot name="spot2074097847" style="floorplan_hotspotstyle" ath="178.444" atv="33.193" depth="1000.0" linkedscene="scene_floorplan_villa_d_floor_1" linkedscene_hoffset="0.0" use3dtransition="false" />
+		<hotspot name="spot2074097847" style="floorplan_hotspotstyle" ath="178.444" atv="33.193" depth="1000.0" linkedscene="scene_260619_vr360_villad1_11_v01" linkedscene_hoffset="0.0" use3dtransition="false" />
 	</scene>
 
-	<scene name="scene_floorplan_villa_d_floor_1" title="Villa D Floor 1" onstart="" thumburl="panos/360_View04_Phong_master.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_260619_vr360_villad1_11_v01" title="Villa D - Cong Truoc" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V01.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		<control bouncinglimits="calc:image.cube ? true : false" />
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-		<preview url="panos/360_View04_Phong_master.tiles/preview.jpg" />
+		<preview url="panos/260619_VR360_VillaD1_11_V01.tiles/preview.jpg" />
 		<image>
-			<cube url="panos/360_View04_Phong_master.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
-		</image>
-
-		<hotspot name="spot2074098297" style="floorplan_hotspotstyle" ath="6.566" atv="26.293" depth="1000.0" linkedscene="scene_floorplan_villa_c_floor_2_balcony" linkedscene_hoffset="0.0" use3dtransition="false" />
-	</scene>
-
-	<scene name="scene_floorplan_villa_d_floor_2" title="Villa D Floor 2" onstart="" thumburl="panos/360_VIew03_Phong_master_WC.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
-		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-		<preview url="panos/360_VIew03_Phong_master_WC.tiles/preview.jpg" />
-		<image>
-			<cube url="panos/360_VIew03_Phong_master_WC.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/260619_VR360_VillaD1_11_V01.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
 		</image>
 	</scene>
 
-	<scene name="scene_floorplan_villa_f_floor_1" title="Villa F Floor 1" onstart="" thumburl="panos/360_View01_Mat_Tien.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_260619_vr360_villad1_11_v03" title="Villa D - Sanh" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V03.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		<control bouncinglimits="calc:image.cube ? true : false" />
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-		<preview url="panos/360_View01_Mat_Tien.tiles/preview.jpg" />
+		<preview url="panos/260619_VR360_VillaD1_11_V03.tiles/preview.jpg" />
 		<image>
-			<cube url="panos/360_View01_Mat_Tien.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/260619_VR360_VillaD1_11_V03.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
 		</image>
 	</scene>
 
-	<scene name="scene_floorplan_villa_f_floor_2" title="Villa F Floor 2" onstart="" thumburl="panos/360_View04_Phong_master.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_260619_vr360_villad1_11_v07" title="Villa D - Bep" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V07.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		<control bouncinglimits="calc:image.cube ? true : false" />
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-		<preview url="panos/360_View04_Phong_master.tiles/preview.jpg" />
+		<preview url="panos/260619_VR360_VillaD1_11_V07.tiles/preview.jpg" />
 		<image>
-			<cube url="panos/360_View04_Phong_master.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/260619_VR360_VillaD1_11_V07.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v08" title="Villa D - Phong Khach" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V08.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/260619_VR360_VillaD1_11_V08.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V08.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v14" title="Villa D Floor 2 - Cau Thang" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V14.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/260619_VR360_VillaD1_11_V14.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V14.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v15" title="Villa D Floor 2 - Phong Ngu" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V15.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/260619_VR360_VillaD1_11_V15.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V15.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v16" title="Villa D Floor 2 - Phong Tam" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V16.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/260619_VR360_VillaD1_11_V16.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V16.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+	</scene>
+
+	<scene name="scene_360_villaf_view11_lanscape_truoc_nha_copy" title="Villa F - Truoc Nha" onstart="" thumburl="panos/360_VillaF_View11_Lanscape_truoc_nha_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_VillaF_View11_Lanscape_truoc_nha_copy.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_VillaF_View11_Lanscape_truoc_nha_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+	</scene>
+
+	<scene name="scene_360_villaf_view05_phong_bep_copy" title="Villa F - Phong Bep" onstart="" thumburl="panos/360_VillaF_View05_Phong_Bep_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_VillaF_View05_Phong_Bep_copy.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_VillaF_View05_Phong_Bep_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+	</scene>
+
+	<scene name="scene_360_villaf_view04_phong_khach_copy" title="Villa F - Phong Khach" onstart="" thumburl="panos/360_VillaF_View04_Phong_Khach_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_VillaF_View04_Phong_Khach_copy.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_VillaF_View04_Phong_Khach_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+	</scene>
+
+	<scene name="scene_360_villaf_view12_p_gym_copy" title="Villa F - Phong Gym " onstart="" thumburl="panos/360_VillaF_View12_P_gym_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_VillaF_View12_P_gym_copy.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_VillaF_View12_P_gym_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+	</scene>
+
+	<scene name="scene_360_villaf_view18_pngu_tang2_2" title="Villa F Floor 2 - Phong Ngu" onstart="" thumburl="panos/360_VillaF_View18_Pngu_Tang2_2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_VillaF_View18_Pngu_Tang2_2.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_VillaF_View18_Pngu_Tang2_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+	</scene>
+
+	<scene name="scene_360_villaf_view19_p_family_room_tang2" title="Villa F Floor 2 - Family Room" onstart="" thumburl="panos/360_VillaF_View19_P_Family_room_Tang2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/360_VillaF_View19_P_Family_room_Tang2.tiles/preview.jpg" />
+		<image>
+			<cube url="panos/360_VillaF_View19_P_Family_room_Tang2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
 		</image>
 	</scene>
 
