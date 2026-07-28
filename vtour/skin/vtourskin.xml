@@ -272,7 +272,7 @@
 	<style name="skin_thumbtext_style" type="text" align="bottom" width="100%" y="5" enabled="false" bg="false" bgborder="false" css="calc:skin_settings.design_text_css + ' text-align:center; font-size:10px;'" txtshadow="get:skin_settings.design_text_txtshadow" />
 
 	<!-- skin_hotspotstyle - style for the hotspots -->
-	<style name="skin_hotspotstyle" url="icon/hotpot.svg" edge="top" distorted="true"
+	<style name="skin_hotspotstyle" url="vtourskin_hotspot.png" edge="top" distorted="true"
 	       tooltip=""
 	       linkedscene=""
 	       linkedscene_lookat=""
@@ -280,35 +280,16 @@
 	       use3dtransition="false"
 	       onclick="skin_hotspotstyle_click();"
 	       depth="1000"
-	       scale="1.0"
-	       onover.addevent="tween(scale,1.08);"
-	       onout.addevent="tween(scale,1.0);"
-	       onloaded.addevent="skin_hotspotstyle_setup(); skin_hotspotstyle_float();"
+	       scale="0.5"
+	       onover.addevent="tween(scale,0.55);"
+	       onout.addevent="tween(scale,0.5);"
+	       onloaded.addevent="skin_hotspotstyle_setup();"
 	       />
 
 	<action name="skin_hotspotstyle_setup" scope="local">
 		if(isvalue(caller.linkedscene) AND skin_settings.tooltips_hotspots,
 			copy(caller.tooltip, scene[get(caller.linkedscene)].title);
 			caller.loadstyle(skin_tooltips);
-		);
-	</action>
-
-	<action name="skin_hotspotstyle_float" scope="local">
-		copy(hs_float_name, caller.name);
-		set(caller.alpha, 1.0);
-		set(caller.oy, 0);
-		skin_hotspotstyle_float_step(get(hs_float_name), -10);
-	</action>
-
-	<action name="skin_hotspotstyle_float_step" scope="local" args="hsname, targetoy">
-		if(hotspot[get(hsname)],
-			tween(hotspot[get(hsname)].oy, get(targetoy), 0.8, easeInOutSine,
-				if(targetoy LT 0,
-					skin_hotspotstyle_float_step(get(hsname), 0);
-				  ,
-					skin_hotspotstyle_float_step(get(hsname), -10);
-				);
-			);
 		);
 	</action>
 
@@ -321,8 +302,10 @@
 				skin_scene3dtransition(get(hs_linkedscene),get(caller.linkedscene_hoffset));
 			  ,
 				if(caller.linkedscene_lookat, txtsplit(caller.linkedscene_lookat, ',', hs_lookat_h, hs_lookat_v, hs_lookat_fov); );
-				skin_loadscene(get(hs_linkedscene), get(skin_settings.loadscene_blend));
-				if(hs_lookat_h !== null, skin_lookat(get(hs_lookat_h), get(hs_lookat_v), get(hs_lookat_fov)); );
+				tween(caller.depth|caller.alpha|caller.oy|caller.rx, 4000|0.0|-50|-60, 0.5, default,
+					skin_loadscene(get(hs_linkedscene), get(skin_settings.loadscene_blend));
+					if(hs_lookat_h !== null, skin_lookat(get(hs_lookat_h), get(hs_lookat_v), get(hs_lookat_fov)); );
+				);
 			);
 		);
 	</action>

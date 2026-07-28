@@ -342,6 +342,12 @@ function floorPlan() {
     }
 
     krpano.set("layer[skin_thumbborder].parent", `skin_thumb_${thumbIndex}`);
+    krpano.set("layer[skin_thumbborder].x", 2);
+    krpano.set("layer[skin_thumbborder].y", 2);
+    krpano.set("layer[skin_thumbborder].width", 116);
+    krpano.set("layer[skin_thumbborder].height", 76);
+    krpano.set("layer[skin_thumbborder].bgborder", "3 0xFFFFFF 1.0");
+    krpano.set("layer[skin_thumbborder].bgroundedge", 4);
     krpano.set("layer[skin_thumbborder].visible", true);
     krpano.call(
       `layer[skin_thumbs].scrolltocenter(get(scene[${sceneName}].thumbx), get(scene[${sceneName}].thumby));`
@@ -457,6 +463,7 @@ function floorPlan() {
 
     updateButtons();
     renderPlan(getFloorData(state.villa, state.floor));
+    syncGalleryThumbs();
     activateControlThumb(sceneName);
     keepControlBarVisible();
 
@@ -493,7 +500,7 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: "./vtour/floorplan.xml?v=floorplan-scenes-5",
+      xml: "./vtour/floorplan.xml?v=floorplan-scenes-6",
       html5: "only",
       mobilescale: 1,
       vars: {

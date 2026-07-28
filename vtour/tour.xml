@@ -3,7 +3,7 @@
 	<include url="skin/vtourskin.xml" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
-	<skin_settings maps="false"
+	<skin_settings maps="true"
 	               maps_type="openstreetmaps"
 	               maps_bing_api_key=""
 	               maps_google_api_key=""
@@ -71,16 +71,16 @@
 	
 
 	
-	<scene name="scene_360_view09_tien_sanh" title="360_View09_Tien sanh" onstart="" thumburl="panos/360_View09_Tien_sanh.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_overview_vr360" title="overview_VR360" onstart="" thumburl="panos/overview_VR360.tiles/thumb.jpg" lat="15.82564778" lng="108.40854294" alt="279.36" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/360_View09_Tien_sanh.tiles/preview.jpg" />
+		<preview url="panos/overview_VR360.tiles/preview.jpg" />
 
 		<image>
-			<cube url="panos/360_View09_Tien_sanh.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1152,2304,4608" />
 		</image>
 
 	</scene>
