@@ -151,17 +151,27 @@ function gallery() {
       .map(function () {
         const $item = $(this);
         const $image = $item.find("img").first();
+        const itemType = $item.data("type");
+        const sourceType = $item.data("source");
+        const isVideo = itemType === "video" || sourceType === "mp4" || sourceType === "youtube";
         const title =
           $item.data("gallery-title") ||
           $item.find(".gallery-caption").text().trim() ||
           $image.attr("alt") ||
           "";
-
-        return {
+        const lightboxItem = {
           href: $item.attr("href") || $image.attr("src"),
-          type: "image",
+          type: isVideo ? "video" : "image",
           title
         };
+
+        if (sourceType === "mp4") {
+          lightboxItem.source = "local";
+        } else if (sourceType === "youtube") {
+          lightboxItem.source = "youtube";
+        }
+
+        return lightboxItem;
       })
       .get();
 

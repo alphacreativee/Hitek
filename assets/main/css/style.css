@@ -1497,6 +1497,29 @@ button.aloading::after {
 .gallery-item .gallery-image:hover::after {
   transform: translateY(0);
 }
+.gallery-item .gallery-image:hover .gallery-play-icon {
+  background-color: #dfa95f;
+}
+.gallery-item .gallery-play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: background-color 0.3s ease;
+}
+.gallery-item .gallery-play-icon svg {
+  display: block;
+}
 .gallery-item img {
   display: block;
   width: 100%;

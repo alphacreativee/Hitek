@@ -294,6 +294,13 @@ function zoningLots(zoningEl, filterApi) {
     default: defaultGallery
   };
 
+  const escapeHtml = (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   const getLotAreaKey = (title) => String(title || "").match(/^[A-Z]/)?.[0] || "";
   const getLotUrl = (title) => `./floor-plan.html?villa=${encodeURIComponent(title)}`;
   const getLotGallery = (title) => villaGalleries[title] || villaGalleries.default;
@@ -321,10 +328,43 @@ function zoningLots(zoningEl, filterApi) {
     if (cardTitle) cardTitle.textContent = lotTitle;
     if (cardMeta) {
       const floorPlan = data.floor_area ? `${data.floor_area} sqm` : "";
+      const floors = data.floors || data.floor || 2;
+      const cardMetaItems = [
+        {
+          icon: "./assets/images/zoning/floorplan.svg",
+          value: floorPlan,
+          label: "Floor Plan"
+        },
+        {
+          icon: "./assets/images/zoning/bed.svg",
+          value: data.bedroom || "",
+          label: "Bedrooms"
+        },
+        {
+          icon: "./assets/images/zoning/view.svg",
+          value: data.view || "",
+          label: "View"
+        },
+        {
+          icon: "./assets/images/zoning/floor.svg",
+          value: floors,
+          label: "Floors"
+        }
+      ];
       cardMeta.innerHTML = `
-        <li>Floor plan: ${floorPlan}</li>
-        <li>View: ${data.view || ""}</li>
-        <li>Bedroom: ${data.bedroom || ""}</li>
+        ${cardMetaItems
+          .map(
+            (item) => `
+              <li>
+                <img src="${item.icon}" alt="" />
+                <div class="content">
+                  <span>${escapeHtml(item.value)}</span>
+                  ${escapeHtml(item.label)}
+                </div>
+              </li>
+            `
+          )
+          .join("")}
       `;
     }
     if (cardDetail) cardDetail.href = data.detail_url || getLotUrl(lotTitle || id);
