@@ -1,0 +1,23 @@
+.brochure-section {
+  background-color: rgb(58, 58, 58);
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .df-floating .df-ui-controls {
+    display: none;
+  }
+
+  .df-container {
+    background-color: rgb(58, 58, 58) !important;
+    position: relative !important; // ép về relative để flex-center có tác dụng, ghi đè absolute nếu có
+    margin: 0 auto !important; // fallback thêm canh giữa ngang
+  }
+
+  #dflip-brochure {
+    margin: 0 auto; // đảm bảo bản thân element gốc cũng canh giữa
+  }
+}
