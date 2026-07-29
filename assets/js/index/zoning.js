@@ -334,6 +334,17 @@ function zoningSectors(zoningEl, filterApi) {
     const viewBox = svg.viewBox.baseVal;
     if (!viewBox.width || !viewBox.height) return labels;
 
+    const createLabel = (sector, left, top, offsetX = 0, offsetY = 0) => {
+      const label = document.createElement("span");
+      label.dataset.villa = sector;
+      label.textContent = `Villa ${sector}`;
+      label.style.left = `${left}%`;
+      label.style.top = `${top}%`;
+      label.style.setProperty("--sector-label-offset-x", `${offsetX}px`);
+      label.style.setProperty("--sector-label-offset-y", `${offsetY}px`);
+      labels.appendChild(label);
+    };
+
     const sectors = new Map();
     svg.querySelectorAll("path[data-villa]").forEach((path) => {
       const sector = normalizeSector(path.dataset.villa);
@@ -341,12 +352,11 @@ function zoningSectors(zoningEl, filterApi) {
 
       const box = path.getBBox();
       if (sector === "D") {
-        const label = document.createElement("span");
-        label.dataset.villa = sector;
-        label.textContent = `Villa ${sector}`;
-        label.style.left = `${((box.x + box.width / 2 - viewBox.x) / viewBox.width) * 100}%`;
-        label.style.top = `${((box.y + box.height / 2 - viewBox.y) / viewBox.height) * 100}%`;
-        labels.appendChild(label);
+        if (box.y < 650) {
+          createLabel(sector, 37.5, 34.7);
+        } else {
+          createLabel(sector, 60.5, 53.2, 0, 20);
+        }
         return;
       }
 
@@ -368,12 +378,16 @@ function zoningSectors(zoningEl, filterApi) {
     });
 
     sectors.forEach((box, sector) => {
-      const label = document.createElement("span");
-      label.dataset.villa = sector;
-      label.textContent = `Villa ${sector}`;
-      label.style.left = `${(((box.x1 + box.x2) / 2 - viewBox.x) / viewBox.width) * 100}%`;
-      label.style.top = `${(((box.y1 + box.y2) / 2 - viewBox.y) / viewBox.height) * 100}%`;
-      labels.appendChild(label);
+      if (sector === "E") {
+        createLabel(sector, 68.2, 31.8, -30, -5);
+        return;
+      }
+
+      createLabel(
+        sector,
+        (((box.x1 + box.x2) / 2 - viewBox.x) / viewBox.width) * 100,
+        (((box.y1 + box.y2) / 2 - viewBox.y) / viewBox.height) * 100
+      );
     });
 
     return labels;
@@ -394,6 +408,9 @@ function zoningSectors(zoningEl, filterApi) {
         const sector = normalizeSector(path.dataset.villa);
         if (!sector) return;
 
+        if (path.dataset.color) {
+          path.style.setProperty("--sector-color", path.dataset.color);
+        }
         path.setAttribute("tabindex", "0");
         path.setAttribute("role", "button");
         path.setAttribute("aria-label", `Villa ${sector}`);

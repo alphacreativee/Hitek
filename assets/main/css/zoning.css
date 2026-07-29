@@ -84,23 +84,22 @@
   overflow: hidden;
 }
 .zoning .zoning-map-sector path[data-villa] {
-  fill: transparent;
-  fill-opacity: 0;
+  fill: var(--sector-color, var(--color-primary));
+  fill-opacity: 0.6;
   stroke: #ffffff;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-opacity: 1;
+  stroke-width: 1px;
   vector-effect: non-scaling-stroke;
   cursor: pointer;
   outline: none;
   pointer-events: all;
-  transition: fill 0.2s ease, fill-opacity 0.2s ease, stroke 0.2s ease;
+  transition: fill-opacity 0.2s ease, stroke 0.2s ease;
 }
 .zoning .zoning-map-sector path[data-villa]:hover,
 .zoning .zoning-map-sector path[data-villa].is-hovered {
-  fill: var(--color-primary);
-  fill-opacity: 0.8;
-  stroke: var(--color-primary);
+  fill-opacity: 1;
 }
 .zoning .zoning-map-sector-labels {
   position: absolute;
@@ -120,12 +119,12 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.96);
+  transform: translate(calc(-50% + var(--sector-label-offset-x, 0px)), calc(-50% + var(--sector-label-offset-y, 0px))) scale(0.96);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .zoning .zoning-map-sector-labels span.is-visible {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(calc(-50% + var(--sector-label-offset-x, 0px)), calc(-50% + var(--sector-label-offset-y, 0px))) scale(1);
 }
 .zoning .zoning-map-overlay svg {
   overflow: hidden;
