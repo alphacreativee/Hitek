@@ -52,7 +52,9 @@
   }
 
   .zoning-map-image,
+  .zoning-map-sector,
   .zoning-map-overlay,
+  .zoning-map-sector svg,
   .zoning-map-labels,
   .zoning-map-overlay svg {
     position: absolute;
@@ -69,6 +71,87 @@
 
   .zoning-map-overlay {
     z-index: 1;
+  }
+
+  .zoning-map-sector {
+    z-index: 3;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.24s ease,
+      visibility 0.24s ease;
+  }
+
+  &.is-sector-mode .zoning-map-sector {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &.is-sector-mode .zoning-map-overlay,
+  &.is-sector-mode .zoning-map-labels {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .zoning-map-sector svg {
+    overflow: hidden;
+  }
+
+  .zoning-map-sector path[data-villa] {
+    fill: transparent;
+    fill-opacity: 0;
+    stroke: #ffffff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-opacity: 1;
+    vector-effect: non-scaling-stroke;
+    cursor: pointer;
+    outline: none;
+    pointer-events: all;
+    transition:
+      fill 0.2s ease,
+      fill-opacity 0.2s ease,
+      stroke 0.2s ease;
+  }
+
+  .zoning-map-sector path[data-villa]:hover,
+  .zoning-map-sector path[data-villa].is-hovered {
+    fill: var(--color-primary);
+    fill-opacity: 0.8;
+    stroke: var(--color-primary);
+  }
+
+  .zoning-map-sector-labels {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .zoning-map-sector-labels span {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .zoning-map-sector-labels span.is-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 
   .zoning-map-overlay svg {

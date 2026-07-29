@@ -122,20 +122,58 @@ function zoningFilter(zoningEl) {
       });
 
       const buttons = [
-        '<button type="button" class="active" value="all" data-filter-value="all">All</button>',
+        `<button type="button" class="${activeFilters[field] === "all" ? "active" : ""}" value="all" data-filter-value="all">All</button>`,
         ...sortFilterValues(field, values.values()).map((value) => {
           const normalizedValue = getComparableValue(value);
-          return `<button type="button" value="${normalizedValue}" data-filter-value="${normalizedValue}">${formatFilterLabel(field, value)}</button>`;
+          const activeClass = activeFilters[field] === normalizedValue ? "active" : "";
+          return `<button type="button" class="${activeClass}" value="${normalizedValue}" data-filter-value="${normalizedValue}">${formatFilterLabel(field, value)}</button>`;
         })
       ];
 
       options.innerHTML = buttons.join("");
-      activeFilters[field] = "all";
     });
   };
 
   const getActiveButtonValue = (button) =>
     button.dataset.filterValue || button.value || "all";
+
+  const updateFilterButtons = () => {
+    if (!filter) return;
+
+    filter.querySelectorAll("[data-filter-group]").forEach((group) => {
+      const field = group.dataset.filterGroup;
+      if (!filterFields.includes(field)) return;
+
+      group.querySelectorAll(".zoning-filter-options button").forEach((button) => {
+        button.classList.toggle(
+          "active",
+          getActiveButtonValue(button) === activeFilters[field]
+        );
+      });
+    });
+  };
+
+  const setFilterValue = (field, value, options = {}) => {
+    if (!filterFields.includes(field)) return;
+
+    if (zoningEl.classList.contains("is-sector-mode")) {
+      zoningEl.classList.remove("is-sector-mode");
+      zoningEl.classList.add("is-detail-mode");
+      zoningEl.classList.remove("is-card-open");
+    }
+
+    if (options.resetOthers) {
+      filterFields.forEach((filterField) => {
+        activeFilters[filterField] = "all";
+      });
+    }
+
+    activeFilters[field] = getComparableValue(value || "all") || "all";
+    updateFilterButtons();
+    if (options.apply !== false) {
+      applyZoningFilters();
+    }
+  };
 
   const villaMatchesFilters = (villaId) => {
     const villa = villaDataById.get(String(villaId || ""));
@@ -190,8 +228,7 @@ function zoningFilter(zoningEl) {
             .forEach((item) => item.classList.remove("active"));
 
           button.classList.add("active");
-          activeFilters[field] = getActiveButtonValue(button);
-          applyZoningFilters();
+          setFilterValue(field, getActiveButtonValue(button));
         });
       });
     });
@@ -236,6 +273,8 @@ function zoningFilter(zoningEl) {
   };
 
   if (filterToggles.length) {
+    setFilterExpanded(!zoningEl.classList.contains("is-filter-collapsed"));
+
     filterToggles.forEach((button) => {
       button.addEventListener("click", () => {
         if (zoningEl.classList.contains("is-filter-collapsed")) {
@@ -251,13 +290,133 @@ function zoningFilter(zoningEl) {
   }
 
   return {
+    collapse: collapseFilter,
+    expand: expandFilter,
     init(villas) {
       villaDataById = new Map(villas.map((villa) => [String(villa.id), villa]));
       renderFilterButtons(villas);
       bindFilterButtons();
       applyZoningFilters();
+    },
+    selectSector(sector) {
+      setFilterValue("villa", sector, { resetOthers: true });
+      expandFilter();
     }
   };
+}
+
+function zoningSectors(zoningEl, filterApi) {
+  const sectorLayer = zoningEl.querySelector("[data-zoning-map-sector]");
+  if (!sectorLayer) return;
+
+  const normalizeSector = (value) => String(value || "").trim().toUpperCase();
+
+  const showSector = (sector, isHovered) => {
+    sectorLayer
+      .querySelectorAll(`path[data-villa="${sector}"]`)
+      .forEach((path) => path.classList.toggle("is-hovered", isHovered));
+
+    sectorLayer
+      .querySelectorAll(`.zoning-map-sector-labels span[data-villa="${sector}"]`)
+      .forEach((label) => label.classList.toggle("is-visible", isHovered));
+  };
+
+  const openSector = (sector) => {
+    zoningEl.classList.remove("is-sector-mode");
+    zoningEl.classList.add("is-detail-mode");
+    zoningEl.classList.remove("is-card-open");
+    filterApi?.selectSector(sector);
+  };
+
+  const createSectorLabels = (svg) => {
+    const labels = document.createElement("div");
+    labels.className = "zoning-map-sector-labels";
+    const viewBox = svg.viewBox.baseVal;
+    if (!viewBox.width || !viewBox.height) return labels;
+
+    const sectors = new Map();
+    svg.querySelectorAll("path[data-villa]").forEach((path) => {
+      const sector = normalizeSector(path.dataset.villa);
+      if (!sector) return;
+
+      const box = path.getBBox();
+      if (sector === "D") {
+        const label = document.createElement("span");
+        label.dataset.villa = sector;
+        label.textContent = `Villa ${sector}`;
+        label.style.left = `${((box.x + box.width / 2 - viewBox.x) / viewBox.width) * 100}%`;
+        label.style.top = `${((box.y + box.height / 2 - viewBox.y) / viewBox.height) * 100}%`;
+        labels.appendChild(label);
+        return;
+      }
+
+      const current = sectors.get(sector);
+      if (!current) {
+        sectors.set(sector, {
+          x1: box.x,
+          y1: box.y,
+          x2: box.x + box.width,
+          y2: box.y + box.height
+        });
+        return;
+      }
+
+      current.x1 = Math.min(current.x1, box.x);
+      current.y1 = Math.min(current.y1, box.y);
+      current.x2 = Math.max(current.x2, box.x + box.width);
+      current.y2 = Math.max(current.y2, box.y + box.height);
+    });
+
+    sectors.forEach((box, sector) => {
+      const label = document.createElement("span");
+      label.dataset.villa = sector;
+      label.textContent = `Villa ${sector}`;
+      label.style.left = `${(((box.x1 + box.x2) / 2 - viewBox.x) / viewBox.width) * 100}%`;
+      label.style.top = `${(((box.y1 + box.y2) / 2 - viewBox.y) / viewBox.height) * 100}%`;
+      labels.appendChild(label);
+    });
+
+    return labels;
+  };
+
+  fetch("./assets/images/zoning-map-sector.svg")
+    .then((response) => {
+      if (!response.ok) throw new Error("Could not load zoning sector SVG");
+      return response.text();
+    })
+    .then((svgText) => {
+      sectorLayer.innerHTML = svgText;
+      const svg = sectorLayer.querySelector("svg");
+      if (!svg) return;
+
+      svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+      svg.querySelectorAll("path[data-villa]").forEach((path) => {
+        const sector = normalizeSector(path.dataset.villa);
+        if (!sector) return;
+
+        path.setAttribute("tabindex", "0");
+        path.setAttribute("role", "button");
+        path.setAttribute("aria-label", `Villa ${sector}`);
+
+        path.addEventListener("mouseenter", () => showSector(sector, true));
+        path.addEventListener("mouseleave", () => showSector(sector, false));
+        path.addEventListener("click", (event) => {
+          event.stopPropagation();
+          openSector(sector);
+        });
+        path.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+
+          event.preventDefault();
+          openSector(sector);
+        });
+      });
+
+      sectorLayer.appendChild(createSectorLabels(svg));
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
 }
 
 function zoningLots(zoningEl, filterApi) {
@@ -709,6 +868,7 @@ function zoning() {
   if (!zoningEl) return;
 
   const filterApi = zoningFilter(zoningEl);
+  zoningSectors(zoningEl, filterApi);
   zoningLots(zoningEl, filterApi);
   zoningScale(zoningEl);
   zoningCompareModal(zoningEl);
