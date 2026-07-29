@@ -1,3 +1,9 @@
+@property --zoning-label-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .zoning {
   position: relative;
   width: 100vw;
@@ -101,25 +107,38 @@
   }
 
   .zoning-map-sector path[data-villa] {
-    fill: var(--sector-color, var(--color-primary));
-    fill-opacity: 0.6;
-    stroke: #ffffff;
+    fill: var(--color-primary);
+    fill-opacity: 0;
+    stroke: #6d9695;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-opacity: 1;
+    stroke-opacity: 0;
     stroke-width: 1px;
     vector-effect: non-scaling-stroke;
+    filter: none;
     cursor: pointer;
     outline: none;
     pointer-events: all;
+    animation: none;
     transition:
+      fill 0.2s ease,
       fill-opacity 0.2s ease,
-      stroke 0.2s ease;
+      filter 0.2s ease,
+      stroke 0.2s ease,
+      stroke-dasharray 0.2s ease,
+      stroke-opacity 0.2s ease;
   }
 
   .zoning-map-sector path[data-villa]:hover,
   .zoning-map-sector path[data-villa].is-hovered {
-    fill-opacity: 1;
+    fill-opacity: 0.8;
+    stroke: #6d9695;
+    stroke-dasharray: none;
+    stroke-opacity: 1;
+    filter: url("#zoning-sector-outer-glow");
+    animation: none;
   }
 
   .zoning-map-sector-labels {
@@ -134,30 +153,75 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 5px 15px;
+    border-radius: 999px;
+    background-color: var(--color-primary);
     color: #ffffff;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
-    line-height: 16px;
-    letter-spacing: 0.08em;
+    line-height: 15px;
+    letter-spacing: 0.21em;
     text-transform: uppercase;
-    opacity: 0;
-    transform: translate(
-        calc(-50% + var(--sector-label-offset-x, 0px)),
-        calc(-50% + var(--sector-label-offset-y, 0px))
-      )
-      scale(0.96);
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .zoning-map-sector-labels span.is-visible {
     opacity: 1;
     transform: translate(
         calc(-50% + var(--sector-label-offset-x, 0px)),
         calc(-50% + var(--sector-label-offset-y, 0px))
       )
       scale(1);
+    transition:
+      background-color 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .zoning-map-sector-labels span::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--zoning-label-angle),
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0)
+    );
+    padding: 1px;
+    pointer-events: none;
+    animation: zoningLabelLight 1.8s linear infinite;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+  }
+
+  .zoning-map-sector-labels span.is-hovered {
+    background-color: transparent;
+  }
+
+  .zoning-map-sector-labels span.is-hovered::before,
+  .zoning-map-sector-labels span.is-hidden::before {
+    opacity: 0;
+    animation-play-state: paused;
+  }
+
+  .zoning-map-sector-labels span.is-hidden {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--sector-label-offset-x, 0px)),
+        calc(-50% + var(--sector-label-offset-y, 0px))
+      )
+      scale(0.96);
+  }
+
+  @keyframes zoningLabelLight {
+    to {
+      --zoning-label-angle: 1turn;
+    }
   }
 
   .zoning-map-overlay svg {

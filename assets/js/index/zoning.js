@@ -317,8 +317,17 @@ function zoningSectors(zoningEl, filterApi) {
       .forEach((path) => path.classList.toggle("is-hovered", isHovered));
 
     sectorLayer
-      .querySelectorAll(`.zoning-map-sector-labels span[data-villa="${sector}"]`)
-      .forEach((label) => label.classList.toggle("is-visible", isHovered));
+      .querySelectorAll(".zoning-map-sector-labels span[data-villa]")
+      .forEach((label) => {
+        label.classList.toggle(
+          "is-hovered",
+          isHovered && label.dataset.villa === sector
+        );
+        label.classList.toggle(
+          "is-hidden",
+          isHovered && label.dataset.villa !== sector
+        );
+      });
   };
 
   const openSector = (sector) => {
@@ -404,6 +413,33 @@ function zoningSectors(zoningEl, filterApi) {
       if (!svg) return;
 
       svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
+      const defs =
+        svg.querySelector("defs") ||
+        svg.insertBefore(
+          document.createElementNS("http://www.w3.org/2000/svg", "defs"),
+          svg.firstChild
+        );
+      const outerGlow = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "filter"
+      );
+      outerGlow.setAttribute("id", "zoning-sector-outer-glow");
+      outerGlow.setAttribute("x", "-20%");
+      outerGlow.setAttribute("y", "-20%");
+      outerGlow.setAttribute("width", "140%");
+      outerGlow.setAttribute("height", "140%");
+      outerGlow.innerHTML = `
+        <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="expanded" />
+        <feComposite in="expanded" in2="SourceAlpha" operator="out" result="outer" />
+        <feGaussianBlur in="outer" stdDeviation="4" result="blur" />
+        <feFlood flood-color="#6d9695" flood-opacity="0.8" result="color" />
+        <feComposite in="color" in2="blur" operator="in" result="glow" />
+        <feMerge>
+          <feMergeNode in="glow" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      `;
+      defs.appendChild(outerGlow);
       svg.querySelectorAll("path[data-villa]").forEach((path) => {
         const sector = normalizeSector(path.dataset.villa);
         if (!sector) return;
