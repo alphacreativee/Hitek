@@ -13,11 +13,51 @@
 
   .df-container {
     background-color: rgb(58, 58, 58) !important;
-    position: relative !important; // ép về relative để flex-center có tác dụng, ghi đè absolute nếu có
-    margin: 0 auto !important; // fallback thêm canh giữa ngang
+    position: relative !important;
+    margin: 0 auto !important;
   }
 
   #dflip-brochure {
-    margin: 0 auto; // đảm bảo bản thân element gốc cũng canh giữa
+    margin: 0 auto;
+    cursor: pointer;
+  }
+
+  .brochure-nav {
+    position: absolute;
+    bottom: 55px;
+    left: 50%;
+    width: max-content;
+    display: flex;
+    gap: 12px;
+    transform: translateX(-50%);
+    padding: 0 24px;
+    z-index: 10;
+    pointer-events: none; // để không chặn tương tác với sách ở giữa
+  }
+
+  .brochure-arrow {
+    pointer-events: auto; // bật lại click cho riêng nút
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
   }
 }
