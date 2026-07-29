@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoiana - Brochure</title>
+    <!-- import favicon -->
+    <link rel="icon" href="./assets/images/favicon.svg" />
+    <!-- meta -->
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <!-- meta -->
+    <link rel="stylesheet" href="./assets/fonts/Boska/font.css" />
+    <link rel="stylesheet" href="./assets/fonts/Montserrat/font.css" />
+    <link rel="stylesheet" href="./assets/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lenis.css" />
+    <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
+    <link rel="stylesheet" href="./assets/libs/glightbox.min.css" />
+    <link rel="stylesheet" href="./assets/libs/flipbook.min.css">
+    <!-- end meta -->
+    <!-- link custom css page -->
+    <link rel="stylesheet" href="./assets/main/css/style.min.css" />
+    <!-- end link custom css page -->
+    <!-- scrollRestoration -->
+    <script>
+        if ("scrollRestoration" in history) {
+            history.scrollRestoration = "manual";
+        }
+    </script>
+</head>
+
+<body>
+    <!-- login -->
+    <script>
+        fetch("./components/login.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("login-screen").innerHTML = data;
+            });
+    </script>
+
+    <div id="login-screen"></div>
+    <!-- layout -->
+    <!-- header -->
+    <script>
+        fetch("./components/header.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("header").innerHTML = data;
+                const currentPath = window.location.pathname || "/";
+
+                const navLinks = document.querySelectorAll(".header-menu ul>li>a");
+                navLinks.forEach((link) => {
+                    const linkPath = link.getAttribute("href");
+
+                    // Normalize paths for comparison
+                    let normalizedCurrentPath = currentPath;
+                    let normalizedLinkPath = linkPath;
+
+                    // Remove leading "./" from link path
+                    if (normalizedLinkPath.startsWith("./")) {
+                        normalizedLinkPath = normalizedLinkPath.substring(1);
+                    }
+
+                    // Get the last segment of the path
+                    const currentSegment = normalizedCurrentPath.split("/").pop() || "";
+                    const linkSegment = normalizedLinkPath.split("/").pop() || "";
+
+                    // Check if current path is root or ends with /
+                    const isRootPath =
+                        currentPath === "/" ||
+                        currentPath.endsWith("/") ||
+                        currentSegment === "";
+
+                    // Check if link is home/index
+                    const isHomeLink =
+                        linkPath === "/" ||
+                        linkPath === "./" ||
+                        linkPath === "./index.html" ||
+                        linkPath === "index.html" ||
+                        linkSegment === "index.html";
+
+                    // Match logic
+                    const isMatch =
+                        normalizedLinkPath === normalizedCurrentPath || // Exact match
+                        currentSegment === linkSegment || // Segment match
+                        (isRootPath && isHomeLink) || // Root path matches home link
+                        (currentPath.endsWith(normalizedLinkPath) &&
+                            normalizedLinkPath !== "/");
+
+                    if (isMatch) {
+                        link.classList.add("active");
+                    }
+                });
+            });
+    </script>
+    <header id="header" class="header position-fixed"></header>
+    <!-- end header -->
+    <main>
+        <section class="brochure-section">
+
+            <div class="c-flipbook-wrapper">
+                <div class="c-flipbook" id="FlipBook">
+                    <div class="c-flipbook__page">
+                        <img src="./assets/images/draf/gallery/gallery-1.jpg" alt="">
+                    </div>
+                    <div class="c-flipbook__page">
+                        <img src="./assets/images/draf/gallery/gallery-2.jpg" alt="">
+                    </div>
+                    <div class="c-flipbook__page">
+                        <img src="./assets/images/draf/gallery/gallery-3.jpg" alt="">
+                    </div>
+                    <div class="c-flipbook__page">
+                        <img src="./assets/images/draf/gallery/gallery-4.jpg" alt="">
+                    </div>
+                    <div class="c-flipbook__page">
+                        <img src="./assets/images/draf/gallery/gallery-5.jpg" alt="">
+                    </div>
+                    <div class="c-flipbook__page">
+                        <img src="./assets/images/draf/gallery/gallery-5.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="c-flipbook-nav">
+                    <button type="button" id="flipbook-prev" class="flipbook-arrow flipbook-arrow-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                            y="0px" viewBox="0 0 477.175 477.175" xml:space="preserve" fill="currentColor">
+                            <g>
+                                <path
+                                    d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z">
+                                </path>
+                            </g>
+                        </svg>
+                    </button>
+                    <button type="button" id="flipbook-next" class="flipbook-arrow flipbook-arrow-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 477.175 477.175"
+                            xml:space="preserve">
+                            <g>
+                                <path
+                                    d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z">
+                                </path>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <!-- layout -->
+    <!-- footer -->
+    <script>
+        fetch("./components/footer.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("footer").innerHTML = data;
+            });
+    </script>
+
+    <footer id="footer"></footer>
+    <!-- end footer -->
+    <!-- end layout -->
+
+    <script src="./assets/libs/jquery-3.7.1.js"></script>
+    <script src="./assets/libs/lenis.min.js"></script>
+    <script src="./assets/libs/gsap.min.js"></script>
+    <script src="./assets/libs/ScrollTrigger.min.js"></script>
+    <script src="./assets/libs/SplitText.min.js"></script>
+    <script src="./assets/libs/bootstrap.bundle.min.js"></script>
+    <script src="./assets/libs/swiper-bundle.min.js"></script>
+    <script src="./assets/libs/moment.min.js"></script>
+    <script src="./assets/libs/lightpick.min.js"></script>
+    <script src="./assets/libs/glightbox.min.js"></script>
+    <script src="./assets/libs/flipbook.umd.min.js"></script>
+    <!-- import custom js -->
+    <script type="module" src="./assets/main/js/script.min.js"></script>
+    <script type="module" src="./assets/main/js/brochure.min.js"></script>
+    <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
+
+    <!-- end import custom js -->
+</body>
+
+</html>
+<!-- https://gsap.com/community/forums/topic/30338-circular-carouselslider/ -->
