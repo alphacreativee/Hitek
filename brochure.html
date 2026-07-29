@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
     <link rel="stylesheet" href="./assets/libs/glightbox.min.css" />
-    <link rel="stylesheet" href="./assets/libs/flipbook.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/dflip.min.css">
     <!-- end meta -->
     <!-- link custom css page -->
     <link rel="stylesheet" href="./assets/main/css/style.min.css" />
@@ -103,52 +104,8 @@
     <!-- end header -->
     <main>
         <section class="brochure-section">
-
-            <div class="c-flipbook-wrapper">
-                <div class="c-flipbook" id="FlipBook">
-                    <div class="c-flipbook__page">
-                        <img src="./assets/images/draf/gallery/gallery-1.jpg" alt="">
-                    </div>
-                    <div class="c-flipbook__page">
-                        <img src="./assets/images/draf/gallery/gallery-2.jpg" alt="">
-                    </div>
-                    <div class="c-flipbook__page">
-                        <img src="./assets/images/draf/gallery/gallery-3.jpg" alt="">
-                    </div>
-                    <div class="c-flipbook__page">
-                        <img src="./assets/images/draf/gallery/gallery-4.jpg" alt="">
-                    </div>
-                    <div class="c-flipbook__page">
-                        <img src="./assets/images/draf/gallery/gallery-5.jpg" alt="">
-                    </div>
-                    <div class="c-flipbook__page">
-                        <img src="./assets/images/draf/gallery/gallery-5.jpg" alt="">
-                    </div>
-                </div>
-
-                <div class="c-flipbook-nav">
-                    <button type="button" id="flipbook-prev" class="flipbook-arrow flipbook-arrow-prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-                            y="0px" viewBox="0 0 477.175 477.175" xml:space="preserve" fill="currentColor">
-                            <g>
-                                <path
-                                    d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z">
-                                </path>
-                            </g>
-                        </svg>
-                    </button>
-                    <button type="button" id="flipbook-next" class="flipbook-arrow flipbook-arrow-next">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 477.175 477.175"
-                            xml:space="preserve">
-                            <g>
-                                <path
-                                    d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z">
-                                </path>
-                            </g>
-                        </svg>
-                    </button>
-                </div>
+            <div class="_df_book" id="dflip-brochure" source="./assets/images/draf/file.pdf"
+                style="width:100%; height:500px;">
             </div>
 
         </section>
@@ -177,7 +134,7 @@
     <script src="./assets/libs/moment.min.js"></script>
     <script src="./assets/libs/lightpick.min.js"></script>
     <script src="./assets/libs/glightbox.min.js"></script>
-    <script src="./assets/libs/flipbook.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/js/dflip.min.js"></script>
     <!-- import custom js -->
     <script type="module" src="./assets/main/js/script.min.js"></script>
     <script type="module" src="./assets/main/js/brochure.min.js"></script>
