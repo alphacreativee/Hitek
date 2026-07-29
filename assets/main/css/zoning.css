@@ -228,12 +228,28 @@
   z-index: 5;
   width: 254px;
   padding: 30px 20px 20px;
+  border: 1px solid transparent;
   border-radius: 20px;
-  background-color: #fbf6ee;
+  background: linear-gradient(rgba(31, 79, 75, 0.9), rgba(31, 79, 75, 0.9)) padding-box, linear-gradient(90deg, #69bcb1 0%, #7aeae5 51%, rgba(105, 188, 177, 0.88) 100%) border-box;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
   overflow: hidden;
-  clip-path: inset(0 0 0 0 round 20px);
   transition: clip-path 0.36s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.28s ease;
+}
+.zoning .zoning-filter::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(rgba(31, 79, 75, 0.9), rgba(31, 79, 75, 0.9)) padding-box, linear-gradient(90deg, #69bcb1 0%, #7aeae5 51%, rgba(105, 188, 177, 0.88) 100%) border-box;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 .zoning .zoning-filter-close,
 .zoning .zoning-filter-search {
@@ -241,7 +257,7 @@
   z-index: 2;
   width: 26px;
   height: 26px;
-  border: 1px solid #6d9695;
+  border: 1px solid #fff;
   border-radius: 50%;
   background-color: transparent;
 }
@@ -257,7 +273,7 @@
   left: 7px;
   width: 10px;
   height: 1px;
-  background-color: #0c4a52;
+  background-color: #fff;
 }
 .zoning .zoning-filter-close::before {
   transform: rotate(45deg);
@@ -280,7 +296,7 @@
   left: 50%;
   width: 18px;
   height: 18px;
-  background-color: #0c4a52;
+  background-color: #ffffff;
   transform: translate(-50%, -50%);
   mask-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.3438 14.0625L10.9688 10.6875M4.21875 7.875C4.21875 8.39208 4.3206 8.9041 4.51847 9.38182C4.71635 9.85954 5.00639 10.2936 5.37202 10.6592C5.73765 11.0249 6.17171 11.3149 6.64943 11.5128C7.12715 11.7107 7.63917 11.8125 8.15625 11.8125C8.67333 11.8125 9.18535 11.7107 9.66307 11.5128C10.1408 11.3149 10.5749 11.0249 10.9405 10.6592C11.3061 10.2936 11.5961 9.85954 11.794 9.38182C11.9919 8.9041 12.0938 8.39208 12.0938 7.875C12.0938 7.35792 11.9919 6.8459 11.794 6.36818C11.5961 5.89046 11.3061 5.4564 10.9405 5.09077C10.5749 4.72514 10.1408 4.4351 9.66307 4.23722C9.18535 4.03935 8.67333 3.9375 8.15625 3.9375C7.63917 3.9375 7.12715 4.03935 6.64943 4.23722C6.17171 4.4351 5.73765 4.72514 5.37202 5.09077C5.00639 5.4564 4.71635 5.89046 4.51847 6.36818C4.3206 6.8459 4.21875 7.35792 4.21875 7.875Z' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   mask-position: center;
@@ -301,7 +317,7 @@
 }
 .zoning .zoning-filter-group p {
   margin-bottom: 8px;
-  color: #003f46;
+  color: #7ff8e8;
   font-family: "Boska", var(--font-heading);
   font-size: 13px;
   font-style: italic;
@@ -314,13 +330,13 @@
   gap: 8px;
 }
 .zoning .zoning-filter-options button {
-  min-width: 30px;
-  height: 23px;
+  min-width: 40px;
+  height: 40px;
   padding: 0 10px;
   border: 1px solid #8db4bf;
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: #00434b;
+  border-radius: 999px;
+  background-color: transparent;
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
   line-height: 15px;
@@ -329,13 +345,18 @@
 }
 .zoning .zoning-filter-options button.active,
 .zoning .zoning-filter-options button:hover {
-  border-color: #dfa95f;
-  background-color: #dfa95f;
+  border-color: transparent;
+  background: linear-gradient(#387873, #387873) padding-box, linear-gradient(90deg, #69bcb1 0%, #7aeae5 51%, rgba(105, 188, 177, 0.88) 100%) border-box;
+  background-color: #387873;
   color: #ffffff;
 }
 .zoning.is-filter-collapsed .zoning-filter {
   clip-path: inset(0 calc(100% - 46px) calc(100% - 46px) 0 round 12px);
   border-radius: 12px;
+  background: rgba(31, 79, 75, 0.9);
+}
+.zoning.is-filter-collapsed .zoning-filter::after {
+  opacity: 0;
 }
 .zoning.is-filter-expanding .zoning-filter-content, .zoning.is-filter-expanding .zoning-filter-close, .zoning.is-filter-collapsing .zoning-filter-content, .zoning.is-filter-collapsing .zoning-filter-close, .zoning.is-filter-collapsed .zoning-filter-content, .zoning.is-filter-collapsed .zoning-filter-close {
   pointer-events: none;
