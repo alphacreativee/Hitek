@@ -419,6 +419,21 @@ function zoningSectors(zoningEl, filterApi) {
           document.createElementNS("http://www.w3.org/2000/svg", "defs"),
           svg.firstChild
         );
+      const strokeGradient = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "linearGradient"
+      );
+      strokeGradient.setAttribute("id", "zoning-sector-stroke-gradient");
+      strokeGradient.setAttribute("x1", "0%");
+      strokeGradient.setAttribute("y1", "0%");
+      strokeGradient.setAttribute("x2", "100%");
+      strokeGradient.setAttribute("y2", "0%");
+      strokeGradient.innerHTML = `
+        <stop offset="0%" stop-color="#69BCB1" />
+        <stop offset="51%" stop-color="#7AEAE5" />
+        <stop offset="100%" stop-color="#69BCB1" stop-opacity="0.88" />
+      `;
+      defs.appendChild(strokeGradient);
       const outerGlow = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "filter"
