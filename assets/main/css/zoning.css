@@ -126,15 +126,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 15px;
+  padding: 10px 20px;
   border-radius: 999px;
-  background-color: var(--color-primary);
+  background-color: #387873;
+  border-radius: 100px;
   color: #ffffff;
   font-size: 11px;
   font-weight: 700;
   line-height: 15px;
-  letter-spacing: 0.21em;
-  text-transform: uppercase;
+  letter-spacing: 0.1em;
   opacity: 1;
   transform: translate(calc(-50% + var(--sector-label-offset-x, 0px)), calc(-50% + var(--sector-label-offset-y, 0px))) scale(1);
   transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
@@ -879,6 +879,7 @@
   padding: 20px 16px 16px;
 }
 .zoning-compare__modal .zoning-compare-card-body p {
+  display: none;
   margin-bottom: 8px;
   color: #003f46;
   font-size: 14px;
@@ -889,7 +890,7 @@
   margin-bottom: 18px;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(0, 63, 70, 0.12);
-  color: #dfa95f;
+  color: #204f4b;
   font-family: var(--font-body);
   font-size: 30px;
   font-weight: 600;
@@ -903,14 +904,34 @@
   line-height: 42px;
 }
 .zoning-compare__modal .zoning-compare-card-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 12px;
 }
 .zoning-compare__modal .zoning-compare-card-meta li {
-  color: #003f46;
-  font-size: 14px;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.zoning-compare__modal .zoning-compare-card-meta img {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+.zoning-compare__modal .zoning-compare-card-meta .content {
+  min-width: 0;
+  color: #204f4b;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13px;
+}
+.zoning-compare__modal .zoning-compare-card-meta .content span {
+  display: block;
+  color: #204f4b;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 20px;
 }
 .zoning-compare__modal .btn-close {
