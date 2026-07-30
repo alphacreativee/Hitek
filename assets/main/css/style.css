@@ -1333,13 +1333,36 @@ button.aloading::after {
   position: relative;
   border: 1px solid var(--color-primary);
 }
+.header-menu ul > li > a:hover::after, .header-menu ul > li > a.active::after {
+  transform: translateY(-3px);
+  border: 1px solid #7aeae5;
+  background-color: #387873;
+}
+.header-menu ul > li > a::after {
+  content: "";
+  width: calc(100% + 2px);
+  height: calc(100% + 3px);
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-bottom: 0 !important;
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  transition: all 0.3s ease;
+}
 
 .header-menu ul > li > a .box {
   position: absolute;
+  z-index: 3;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: all 0.3s ease;
+}
+.header-menu ul > li > a .box img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .header-menu ul > li > a:hover .box,
@@ -1349,6 +1372,8 @@ button.aloading::after {
 
 .header-menu ul > li > a .text {
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 3;
 }
 
 .header-menu ul > li > a:hover .text,
@@ -1358,8 +1383,10 @@ button.aloading::after {
 
 .header-menu ul > li > a:hover,
 .header-menu ul > li > a.active {
-  background-color: #6d9695;
+  background-color: #387873;
   border: 1px solid #7aeae5;
+  border-bottom: 0;
+  border-top: 0;
 }
 
 .header-menu .login {

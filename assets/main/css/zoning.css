@@ -450,7 +450,7 @@
 .zoning .zoning-compare {
   position: absolute;
   right: 8px;
-  bottom: 8px;
+  bottom: 14px;
   z-index: 4;
   padding: 16px;
   border-radius: 18px;
