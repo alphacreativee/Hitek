@@ -223,12 +223,53 @@ function gallery() {
   });
 }
 
+function initVillaCardSwiper(swiperEl, options = {}) {
+  if (!swiperEl || swiperEl.swiper || typeof Swiper !== "function") return null;
+
+  const media = swiperEl.closest(".villa-card__media");
+  const paginationEl = media?.querySelector(
+    ".villa-card__pagination, .slider-pagination, .dashboard-villa-pagination"
+  );
+  const hasPagination =
+    swiperEl.hasAttribute("slider-pagination") || Boolean(paginationEl);
+  const hasAutoplay =
+    !swiperEl.hasAttribute("slider-no-autoplay") &&
+    Boolean(swiperEl.closest(".villa-card"));
+
+  return initParallaxSwiper(swiperEl, {
+    autoplay: hasAutoplay
+      ? {
+          delay: 3500,
+          disableOnInteraction: false
+        }
+      : false,
+    pagination:
+      hasPagination && paginationEl
+        ? {
+            el: paginationEl,
+            clickable: true
+          }
+        : false,
+    ...options
+  });
+}
+
+function initVillaCardSwipers(root = document) {
+  root.querySelectorAll(".villa-card [slider-parallax]").forEach((swiperEl) => {
+    initVillaCardSwiper(swiperEl);
+  });
+}
+
+window.initVillaCardSwiper = initVillaCardSwiper;
+window.initVillaCardSwipers = initVillaCardSwipers;
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   customDropdown();
   createFilterTab();
   gallery();
   sectionOverview();
+  initVillaCardSwipers();
   sliderParallax();
   // getDateLightPick();
 }
