@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hoiana - Login</title>
+    <title>Hoiana - Gallery</title>
     <!-- import favicon -->
     <link rel="icon" href="./assets/images/favicon.svg" />
     <!-- meta -->
@@ -46,49 +46,76 @@
     <div id="login-screen"></div>
     <!-- layout -->
     <!-- header -->
-    <div class="login section-login">
+    <div class="login section-login register">
         <div class="login-inner">
-            <div class="cover" style="
-            background-image: url(&quot;./assets/images/bg-login.webp&quot;);
-          ">
-                <div class="box">
-                    <div class="box-top">
-                        <div class="img">
-                            <img src="./assets/images/logo.svg" alt="" />
-                        </div>
-                        <div class="title">Your Private Sanctuary Awaits.</div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="login-wrapper" id="login">
+            <div class="login-wrapper" id="register">
                 <div class="box-login">
-                    <div class="title">Welcome back</div>
-                    <div class="sub">Sign in to your Hoiana account</div>
+                    <div class="title">Create account</div>
+                    <div class="sub">Join Hoiana Beach Villas</div>
                     <div class="box-form">
+
                         <div class="form-row">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username" />
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter your First Name">
+                        </div>
+                        <div class="form-row">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter your Last Name">
+                        </div>
+                        <div class="form-row email">
+                            <label for="email">Last Name</label>
+                            <input type="email" id="email" name="email" placeholder="your@gmail.com">
+                        </div>
+                        <div class="form-row phone">
+                            <label for="phone">Last Name</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+84 90 000 0000">
                         </div>
                         <div class="form-row password">
                             <label for="pass">Password</label>
-                            <input type="password" id="pass" name="password" minlength="8" required
+                            <input type="password" id="pass" name="password" minlength="8" required class="pass-input"
                                 placeholder="Enter your password" />
                             <span class="toggle-password" id="togglePassword">Show</span>
                         </div>
+                        <div class="form-row password">
+                            <label for="confirm-pass">Confirm Password</label>
+                            <input type="password" id="confirm-pass" name="confirm-pass" minlength="8" required
+                                placeholder="Confirm Password" class="pass-input" />
+                            <span class="toggle-password" id="togglePassword">Show</span>
+                        </div>
                     </div>
-                    <div class="forgot-password">Forgot password?</div>
-                    <div class="btn-login">Login</div>
+                    <div class="agree">
+                        <input type="checkbox" name="" id="">
+                        <label for="agree">I agree to the <a href="#">Terms of Service and Privacy Policy</a></label>
+                    </div>
+                    <div class="btn-login">CREATE ACCOUNT</div>
                     <div class="sign-up-inner">
-                        <div class="sign-up">Don't have an account?</div>
-                        <a href="./register.html" class="sign-up-btn">Sign up</a>
+                        <div class="sign-up">Already have an account?</div>
+                        <a href="./login.html" class="sign-up-btn">Sign in</a>
                     </div>
                 </div>
             </div>
+            <div class="cover" style="background-image:url('./assets/images/bg-register.jpg')">
+                <div class="box">
+                    <div class="box-top">
+                        <div class="img">
+                            <img src="./assets/images/logo.svg" alt="">
+                        </div>
+                        <div class="title">
+                            Your Private Sanctuary Awaits.
+                        </div>
+
+                    </div>
+                    <div class="description">Discover exclusive beachfront residences with lagoon, golf, and ocean
+                        views.</div>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- end header -->
-    <main></main>
+    <main>
+
+    </main>
     <!-- layout -->
     <!-- footer -->
 
