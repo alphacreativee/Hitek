@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hoiana - Brochure</title>
@@ -21,124 +20,147 @@
     <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
     <link rel="stylesheet" href="./assets/libs/glightbox.min.css" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/dflip.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/dflip.min.css"
+    />
     <!-- end meta -->
     <!-- link custom css page -->
     <link rel="stylesheet" href="./assets/main/css/style.min.css" />
     <!-- end link custom css page -->
     <!-- scrollRestoration -->
     <script>
-        if ("scrollRestoration" in history) {
-            history.scrollRestoration = "manual";
-        }
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
     </script>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- login -->
     <script>
-        fetch("./components/login.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("login-screen").innerHTML = data;
-            });
+      fetch("./components/login.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("login-screen").innerHTML = data;
+        });
     </script>
 
     <div id="login-screen"></div>
     <!-- layout -->
     <!-- header -->
     <script>
-        fetch("./components/header.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("header").innerHTML = data;
-                const currentPath = window.location.pathname || "/";
+      fetch("./components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+          const currentPath = window.location.pathname || "/";
 
-                const navLinks = document.querySelectorAll(".header-menu ul>li>a");
-                navLinks.forEach((link) => {
-                    const linkPath = link.getAttribute("href");
+          const navLinks = document.querySelectorAll(".header-menu ul>li>a");
+          navLinks.forEach((link) => {
+            const linkPath = link.getAttribute("href");
 
-                    // Normalize paths for comparison
-                    let normalizedCurrentPath = currentPath;
-                    let normalizedLinkPath = linkPath;
+            // Normalize paths for comparison
+            let normalizedCurrentPath = currentPath;
+            let normalizedLinkPath = linkPath;
 
-                    // Remove leading "./" from link path
-                    if (normalizedLinkPath.startsWith("./")) {
-                        normalizedLinkPath = normalizedLinkPath.substring(1);
-                    }
+            // Remove leading "./" from link path
+            if (normalizedLinkPath.startsWith("./")) {
+              normalizedLinkPath = normalizedLinkPath.substring(1);
+            }
 
-                    // Get the last segment of the path
-                    const currentSegment = normalizedCurrentPath.split("/").pop() || "";
-                    const linkSegment = normalizedLinkPath.split("/").pop() || "";
+            // Get the last segment of the path
+            const currentSegment = normalizedCurrentPath.split("/").pop() || "";
+            const linkSegment = normalizedLinkPath.split("/").pop() || "";
 
-                    // Check if current path is root or ends with /
-                    const isRootPath =
-                        currentPath === "/" ||
-                        currentPath.endsWith("/") ||
-                        currentSegment === "";
+            // Check if current path is root or ends with /
+            const isRootPath =
+              currentPath === "/" ||
+              currentPath.endsWith("/") ||
+              currentSegment === "";
 
-                    // Check if link is home/index
-                    const isHomeLink =
-                        linkPath === "/" ||
-                        linkPath === "./" ||
-                        linkPath === "./index.html" ||
-                        linkPath === "index.html" ||
-                        linkSegment === "index.html";
+            // Check if link is home/index
+            const isHomeLink =
+              linkPath === "/" ||
+              linkPath === "./" ||
+              linkPath === "./index.html" ||
+              linkPath === "index.html" ||
+              linkSegment === "index.html";
 
-                    // Match logic
-                    const isMatch =
-                        normalizedLinkPath === normalizedCurrentPath || // Exact match
-                        currentSegment === linkSegment || // Segment match
-                        (isRootPath && isHomeLink) || // Root path matches home link
-                        (currentPath.endsWith(normalizedLinkPath) &&
-                            normalizedLinkPath !== "/");
+            // Match logic
+            const isMatch =
+              normalizedLinkPath === normalizedCurrentPath || // Exact match
+              currentSegment === linkSegment || // Segment match
+              (isRootPath && isHomeLink) || // Root path matches home link
+              (currentPath.endsWith(normalizedLinkPath) &&
+                normalizedLinkPath !== "/");
 
-                    if (isMatch) {
-                        link.classList.add("active");
-                    }
-                });
-            });
+            if (isMatch) {
+              link.classList.add("active");
+            }
+          });
+        });
     </script>
     <header id="header" class="header position-fixed"></header>
     <!-- end header -->
     <main>
-        <section class="brochure-section">
-            <div class="_df_book" id="dflip-brochure" source="./assets/images/draf/file.pdf"
-                style="width:100%; height:500px;">
-            </div>
-            <div class="brochure-nav">
-                <button type="button" id="brochure-prev" class="brochure-arrow brochure-arrow-prev"
-                    aria-label="Previous page">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175" fill="currentColor">
-                        <g>
-                            <path
-                                d="M145.188,238.575l215.5-215.5c5.3-5.3,5.3-13.8,0-19.1s-13.8-5.3-19.1,0l-225.1,225.1c-5.3,5.3-5.3,13.8,0,19.1l225.1,225c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1L145.188,238.575z">
-                            </path>
-                        </g>
-                    </svg>
-                </button>
-                <button type="button" id="brochure-next" class="brochure-arrow brochure-arrow-next"
-                    aria-label="Next page">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 477.175 477.175">
-                        <g>
-                            <path
-                                d="M360.731,229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1,0s-5.3,13.8,0,19.1l215.5,215.5l-215.5,215.5c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-4l225.1-225.1C365.931,242.875,365.931,234.275,360.731,229.075z">
-                            </path>
-                        </g>
-                    </svg>
-                </button>
-            </div>
-        </section>
+      <section class="brochure-section">
+        <div
+          class="_df_book"
+          id="dflip-brochure"
+          source="./assets/images/draf/file.pdf"
+          style="width: 100%; height: 500px"
+        ></div>
+        <div class="brochure-nav">
+          <button
+            type="button"
+            id="brochure-prev"
+            class="brochure-arrow brochure-arrow-prev"
+            aria-label="Previous page"
+          >
+            <svg
+              width="13"
+              height="16"
+              viewBox="0 0 13 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 7.6631L0.213404 7.7795L0.407407 7.8959L0.601411 8.01231L0.795414 8.14811L0.989417 8.26451L1.18342 8.38091L1.37742 8.49732L1.57143 8.61372L1.76543 8.73012L1.95944 8.86592L2.15344 8.98233L2.34744 9.09873L2.54145 9.21513L2.73545 9.33153L2.92945 9.44793L3.12346 9.58373L3.31746 9.70014L3.51146 9.81654L3.70547 9.93294L3.89947 10.0493L4.09347 10.1657L4.28748 10.3015L4.48148 10.418L4.67549 10.5344L4.86957 10.6508L5.06357 10.7672L5.25757 10.8836L5.45158 11.0194L5.64558 11.1358L5.83958 11.2522L6.03359 11.3686L6.22759 11.485L6.42159 11.6014L6.6156 11.7372L6.8096 11.8536L7.00361 11.97L7.19761 12.0864L7.39161 12.2028L7.58562 12.3192L7.77962 12.455L7.97362 12.5714L8.16763 12.6878L8.36163 12.8042L8.55563 12.9206L8.74964 13.037L8.94364 13.1728L9.13764 13.2892L9.33165 13.4056L9.54505 13.522L9.73905 13.6384L9.93306 13.7548L10.1271 13.8906L10.3211 14.007L10.5151 14.1234L10.7091 14.2398L10.9031 14.3562L11.0971 14.492L11.2911 14.6084L11.4851 14.7248L11.6791 14.8412L11.8731 14.9576L12.0671 15.074L12.2611 15.2098L12.4551 15.3262V15.074V14.8412V14.6084V14.3562V14.1234V13.8906V13.6384V13.4056V13.1728V12.9206V12.6878V12.455V12.2028V11.97V11.7372V11.485V11.2522V11.0194V10.7672V10.5344V10.3015V10.0493V9.81654V9.58373V9.33153V9.09873V8.86592V8.61372V8.38091V8.14811V7.8959V7.6631V7.4303V7.17809V6.94529V6.71248V6.46028V6.22747V5.97527V5.74247V5.50966V5.25746V5.02469V4.79189V4.53968V4.30688V4.07407V3.82187V3.58906V3.35628V3.10406V2.87127V2.63847V2.38626V2.15346V1.92065V1.66845V1.43564V1.20284V0.950636V0.717832V0.485009V0.232823V0L12.2611 0.116402L12.0671 0.232823L11.8731 0.368625L11.6791 0.485009L11.4851 0.601411L11.2911 0.717832L11.0971 0.834234L10.9031 0.950636L10.7091 1.08642L10.5151 1.20284L10.3211 1.31922L10.1271 1.43564L9.93306 1.55203L9.73905 1.66845L9.54505 1.80423L9.33165 1.92065L9.13764 2.03704L8.94364 2.15346L8.74964 2.26986L8.55563 2.38626L8.36163 2.52205L8.16763 2.63847L7.97362 2.75487L7.77962 2.87127L7.58562 2.98767L7.39161 3.10406L7.19761 3.23988L7.00361 3.35628L6.8096 3.47268L6.6156 3.58906L6.42159 3.70549L6.22759 3.82187L6.03359 3.95769L5.83958 4.07407L5.64558 4.19049L5.45158 4.30688L5.25757 4.4233L5.06357 4.53968L4.86957 4.6755L4.67549 4.79189L4.48148 4.90831L4.28748 5.02469L4.09347 5.14105L3.89947 5.25746L3.70547 5.39326L3.51146 5.50966L3.31746 5.62606L3.12346 5.74247L2.92945 5.85887L2.73545 5.97527L2.54145 6.11107L2.34744 6.22747L2.15344 6.34388L1.95944 6.46028L1.76543 6.57668L1.57143 6.71248L1.37742 6.82888L1.18342 6.94529L0.989417 7.06169L0.795414 7.17809L0.601411 7.29449L0.407407 7.4303L0.213404 7.5467L0 7.6631Z"
+                fill="white"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            id="brochure-next"
+            class="brochure-arrow brochure-arrow-next"
+            aria-label="Next page"
+          >
+            <svg
+              width="13"
+              height="16"
+              viewBox="0 0 13 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 7.6631L0.213404 7.7795L0.407407 7.8959L0.601411 8.01231L0.795414 8.14811L0.989417 8.26451L1.18342 8.38091L1.37742 8.49732L1.57143 8.61372L1.76543 8.73012L1.95944 8.86592L2.15344 8.98233L2.34744 9.09873L2.54145 9.21513L2.73545 9.33153L2.92945 9.44793L3.12346 9.58373L3.31746 9.70014L3.51146 9.81654L3.70547 9.93294L3.89947 10.0493L4.09347 10.1657L4.28748 10.3015L4.48148 10.418L4.67549 10.5344L4.86957 10.6508L5.06357 10.7672L5.25757 10.8836L5.45158 11.0194L5.64558 11.1358L5.83958 11.2522L6.03359 11.3686L6.22759 11.485L6.42159 11.6014L6.6156 11.7372L6.8096 11.8536L7.00361 11.97L7.19761 12.0864L7.39161 12.2028L7.58562 12.3192L7.77962 12.455L7.97362 12.5714L8.16763 12.6878L8.36163 12.8042L8.55563 12.9206L8.74964 13.037L8.94364 13.1728L9.13764 13.2892L9.33165 13.4056L9.54505 13.522L9.73905 13.6384L9.93306 13.7548L10.1271 13.8906L10.3211 14.007L10.5151 14.1234L10.7091 14.2398L10.9031 14.3562L11.0971 14.492L11.2911 14.6084L11.4851 14.7248L11.6791 14.8412L11.8731 14.9576L12.0671 15.074L12.2611 15.2098L12.4551 15.3262V15.074V14.8412V14.6084V14.3562V14.1234V13.8906V13.6384V13.4056V13.1728V12.9206V12.6878V12.455V12.2028V11.97V11.7372V11.485V11.2522V11.0194V10.7672V10.5344V10.3015V10.0493V9.81654V9.58373V9.33153V9.09873V8.86592V8.61372V8.38091V8.14811V7.8959V7.6631V7.4303V7.17809V6.94529V6.71248V6.46028V6.22747V5.97527V5.74247V5.50966V5.25746V5.02469V4.79189V4.53968V4.30688V4.07407V3.82187V3.58906V3.35628V3.10406V2.87127V2.63847V2.38626V2.15346V1.92065V1.66845V1.43564V1.20284V0.950636V0.717832V0.485009V0.232823V0L12.2611 0.116402L12.0671 0.232823L11.8731 0.368625L11.6791 0.485009L11.4851 0.601411L11.2911 0.717832L11.0971 0.834234L10.9031 0.950636L10.7091 1.08642L10.5151 1.20284L10.3211 1.31922L10.1271 1.43564L9.93306 1.55203L9.73905 1.66845L9.54505 1.80423L9.33165 1.92065L9.13764 2.03704L8.94364 2.15346L8.74964 2.26986L8.55563 2.38626L8.36163 2.52205L8.16763 2.63847L7.97362 2.75487L7.77962 2.87127L7.58562 2.98767L7.39161 3.10406L7.19761 3.23988L7.00361 3.35628L6.8096 3.47268L6.6156 3.58906L6.42159 3.70549L6.22759 3.82187L6.03359 3.95769L5.83958 4.07407L5.64558 4.19049L5.45158 4.30688L5.25757 4.4233L5.06357 4.53968L4.86957 4.6755L4.67549 4.79189L4.48148 4.90831L4.28748 5.02469L4.09347 5.14105L3.89947 5.25746L3.70547 5.39326L3.51146 5.50966L3.31746 5.62606L3.12346 5.74247L2.92945 5.85887L2.73545 5.97527L2.54145 6.11107L2.34744 6.22747L2.15344 6.34388L1.95944 6.46028L1.76543 6.57668L1.57143 6.71248L1.37742 6.82888L1.18342 6.94529L0.989417 7.06169L0.795414 7.17809L0.601411 7.29449L0.407407 7.4303L0.213404 7.5467L0 7.6631Z"
+                fill="white"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
     </main>
     <!-- layout -->
     <!-- footer -->
     <script>
-        fetch("./components/footer.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("footer").innerHTML = data;
-            });
+      fetch("./components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer").innerHTML = data;
+        });
     </script>
 
     <footer id="footer"></footer>
@@ -162,7 +184,6 @@
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 
     <!-- end import custom js -->
-</body>
-
+  </body>
 </html>
 <!-- https://gsap.com/community/forums/topic/30338-circular-carouselslider/ -->

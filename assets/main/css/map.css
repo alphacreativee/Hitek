@@ -1,7 +1,7 @@
 .map-page {
   position: relative;
   width: 100vw;
-  height: calc(100dvh - 47px);
+  height: calc(100dvh - 63px);
   margin-bottom: 47px;
   overflow: hidden;
   background-color: #204f4b;

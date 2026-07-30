@@ -1401,8 +1401,8 @@ button.aloading::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100dvh - 47px);
-  margin-bottom: 47px;
+  min-height: calc(100dvh - 63px);
+  margin-bottom: 63px;
   padding: 24px 16px;
   background: linear-gradient(rgba(32, 79, 75, 0.88), rgba(32, 79, 75, 0.88)), url("../../images/bg-contact.avif") center/cover no-repeat;
 }
@@ -1546,7 +1546,7 @@ button.aloading::after {
 }
 
 .overview {
-  height: calc(100dvh - 47px);
+  height: calc(100dvh - 63px);
   position: relative;
 }
 .overview-logo {
@@ -1714,8 +1714,8 @@ button.aloading::after {
   }
 }
 .galleryTab {
-  min-height: calc(100dvh - 47px);
-  padding: 40px 10px 57px;
+  min-height: calc(100dvh - 63px);
+  padding: 40px 10px 73px;
 }
 .galleryTab .gallery-filter-section {
   display: flex;
@@ -1931,8 +1931,8 @@ button.aloading::after {
 .floor-plan-page {
   position: relative;
   width: 100vw;
-  height: calc(100dvh - 47px);
-  margin-bottom: 47px;
+  height: calc(100dvh - 63px);
+  margin-bottom: 63px;
   overflow: hidden;
   background-color: #204f4b;
 }
@@ -2233,7 +2233,7 @@ button.aloading::after {
 }
 .brochure-section .brochure-nav {
   position: absolute;
-  bottom: 55px;
+  bottom: 90px;
   left: 50%;
   width: max-content;
   display: flex;
@@ -2250,7 +2250,6 @@ button.aloading::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 50%;
   color: #ffffff;
@@ -2258,13 +2257,17 @@ button.aloading::after {
   transition: background-color 0.3s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  border: 1px solid #fff;
+}
+.brochure-section .brochure-arrow.brochure-arrow-next {
+  transform: scale(-1);
 }
 .brochure-section .brochure-arrow svg {
   width: 16px;
   height: 16px;
 }
 .brochure-section .brochure-arrow:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .login .cover {
