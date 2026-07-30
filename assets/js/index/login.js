@@ -1,8 +1,12 @@
-const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("pass");
+const toggleButtons = document.querySelectorAll(".toggle-password");
 
-togglePassword.addEventListener("click", () => {
-  const isPassword = passwordInput.getAttribute("type") === "password";
-  passwordInput.setAttribute("type", isPassword ? "text" : "password");
-  togglePassword.textContent = isPassword ? "Hide" : "Show";
+toggleButtons.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    // tìm input gần nhất trong cùng .form-row
+    const passwordInput = toggle.parentElement.querySelector(".pass-input");
+    const isPassword = passwordInput.getAttribute("type") === "password";
+
+    passwordInput.setAttribute("type", isPassword ? "text" : "password");
+    toggle.textContent = isPassword ? "Hide" : "Show";
+  });
 });
