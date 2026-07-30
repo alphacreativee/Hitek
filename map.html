@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoiana - Map</title>
+    <link rel="icon" href="./assets/images/favicon.svg" />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <link rel="stylesheet" href="./assets/fonts/Boska/font.css" />
+    <link rel="stylesheet" href="./assets/fonts/Montserrat/font.css" />
+    <link rel="stylesheet" href="./assets/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lenis.css" />
+    <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/style.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/map.min.css" />
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+    </script>
+  </head>
+
+  <body>
+    <script>
+      fetch("./components/login.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("login-screen").innerHTML = data;
+        });
+    </script>
+
+    <div id="login-screen"></div>
+
+    <script>
+      fetch("./components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+          const currentPath = window.location.pathname || "/";
+
+          const navLinks = document.querySelectorAll(".header-menu ul>li>a");
+          navLinks.forEach((link) => {
+            const linkPath = link.getAttribute("href");
+            let normalizedCurrentPath = currentPath;
+            let normalizedLinkPath = linkPath;
+
+            if (normalizedLinkPath.startsWith("./")) {
+              normalizedLinkPath = normalizedLinkPath.substring(1);
+            }
+
+            const currentSegment = normalizedCurrentPath.split("/").pop() || "";
+            const linkSegment = normalizedLinkPath.split("/").pop() || "";
+            const isRootPath =
+              currentPath === "/" ||
+              currentPath.endsWith("/") ||
+              currentSegment === "";
+            const isHomeLink =
+              linkPath === "/" ||
+              linkPath === "./" ||
+              linkPath === "./index.html" ||
+              linkPath === "index.html" ||
+              linkSegment === "index.html";
+            const isMatch =
+              normalizedLinkPath === normalizedCurrentPath ||
+              currentSegment === linkSegment ||
+              (isRootPath && isHomeLink) ||
+              (currentPath.endsWith(normalizedLinkPath) &&
+                normalizedLinkPath !== "/");
+
+            if (isMatch) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
+    <header id="header" class="header position-fixed"></header>
+
+    <main>
+      <section class="map-page is-filter-expanded" data-map-page>
+        <div class="map-page__stage">
+          <img
+            class="map-page__image active"
+            src="./assets/images/draf/map/map-1.webp"
+            alt="Highlight map"
+            data-map-media
+            draggable="false"
+          />
+        </div>
+
+        <div class="map-page__filter" data-map-filter>
+          <button
+            class="map-page__filter-toggle map-page__filter-close"
+            type="button"
+            aria-label="Close map filter"
+            aria-expanded="true"
+            data-map-filter-toggle
+          ></button>
+
+          <div class="map-page__filter-content">
+            <button
+              class="map-page__filter-item active"
+              type="button"
+              data-map-type="image"
+              data-map-src="./assets/images/draf/map/map-1.webp"
+              data-map-label="Highlight map"
+            >
+              <img src="./assets/images/icon-highlight.svg" alt="" />
+              <span>Highlight</span>
+            </button>
+            <button
+              class="map-page__filter-item"
+              type="button"
+              data-map-type="image"
+              data-map-src="./assets/images/draf/map/map-2.webp"
+              data-map-label="Economic map"
+            >
+              <img src="./assets/images/icon-economic.svg" alt="" />
+              <span>Economic</span>
+            </button>
+            <button
+              class="map-page__filter-item"
+              type="button"
+              data-map-type="image"
+              data-map-src="./assets/images/draf/map/map-3.webp"
+              data-map-label="Public utilities map"
+            >
+              <img src="./assets/images/icon-community.svg" alt="" />
+              <span>Public Utilities</span>
+            </button>
+            <button
+              class="map-page__filter-item"
+              type="button"
+              data-map-type="image"
+              data-map-src="./assets/images/draf/map/map-4.webp"
+              data-map-label="Entertainments map"
+            >
+              <img src="./assets/images/icon-entertaiment.svg" alt="" />
+              <span>Entertainments</span>
+            </button>
+
+            <!-- Cơ chế 2: dùng video MP4 <button
+              class="map-page__filter-item"
+              type="button"
+              data-map-type="video"
+              data-map-src="./assets/videos/map-1.mp4"
+              data-map-label="Highlight video map"
+            > -->
+          </div>
+
+          <button
+            class="map-page__filter-toggle map-page__filter-open"
+            type="button"
+            aria-label="Open map filter"
+            aria-expanded="false"
+            data-map-filter-toggle
+          ></button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      fetch("./components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer").innerHTML = data;
+        });
+    </script>
+    <footer id="footer"></footer>
+
+    <script src="./assets/libs/jquery-3.7.1.js"></script>
+    <script src="./assets/libs/lenis.min.js"></script>
+    <script src="./assets/libs/gsap.min.js"></script>
+    <script src="./assets/libs/ScrollTrigger.min.js"></script>
+    <script src="./assets/libs/SplitText.min.js"></script>
+    <script src="./assets/libs/bootstrap.bundle.min.js"></script>
+    <script src="./assets/libs/swiper-bundle.min.js"></script>
+    <script src="./assets/libs/moment.min.js"></script>
+    <script src="./assets/libs/lightpick.min.js"></script>
+    <script type="module" src="./assets/main/js/script.min.js"></script>
+    <script type="module" src="./assets/main/js/map.min.js"></script>
+  </body>
+</html>

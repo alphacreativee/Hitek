@@ -226,11 +226,11 @@
   top: 10px;
   left: 8px;
   z-index: 5;
-  width: 254px;
+  width: 290px;
   padding: 30px 20px 20px;
   border: 1px solid transparent;
   border-radius: 20px;
-  background: linear-gradient(rgba(31, 79, 75, 0.9), rgba(31, 79, 75, 0.9)) padding-box, linear-gradient(90deg, #69bcb1 0%, #7aeae5 51%, rgba(105, 188, 177, 0.88) 100%) border-box;
+  background: rgba(31, 79, 75, 0.9);
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(10px);
   overflow: hidden;
