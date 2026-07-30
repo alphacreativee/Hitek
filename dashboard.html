@@ -31,26 +31,26 @@
           aria-orientation="vertical"
         >
           <button
-            class="nav-link"
+            class="nav-link active"
             id="profile-tab"
             data-bs-toggle="tab"
             data-bs-target="#profile-pane"
             type="button"
             role="tab"
             aria-controls="profile-pane"
-            aria-selected="false"
+            aria-selected="true"
           >
             Profile
           </button>
           <button
-            class="nav-link active"
+            class="nav-link"
             id="favorites-tab"
             data-bs-toggle="tab"
             data-bs-target="#favorites-pane"
             type="button"
             role="tab"
             aria-controls="favorites-pane"
-            aria-selected="true"
+            aria-selected="false"
           >
             Favorite Villas
           </button>
@@ -59,7 +59,7 @@
 
       <section class="dashboard-content tab-content" id="dashboard-tab-content">
         <div
-          class="tab-pane fade"
+          class="tab-pane fade show active"
           id="profile-pane"
           role="tabpanel"
           aria-labelledby="profile-tab"
@@ -129,7 +129,7 @@
         </div>
 
         <div
-          class="tab-pane fade show active dashboard-favorites-pane"
+          class="tab-pane fade dashboard-favorites-pane"
           id="favorites-pane"
           role="tabpanel"
           aria-labelledby="favorites-tab"
@@ -143,41 +143,69 @@
           <div class="dashboard-villa-grid">
             <article class="villa-card dashboard-villa-card">
               <div class="villa-card__media dashboard-villa-media">
-                <div class="swiper dashboard-villa-swiper" slider-parallax slider-pagination="bullets">
+                <div
+                  class="swiper dashboard-villa-swiper"
+                  slider-parallax
+                  slider-pagination="bullets"
+                >
                   <div class="swiper-wrapper">
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/draf/thumb-villa.jpg"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/bg-contact.avif" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/bg-contact.avif"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/draf/thumb-villa.jpg"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="villa-card__pagination dashboard-villa-pagination"></div>
+                <div
+                  class="villa-card__pagination dashboard-villa-pagination"
+                ></div>
                 <div class="villa-card__actions dashboard-villa-actions">
                   <button type="button" aria-label="Share">
-                    <span class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"></span>
+                    <span
+                      class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"
+                    ></span>
                   </button>
-                  <button class="is-favorite" type="button" aria-label="Favorite">
-                    <span class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"></span>
+                  <button
+                    class="is-favorite"
+                    type="button"
+                    aria-label="Favorite"
+                  >
+                    <span
+                      class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"
+                    ></span>
                   </button>
                 </div>
               </div>
               <div class="villa-card__body dashboard-villa-body">
-                <h2 class="villa-card__title"><a href="./floor-plan.html">Villa C5.1</a></h2>
+                <h2 class="villa-card__title">
+                  <a href="./floor-plan.html">Villa C5.1</a>
+                </h2>
                 <ul class="villa-card__meta dashboard-villa-meta">
                   <li>
                     <img src="./assets/images/zoning/floorplan.svg" alt="" />
-                    <div><strong>100 m<sup>2</sup></strong><span>Floor Plan</span></div>
+                    <div>
+                      <strong>100 m<sup>2</sup></strong
+                      ><span>Floor Plan</span>
+                    </div>
                   </li>
                   <li>
                     <img src="./assets/images/zoning/bed.svg" alt="" />
@@ -200,41 +228,69 @@
 
             <article class="villa-card dashboard-villa-card">
               <div class="villa-card__media dashboard-villa-media">
-                <div class="swiper dashboard-villa-swiper" slider-parallax slider-pagination="bullets">
+                <div
+                  class="swiper dashboard-villa-swiper"
+                  slider-parallax
+                  slider-pagination="bullets"
+                >
                   <div class="swiper-wrapper">
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/draf/thumb-villa.jpg"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/bg-contact.avif" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/bg-contact.avif"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/draf/thumb-villa.jpg"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="villa-card__pagination dashboard-villa-pagination"></div>
+                <div
+                  class="villa-card__pagination dashboard-villa-pagination"
+                ></div>
                 <div class="villa-card__actions dashboard-villa-actions">
                   <button type="button" aria-label="Share">
-                    <span class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"></span>
+                    <span
+                      class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"
+                    ></span>
                   </button>
-                  <button class="is-favorite" type="button" aria-label="Favorite">
-                    <span class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"></span>
+                  <button
+                    class="is-favorite"
+                    type="button"
+                    aria-label="Favorite"
+                  >
+                    <span
+                      class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"
+                    ></span>
                   </button>
                 </div>
               </div>
               <div class="villa-card__body dashboard-villa-body">
-                <h2 class="villa-card__title"><a href="./floor-plan.html">Villa C5.1</a></h2>
+                <h2 class="villa-card__title">
+                  <a href="./floor-plan.html">Villa C5.1</a>
+                </h2>
                 <ul class="villa-card__meta dashboard-villa-meta">
                   <li>
                     <img src="./assets/images/zoning/floorplan.svg" alt="" />
-                    <div><strong>100 m<sup>2</sup></strong><span>Floor Plan</span></div>
+                    <div>
+                      <strong>100 m<sup>2</sup></strong
+                      ><span>Floor Plan</span>
+                    </div>
                   </li>
                   <li>
                     <img src="./assets/images/zoning/bed.svg" alt="" />
@@ -257,41 +313,69 @@
 
             <article class="villa-card dashboard-villa-card">
               <div class="villa-card__media dashboard-villa-media">
-                <div class="swiper dashboard-villa-swiper" slider-parallax slider-pagination="bullets">
+                <div
+                  class="swiper dashboard-villa-swiper"
+                  slider-parallax
+                  slider-pagination="bullets"
+                >
                   <div class="swiper-wrapper">
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/draf/thumb-villa.jpg"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/bg-contact.avif" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/bg-contact.avif"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                     <div class="swiper-slide">
                       <div class="image">
-                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                        <img
+                          src="./assets/images/draf/thumb-villa.jpg"
+                          alt="Villa C5.1"
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="villa-card__pagination dashboard-villa-pagination"></div>
+                <div
+                  class="villa-card__pagination dashboard-villa-pagination"
+                ></div>
                 <div class="villa-card__actions dashboard-villa-actions">
                   <button type="button" aria-label="Share">
-                    <span class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"></span>
+                    <span
+                      class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"
+                    ></span>
                   </button>
-                  <button class="is-favorite" type="button" aria-label="Favorite">
-                    <span class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"></span>
+                  <button
+                    class="is-favorite"
+                    type="button"
+                    aria-label="Favorite"
+                  >
+                    <span
+                      class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"
+                    ></span>
                   </button>
                 </div>
               </div>
               <div class="villa-card__body dashboard-villa-body">
-                <h2 class="villa-card__title"><a href="./floor-plan.html">Villa C5.1</a></h2>
+                <h2 class="villa-card__title">
+                  <a href="./floor-plan.html">Villa C5.1</a>
+                </h2>
                 <ul class="villa-card__meta dashboard-villa-meta">
                   <li>
                     <img src="./assets/images/zoning/floorplan.svg" alt="" />
-                    <div><strong>100 m<sup>2</sup></strong><span>Floor Plan</span></div>
+                    <div>
+                      <strong>100 m<sup>2</sup></strong
+                      ><span>Floor Plan</span>
+                    </div>
                   </li>
                   <li>
                     <img src="./assets/images/zoning/bed.svg" alt="" />
