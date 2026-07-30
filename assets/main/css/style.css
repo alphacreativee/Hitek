@@ -1946,7 +1946,7 @@ button.aloading::after {
 .floor-plan-page__filter-close {
   top: 16px;
   right: 16px;
-  border: 1px solid #6d9695 !important;
+  border: 1px solid #fff !important;
 }
 .floor-plan-page__filter-close::before, .floor-plan-page__filter-close::after, .floor-plan-page__plan-close::before, .floor-plan-page__plan-close::after {
   content: "";
@@ -2054,7 +2054,8 @@ button.aloading::after {
 .floor-plan-page__plan {
   position: absolute;
   right: 12px;
-  bottom: 72px;
+  bottom: 50%;
+  transform: translateY(50%);
   z-index: 5;
   width: 300px;
   padding: 20px 0 0;

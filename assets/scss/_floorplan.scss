@@ -56,7 +56,7 @@
   &__filter-close {
     top: 16px;
     right: 16px;
-    border: 1px solid #6d9695 !important;
+    border: 1px solid #fff !important;
   }
 
   &__filter-close::before,
@@ -210,7 +210,8 @@
   &__plan {
     position: absolute;
     right: 12px;
-    bottom: 72px;
+    bottom: 50%;
+    transform: translateY(50%);
     z-index: 5;
     width: 300px;
     padding: 20px 0 0;
