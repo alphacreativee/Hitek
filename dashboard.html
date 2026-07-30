@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoiana - Dashboard</title>
+    <link rel="icon" href="./assets/images/favicon.svg" />
+    <link rel="stylesheet" href="./assets/fonts/Boska/font.css" />
+    <link rel="stylesheet" href="./assets/fonts/Montserrat/font.css" />
+    <link rel="stylesheet" href="./assets/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/style.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/dashboard.min.css" />
+  </head>
+
+  <body>
+    <main class="dashboard-page">
+      <aside class="dashboard-sidebar">
+        <div class="dashboard-account">
+          <div class="dashboard-avatar" aria-hidden="true"></div>
+          <div>
+            <p>Hello Vu</p>
+            <span>Account information</span>
+          </div>
+        </div>
+
+        <div
+          class="nav nav-tabs dashboard-tabs"
+          id="dashboard-tabs"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <button
+            class="nav-link"
+            id="profile-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#profile-pane"
+            type="button"
+            role="tab"
+            aria-controls="profile-pane"
+            aria-selected="false"
+          >
+            Profile
+          </button>
+          <button
+            class="nav-link active"
+            id="favorites-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#favorites-pane"
+            type="button"
+            role="tab"
+            aria-controls="favorites-pane"
+            aria-selected="true"
+          >
+            Favorite Villas
+          </button>
+        </div>
+      </aside>
+
+      <section class="dashboard-content tab-content" id="dashboard-tab-content">
+        <div
+          class="tab-pane fade"
+          id="profile-pane"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+          tabindex="0"
+        >
+          <h1>My Profile</h1>
+
+          <div class="dashboard-profile-card">
+            <div class="dashboard-profile-summary">
+              <div
+                class="dashboard-avatar dashboard-avatar--large"
+                aria-hidden="true"
+              ></div>
+              <div>
+                <strong>Vu Nguyen</strong>
+                <span>hoang@example.com</span>
+              </div>
+            </div>
+            <button class="dashboard-outline-button" type="button">
+              Change Photo
+            </button>
+          </div>
+
+          <form class="dashboard-form">
+            <label class="dashboard-field">
+              <span>First Name</span>
+              <input type="text" value="Hoang" />
+            </label>
+            <label class="dashboard-field">
+              <span>Last Name</span>
+              <input type="text" value="Nguyen" />
+            </label>
+            <label class="dashboard-field">
+              <span>Email</span>
+              <input type="email" value="hoang@example.com" />
+            </label>
+            <label class="dashboard-field">
+              <span>Phone</span>
+              <input type="tel" value="+84 90 123 4567" />
+            </label>
+            <label class="dashboard-field">
+              <span>Date of Birth</span>
+              <input type="text" value="01 / 01 / 1990" />
+            </label>
+            <label class="dashboard-field">
+              <span>Nationality</span>
+              <input type="text" value="Vietnamese" />
+            </label>
+            <label class="dashboard-field">
+              <span>Current Password</span>
+              <input type="password" value="password" />
+            </label>
+            <label class="dashboard-field">
+              <span>New Password</span>
+              <input type="password" value="password" />
+            </label>
+
+            <div class="dashboard-actions">
+              <button class="dashboard-cancel-button" type="button">
+                Cancel
+              </button>
+              <button class="dashboard-save-button" type="button">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="tab-pane fade show active dashboard-favorites-pane"
+          id="favorites-pane"
+          role="tabpanel"
+          aria-labelledby="favorites-tab"
+          tabindex="0"
+        >
+          <div class="dashboard-favorites-heading">
+            <h1>Favorite Villas</h1>
+            <span>3 villas</span>
+          </div>
+
+          <div class="dashboard-villa-grid">
+            <article class="villa-card dashboard-villa-card">
+              <div class="villa-card__media dashboard-villa-media">
+                <div class="swiper dashboard-villa-swiper" slider-parallax slider-pagination="bullets">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/bg-contact.avif" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="villa-card__pagination dashboard-villa-pagination"></div>
+                <div class="villa-card__actions dashboard-villa-actions">
+                  <button type="button" aria-label="Share">
+                    <span class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"></span>
+                  </button>
+                  <button class="is-favorite" type="button" aria-label="Favorite">
+                    <span class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="villa-card__body dashboard-villa-body">
+                <h2 class="villa-card__title"><a href="./floor-plan.html">Villa C5.1</a></h2>
+                <ul class="villa-card__meta dashboard-villa-meta">
+                  <li>
+                    <img src="./assets/images/zoning/floorplan.svg" alt="" />
+                    <div><strong>100 m<sup>2</sup></strong><span>Floor Plan</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/bed.svg" alt="" />
+                    <div><strong>3</strong><span>Bedrooms</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/view.svg" alt="" />
+                    <div><strong>Lagoon</strong><span>View</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/floor.svg" alt="" />
+                    <div><strong>2</strong><span>Floors</span></div>
+                  </li>
+                </ul>
+              </div>
+              <div class="villa-card__footer dashboard-villa-footer">
+                <a href="./floor-plan.html">View Details</a>
+              </div>
+            </article>
+
+            <article class="villa-card dashboard-villa-card">
+              <div class="villa-card__media dashboard-villa-media">
+                <div class="swiper dashboard-villa-swiper" slider-parallax slider-pagination="bullets">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/bg-contact.avif" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="villa-card__pagination dashboard-villa-pagination"></div>
+                <div class="villa-card__actions dashboard-villa-actions">
+                  <button type="button" aria-label="Share">
+                    <span class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"></span>
+                  </button>
+                  <button class="is-favorite" type="button" aria-label="Favorite">
+                    <span class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="villa-card__body dashboard-villa-body">
+                <h2 class="villa-card__title"><a href="./floor-plan.html">Villa C5.1</a></h2>
+                <ul class="villa-card__meta dashboard-villa-meta">
+                  <li>
+                    <img src="./assets/images/zoning/floorplan.svg" alt="" />
+                    <div><strong>100 m<sup>2</sup></strong><span>Floor Plan</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/bed.svg" alt="" />
+                    <div><strong>3</strong><span>Bedrooms</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/view.svg" alt="" />
+                    <div><strong>Lagoon</strong><span>View</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/floor.svg" alt="" />
+                    <div><strong>2</strong><span>Floors</span></div>
+                  </li>
+                </ul>
+              </div>
+              <div class="villa-card__footer dashboard-villa-footer">
+                <a href="./floor-plan.html">View Details</a>
+              </div>
+            </article>
+
+            <article class="villa-card dashboard-villa-card">
+              <div class="villa-card__media dashboard-villa-media">
+                <div class="swiper dashboard-villa-swiper" slider-parallax slider-pagination="bullets">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/bg-contact.avif" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="image">
+                        <img src="./assets/images/draf/thumb-villa.jpg" alt="Villa C5.1" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="villa-card__pagination dashboard-villa-pagination"></div>
+                <div class="villa-card__actions dashboard-villa-actions">
+                  <button type="button" aria-label="Share">
+                    <span class="villa-card__action-icon villa-card__action-icon--share dashboard-villa-action dashboard-villa-action--share"></span>
+                  </button>
+                  <button class="is-favorite" type="button" aria-label="Favorite">
+                    <span class="villa-card__action-icon villa-card__action-icon--heart dashboard-villa-action dashboard-villa-action--heart"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="villa-card__body dashboard-villa-body">
+                <h2 class="villa-card__title"><a href="./floor-plan.html">Villa C5.1</a></h2>
+                <ul class="villa-card__meta dashboard-villa-meta">
+                  <li>
+                    <img src="./assets/images/zoning/floorplan.svg" alt="" />
+                    <div><strong>100 m<sup>2</sup></strong><span>Floor Plan</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/bed.svg" alt="" />
+                    <div><strong>3</strong><span>Bedrooms</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/view.svg" alt="" />
+                    <div><strong>Lagoon</strong><span>View</span></div>
+                  </li>
+                  <li>
+                    <img src="./assets/images/zoning/floor.svg" alt="" />
+                    <div><strong>2</strong><span>Floors</span></div>
+                  </li>
+                </ul>
+              </div>
+              <div class="villa-card__footer dashboard-villa-footer">
+                <a href="./floor-plan.html">View Details</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./assets/libs/jquery-3.7.1.js"></script>
+    <script src="./assets/libs/lenis.min.js"></script>
+    <script src="./assets/libs/gsap.min.js"></script>
+    <script src="./assets/libs/ScrollTrigger.min.js"></script>
+    <script src="./assets/libs/SplitText.min.js"></script>
+    <script src="./assets/libs/bootstrap.bundle.min.js"></script>
+    <script src="./assets/libs/swiper-bundle.min.js"></script>
+    <script type="module" src="./assets/main/js/script.min.js"></script>
+  </body>
+</html>

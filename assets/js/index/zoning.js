@@ -1,69 +1,7 @@
 "use strict";
 
-function initZoningParallaxSwiper(swiperEl, options = {}) {
-  const interleaveOffset = 0.85;
-
-  return new Swiper(swiperEl, {
-    slidesPerView: 1,
-    loop: true,
-    speed: 1500,
-    watchSlidesProgress: true,
-    grabCursor: true,
-    ...options,
-    on: {
-      progress(swiper) {
-        swiper.slides.forEach((slide) => {
-          const slideProgress = slide.progress || 0;
-          const innerOffset = swiper.width * interleaveOffset;
-          const innerTranslate = slideProgress * innerOffset;
-
-          if (!isNaN(innerTranslate)) {
-            const image = slide.querySelector(".image");
-            if (image) {
-              image.style.transform = `translate3d(${innerTranslate}px, 0, 0)`;
-            }
-          }
-        });
-      },
-      touchStart(swiper) {
-        swiper.slides.forEach((slide) => {
-          slide.style.transition = "";
-        });
-      },
-      setTransition(swiper, speed) {
-        const easing = "cubic-bezier(0.25, 0.1, 0.25, 1)";
-        swiper.slides.forEach((slide) => {
-          slide.style.transition = `${speed}ms ${easing}`;
-          const image = slide.querySelector(".image");
-          if (image) image.style.transition = `${speed}ms ${easing}`;
-        });
-      },
-      ...(options.on || {})
-    }
-  });
-}
-
 function initZoningCardSlider() {
-  document.querySelectorAll(
-    ".zoning-card [slider-parallax], .zoning-compare__modal [slider-parallax]"
-  ).forEach((swiperEl) => {
-    if (swiperEl.swiper) return;
-
-    initZoningParallaxSwiper(swiperEl, {
-      autoplay: swiperEl.hasAttribute("slider-autoplay")
-        ? {
-            delay: 3500,
-            disableOnInteraction: false
-          }
-        : false,
-      pagination: swiperEl.hasAttribute("slider-pagination")
-        ? {
-            el: swiperEl.querySelector(".slider-pagination"),
-            clickable: true
-          }
-        : false
-    });
-  });
+  window.initVillaCardSwipers?.(document);
 }
 
 function zoningFilter(zoningEl) {
@@ -495,6 +433,7 @@ function zoningLots(zoningEl, filterApi) {
 
   const cardArea = card.querySelector("[data-zoning-card-area]");
   const cardTitle = card.querySelector("[data-zoning-card-title]");
+  const cardTitleLink = card.querySelector("[data-zoning-card-title-link]");
   const cardMeta = card.querySelector(".zoning-card-meta");
   const cardDetail = card.querySelector("[data-zoning-card-detail]");
   const cardCompare = card.querySelector("[data-zoning-card-compare]");
@@ -594,7 +533,9 @@ function zoningLots(zoningEl, filterApi) {
           .join("")}
       `;
     }
-    if (cardDetail) cardDetail.href = data.detail_url || getLotUrl(lotTitle || id);
+    const detailUrl = data.detail_url || getLotUrl(lotTitle || id);
+    if (cardTitleLink) cardTitleLink.href = detailUrl;
+    if (cardDetail) cardDetail.href = detailUrl;
     if (cardCompare) cardCompare.dataset.id = data.id || "";
     updateCardGallery(getLotGallery(lotTitle));
     zoningEl.classList.add("is-card-open");
@@ -620,20 +561,7 @@ function zoningLots(zoningEl, filterApi) {
       )
       .join("");
 
-    initZoningParallaxSwiper(cardSlider, {
-      autoplay: cardSlider.hasAttribute("slider-autoplay")
-        ? {
-            delay: 3500,
-            disableOnInteraction: false
-          }
-        : false,
-      pagination: cardSlider.hasAttribute("slider-pagination")
-        ? {
-            el: cardSlider.querySelector(".slider-pagination"),
-            clickable: true
-          }
-        : false
-    });
+    window.initVillaCardSwiper?.(cardSlider);
   };
 
   const getPathPoints = (path) => {

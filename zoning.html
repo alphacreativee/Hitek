@@ -203,17 +203,17 @@
           </button>
         </div>
 
-        <div class="zoning-card" data-zoning-card>
-          <div class="zoning-card-media">
-            <div class="zoning-card-actions">
+        <div class="villa-card zoning-card" data-zoning-card>
+          <div class="villa-card__media zoning-card-media">
+            <div class="villa-card__actions zoning-card-actions">
               <button type="button" aria-label="Share">
                 <span
-                  class="zoning-card-action-icon zoning-card-action-icon-share"
+                  class="villa-card__action-icon villa-card__action-icon--share zoning-card-action-icon zoning-card-action-icon-share"
                 ></span>
               </button>
               <button type="button" aria-label="Favorite">
                 <span
-                  class="zoning-card-action-icon zoning-card-action-icon-wishlist"
+                  class="villa-card__action-icon villa-card__action-icon--heart zoning-card-action-icon zoning-card-action-icon-wishlist"
                 ></span>
               </button>
             </div>
@@ -247,13 +247,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="slider-pagination"></div>
               </div>
+              <div class="slider-pagination"></div>
             </div>
           </div>
-          <div class="zoning-card-body">
-            <h2>Villa <em data-zoning-card-title>A1.53</em></h2>
-            <ul class="zoning-card-meta">
+          <div class="villa-card__body zoning-card-body">
+            <h2 class="villa-card__title">
+              <a href="./floor-plan.html" data-zoning-card-title-link
+                >Villa <em data-zoning-card-title>A1.53</em></a
+              >
+            </h2>
+            <ul class="villa-card__meta zoning-card-meta">
               <li class="floorplan">
                 <img src="./assets/images/zoning/floorplan.svg" alt="" />
                 <div class="content">
@@ -283,10 +287,14 @@
                 </div>
               </li>
             </ul>
-            <button type="button" data-zoning-card-compare>
-              Add to compare
-            </button>
-            <a href="./floor-plan.html" data-zoning-card-detail>View Details</a>
+            <div class="villa-card__footer zoning-card-footer">
+              <a href="./floor-plan.html" data-zoning-card-detail
+                >View Details</a
+              >
+              <button type="button" data-zoning-card-compare>
+                Add to compare
+              </button>
+            </div>
           </div>
         </div>
 
@@ -339,17 +347,17 @@
               <div class="filter-item type-1">
                 <div class="box">
                   <div class="box-item">
-                    <div class="zoning-compare-card">
-                      <div class="zoning-compare-card-media">
-                        <div class="zoning-compare-card-actions">
+                    <div class="villa-card zoning-compare-card">
+                      <div class="villa-card__media zoning-compare-card-media">
+                        <div class="villa-card__actions zoning-compare-card-actions">
                           <button type="button" aria-label="Share">
                             <span
-                              class="zoning-card-action-icon zoning-card-action-icon-share"
+                              class="villa-card__action-icon villa-card__action-icon--share zoning-card-action-icon zoning-card-action-icon-share"
                             ></span>
                           </button>
                           <button type="button" aria-label="Favorite">
                             <span
-                              class="zoning-card-action-icon zoning-card-action-icon-wishlist"
+                              class="villa-card__action-icon villa-card__action-icon--heart zoning-card-action-icon zoning-card-action-icon-wishlist"
                             ></span>
                           </button>
                         </div>
@@ -378,14 +386,18 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="slider-pagination"></div>
                           </div>
+                          <div class="slider-pagination"></div>
                         </div>
                       </div>
-                      <div class="zoning-compare-card-body">
-                        <p>Area F</p>
-                        <h2>Villa <em>F1.1</em></h2>
-                        <ul class="zoning-compare-card-meta">
+                      <div class="villa-card__body zoning-compare-card-body">
+                        <p class="villa-card__eyebrow">Area F</p>
+                        <h2 class="villa-card__title">
+                          <a href="./floor-plan.html?villa=F1.1"
+                            >Villa <em>F1.1</em></a
+                          >
+                        </h2>
+                        <ul class="villa-card__meta zoning-compare-card-meta">
                           <li>
                             <img
                               src="./assets/images/zoning/floorplan.svg"
@@ -425,17 +437,17 @@
                     </div>
                   </div>
                   <div class="box-item">
-                    <div class="zoning-compare-card">
-                      <div class="zoning-compare-card-media">
-                        <div class="zoning-compare-card-actions">
+                    <div class="villa-card zoning-compare-card">
+                      <div class="villa-card__media zoning-compare-card-media">
+                        <div class="villa-card__actions zoning-compare-card-actions">
                           <button type="button" aria-label="Share">
                             <span
-                              class="zoning-card-action-icon zoning-card-action-icon-share"
+                              class="villa-card__action-icon villa-card__action-icon--share zoning-card-action-icon zoning-card-action-icon-share"
                             ></span>
                           </button>
                           <button type="button" aria-label="Favorite">
                             <span
-                              class="zoning-card-action-icon zoning-card-action-icon-wishlist"
+                              class="villa-card__action-icon villa-card__action-icon--heart zoning-card-action-icon zoning-card-action-icon-wishlist"
                             ></span>
                           </button>
                         </div>
@@ -464,14 +476,18 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="slider-pagination"></div>
                           </div>
+                          <div class="slider-pagination"></div>
                         </div>
                       </div>
-                      <div class="zoning-compare-card-body">
-                        <p>Area C</p>
-                        <h2>Villa <em>C1.1</em></h2>
-                        <ul class="zoning-compare-card-meta">
+                      <div class="villa-card__body zoning-compare-card-body">
+                        <p class="villa-card__eyebrow">Area C</p>
+                        <h2 class="villa-card__title">
+                          <a href="./floor-plan.html?villa=C1.1"
+                            >Villa <em>C1.1</em></a
+                          >
+                        </h2>
+                        <ul class="villa-card__meta zoning-compare-card-meta">
                           <li>
                             <img
                               src="./assets/images/zoning/floorplan.svg"
@@ -511,17 +527,17 @@
                     </div>
                   </div>
                   <div class="box-item">
-                    <div class="zoning-compare-card">
-                      <div class="zoning-compare-card-media">
-                        <div class="zoning-compare-card-actions">
+                    <div class="villa-card zoning-compare-card">
+                      <div class="villa-card__media zoning-compare-card-media">
+                        <div class="villa-card__actions zoning-compare-card-actions">
                           <button type="button" aria-label="Share">
                             <span
-                              class="zoning-card-action-icon zoning-card-action-icon-share"
+                              class="villa-card__action-icon villa-card__action-icon--share zoning-card-action-icon zoning-card-action-icon-share"
                             ></span>
                           </button>
                           <button type="button" aria-label="Favorite">
                             <span
-                              class="zoning-card-action-icon zoning-card-action-icon-wishlist"
+                              class="villa-card__action-icon villa-card__action-icon--heart zoning-card-action-icon zoning-card-action-icon-wishlist"
                             ></span>
                           </button>
                         </div>
@@ -550,14 +566,18 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="slider-pagination"></div>
                           </div>
+                          <div class="slider-pagination"></div>
                         </div>
                       </div>
-                      <div class="zoning-compare-card-body">
-                        <p>Area D</p>
-                        <h2>Villa <em>D1.1</em></h2>
-                        <ul class="zoning-compare-card-meta">
+                      <div class="villa-card__body zoning-compare-card-body">
+                        <p class="villa-card__eyebrow">Area D</p>
+                        <h2 class="villa-card__title">
+                          <a href="./floor-plan.html?villa=D1.1"
+                            >Villa <em>D1.1</em></a
+                          >
+                        </h2>
+                        <ul class="villa-card__meta zoning-compare-card-meta">
                           <li>
                             <img
                               src="./assets/images/zoning/floorplan.svg"
