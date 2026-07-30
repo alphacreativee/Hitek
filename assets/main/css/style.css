@@ -1289,18 +1289,18 @@ button.aloading::after {
 .header-menu .logo {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 26px;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 93px;
+  width: 113px;
   height: 47px;
 }
 
 .header-menu .logo img {
-  width: 53px;
-  height: 33px;
+  width: 113px;
+  height: 27px;
   object-fit: contain;
 }
 
@@ -1341,12 +1341,12 @@ button.aloading::after {
 .header-menu ul > li > a::after {
   content: "";
   width: calc(100% + 2px);
-  height: calc(100% + 3px);
+  height: calc(100% + 5px);
   border: 1px solid transparent;
   background-color: transparent;
   border-bottom: 0 !important;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: -1px;
   transition: all 0.3s ease;
 }
@@ -1395,7 +1395,7 @@ button.aloading::after {
   right: 0;
   display: flex;
   align-items: center;
-  height: 47px;
+  height: 100%;
   padding: 0 20px;
   color: var(--color-white);
   font-size: 11px;
@@ -1404,9 +1404,13 @@ button.aloading::after {
   line-height: 15px;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+  border-bottom: 0;
 }
 .header-menu .login:hover {
-  background-color: #6d9695;
+  background-color: #387873;
+  border: 1px solid #7aeae5;
+  border-bottom: 0;
 }
 
 .banner-intro {
