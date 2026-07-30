@@ -29,9 +29,34 @@ function zoningFilter(zoningEl) {
       .replace(/^_+|_+$/g, "");
 
   const getComparableValue = (value) => normalizeFilterValue(value);
+  const filterIcons = {
+    view: {
+      beach: "./assets/images/icon-beach.svg",
+      golf_course: "./assets/images/icon-golf.svg",
+      lagoon: "./assets/images/icon-lagoon.svg"
+    }
+  };
+
+  const escapeFilterHtml = (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
 
   const formatFilterLabel = (field, value) => {
     return String(value);
+  };
+
+  const renderFilterButtonContent = (field, value) => {
+    const normalizedValue = getComparableValue(value);
+    const label = escapeFilterHtml(formatFilterLabel(field, value));
+    const icon = filterIcons[field]?.[normalizedValue];
+
+    if (!icon) return label;
+
+    return `<img src="${icon}" alt="" /><span>${label}</span>`;
   };
 
   const sortFilterValues = (field, values) => {
@@ -60,11 +85,15 @@ function zoningFilter(zoningEl) {
       });
 
       const buttons = [
-        `<button type="button" class="${activeFilters[field] === "all" ? "active" : ""}" value="all" data-filter-value="all">All</button>`,
+        ...(field === "view"
+          ? []
+          : [
+              `<button type="button" class="${activeFilters[field] === "all" ? "active" : ""}" value="all" data-filter-value="all">All</button>`
+            ]),
         ...sortFilterValues(field, values.values()).map((value) => {
           const normalizedValue = getComparableValue(value);
           const activeClass = activeFilters[field] === normalizedValue ? "active" : "";
-          return `<button type="button" class="${activeClass}" value="${normalizedValue}" data-filter-value="${normalizedValue}">${formatFilterLabel(field, value)}</button>`;
+          return `<button type="button" class="${activeClass}" value="${normalizedValue}" data-filter-value="${normalizedValue}">${renderFilterButtonContent(field, value)}</button>`;
         })
       ];
 

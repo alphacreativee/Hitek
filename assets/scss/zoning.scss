@@ -418,8 +418,8 @@
     margin-bottom: 8px;
     color: #7ff8e8;
     font-family: "Boska", var(--font-heading);
-    font-size: 13px;
-    font-style: italic;
+    font-size: 16px;
+    // font-style: italic;
     font-weight: 700;
     line-height: 16px;
   }
@@ -431,6 +431,11 @@
   }
 
   .zoning-filter-options button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
     min-width: 40px;
     height: 40px;
     padding: 0 10px;
@@ -443,6 +448,29 @@
     line-height: 15px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+  }
+
+  .zoning-filter-options button img {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  .zoning-filter-options button span {
+    min-width: 0;
+  }
+
+  .zoning-filter-group[data-filter-group="view"] .zoning-filter-options button {
+    border-radius: 0;
+    padding: 14px;
+    height: 78px;
+    width: 75px;
+    text-transform: unset !important;
+
+    span {
+      font-weight: 400;
+    }
   }
 
   .zoning-filter-options button.active,
