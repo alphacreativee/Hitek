@@ -1962,3 +1962,142 @@ button.aloading::after {
 .brochure-section .brochure-arrow:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
+
+.login .cover {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 72px 64px;
+  background-size: cover;
+  position: relative;
+}
+.login .cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #1e4842 15%, transparent 100%);
+  z-index: 1;
+}
+.login .cover .box {
+  display: flex;
+  flex-direction: column;
+  gap: 180px;
+  z-index: 4;
+}
+.login .cover .box .title {
+  font-size: 48px;
+  line-height: 1;
+  color: #fff;
+  font-family: "Boska Variable";
+  font-weight: bold;
+}
+.login .cover .box .img {
+  display: inline-block;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #c9a06a;
+  margin-bottom: 12px;
+}
+.login .cover .box .description {
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+}
+.login-inner {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  height: 100%;
+}
+.login .login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.login .login-wrapper .box-login .title {
+  color: #1e4842;
+  font-size: 28px;
+  line-height: 32px;
+  font-family: "Boska Variable";
+}
+.login .login-wrapper .box-login .sub {
+  font-size: 11px;
+  line-height: 13px;
+  color: #8a8a8a;
+}
+.login .login-wrapper .box-login .box-form {
+  margin-top: 24px;
+  min-width: 380px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.login .login-wrapper .box-login .box-form .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+.login .login-wrapper .box-login .box-form .form-row.password input {
+  padding-right: 56px;
+}
+.login .login-wrapper .box-login .box-form .form-row .toggle-password {
+  position: absolute;
+  top: calc(50% + 10px);
+  right: 16px;
+  transform: translateY(-50%);
+  font-size: 11px;
+  line-height: 13px;
+  color: #1e4842;
+  cursor: pointer;
+}
+.login .login-wrapper .box-login .box-form .form-row label {
+  font-size: 11px;
+  line-height: 13px;
+  color: #1e4842;
+}
+.login .login-wrapper .box-login .box-form .form-row input {
+  border: none;
+  padding: 16px;
+  border: 1px solid #e0ddd6;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 500;
+}
+.login .login-wrapper .box-login .forgot-password {
+  font-size: 11px;
+  line-height: 13px;
+  color: #1e4842;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.login .login-wrapper .box-login .btn-login {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #387873;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 24px 0;
+}
+.login .login-wrapper .box-login .sign-up-inner {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+  line-height: 13px;
+  color: #8a8a8a;
+}
+.login .login-wrapper .box-login .sign-up-inner a {
+  font-size: 11px;
+  line-height: 13px;
+  color: #1e4842;
+}
+
+.section-login {
+  width: 100%;
+  height: 100svh;
+}
