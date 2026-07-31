@@ -473,6 +473,14 @@ function villaShareModal() {
   modalShareClose.on("click", function () {
     modalShare.removeClass("show");
   });
+
+  $(document).on(
+    "click",
+    ".villa-card__actions button[aria-label='Share']",
+    function () {
+      modalShare.addClass("show");
+    }
+  );
 }
 
 function init() {
