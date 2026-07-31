@@ -14,12 +14,23 @@ function zoningFilter(zoningEl) {
 
   let filterTimer = null;
   let villaDataById = new Map();
+
   const filterFields = ["villa", "bedroom", "floor_area", "view"];
+
   const activeFilters = filterFields.reduce((filters, field) => {
     filters[field] = "all";
     return filters;
   }, {});
 
+  /**
+   * Chuẩn hóa giá trị để so sánh giữa:
+   * - data-filter-value trong HTML
+   * - dữ liệu villa từ JSON
+   *
+   * Ví dụ:
+   * "Golf Course" => "golf_course"
+   * "Beach & Lagoon" => "beach_and_lagoon"
+   */
   const normalizeFilterValue = (value) =>
     String(value ?? "")
       .trim()
@@ -29,101 +40,39 @@ function zoningFilter(zoningEl) {
       .replace(/^_+|_+$/g, "");
 
   const getComparableValue = (value) => normalizeFilterValue(value);
-  const filterIcons = {
-    view: {
-      beach: "./assets/images/icon-beach.svg",
-      golf_course: "./assets/images/icon-golf.svg",
-      lagoon: "./assets/images/icon-lagoon.svg"
-    }
-  };
-
-  const escapeFilterHtml = (value) =>
-    String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-
-  const formatFilterLabel = (field, value) => {
-    return String(value);
-  };
-
-  const renderFilterButtonContent = (field, value) => {
-    const normalizedValue = getComparableValue(value);
-    const label = escapeFilterHtml(formatFilterLabel(field, value));
-    const icon = filterIcons[field]?.[normalizedValue];
-
-    if (!icon) return label;
-
-    return `<img src="${icon}" alt="" /><span>${label}</span>`;
-  };
-
-  const sortFilterValues = (field, values) => {
-    const sortedValues = [...values];
-
-    if (field === "bedroom" || field === "floor_area") {
-      return sortedValues.sort((a, b) => Number(a) - Number(b));
-    }
-
-    return sortedValues.sort((a, b) => String(a).localeCompare(String(b)));
-  };
-
-  const renderFilterButtons = (villas) => {
-    if (!filter) return;
-
-    filterFields.forEach((field) => {
-      const group = filter.querySelector(`[data-filter-group="${field}"]`);
-      const options = group?.querySelector(".zoning-filter-options");
-      if (!options) return;
-
-      const values = new Map();
-      villas.forEach((villa) => {
-        const rawValue = villa[field];
-        if (rawValue === undefined || rawValue === null || rawValue === "")
-          return;
-        values.set(getComparableValue(rawValue), rawValue);
-      });
-
-      const buttons = [
-        ...(field === "view"
-          ? []
-          : [
-              `<button type="button" class="${activeFilters[field] === "all" ? "active" : ""}" value="all" data-filter-value="all">All</button>`
-            ]),
-        ...sortFilterValues(field, values.values()).map((value) => {
-          const normalizedValue = getComparableValue(value);
-          const activeClass =
-            activeFilters[field] === normalizedValue ? "active" : "";
-          return `<button type="button" class="${activeClass}" value="${normalizedValue}" data-filter-value="${normalizedValue}">${renderFilterButtonContent(field, value)}</button>`;
-        })
-      ];
-
-      options.innerHTML = buttons.join("");
-    });
-  };
 
   const getActiveButtonValue = (button) =>
-    button.dataset.filterValue || button.value || "all";
+    getComparableValue(button.dataset.filterValue || button.value || "all") ||
+    "all";
 
+  /**
+   * Đồng bộ class active của các button HTML
+   * với trạng thái trong activeFilters.
+   */
   const updateFilterButtons = () => {
     if (!filter) return;
 
     filter.querySelectorAll("[data-filter-group]").forEach((group) => {
       const field = group.dataset.filterGroup;
+
       if (!filterFields.includes(field)) return;
 
       group
         .querySelectorAll(".zoning-filter-options button")
         .forEach((button) => {
+          const buttonValue = getActiveButtonValue(button);
+
           button.classList.toggle(
             "active",
-            getActiveButtonValue(button) === activeFilters[field]
+            buttonValue === activeFilters[field]
           );
         });
     });
   };
 
+  /**
+   * Gán giá trị filter.
+   */
   const setFilterValue = (field, value, options = {}) => {
     if (!filterFields.includes(field)) return;
 
@@ -140,12 +89,17 @@ function zoningFilter(zoningEl) {
     }
 
     activeFilters[field] = getComparableValue(value || "all") || "all";
+
     updateFilterButtons();
+
     if (options.apply !== false) {
       applyZoningFilters();
     }
   };
 
+  /**
+   * Kiểm tra một villa có khớp các filter hiện tại không.
+   */
   const villaMatchesFilters = (villaId) => {
     const villa = villaDataById.get(String(villaId || ""));
 
@@ -155,18 +109,24 @@ function zoningFilter(zoningEl) {
 
     return filterFields.every((field) => {
       const activeValue = activeFilters[field];
+
       if (activeValue === "all") return true;
+
       return getComparableValue(villa[field]) === activeValue;
     });
   };
 
+  /**
+   * Ẩn/hiện path và label theo filter.
+   */
   const applyZoningFilters = () => {
     if (!overlay) return;
 
     overlay.querySelectorAll("path[data-id]").forEach((path) => {
       const isVisible = villaMatchesFilters(path.dataset.id);
+
       const pathLabels = labels
-        ? [...labels.querySelectorAll("span[data-title]")].filter(
+        ? [...labels.querySelectorAll("span[data-id]")].filter(
             (label) => label.dataset.id === path.dataset.id
           )
         : [];
@@ -174,8 +134,10 @@ function zoningFilter(zoningEl) {
       path.classList.toggle("is-filter-hidden", !isVisible);
       path.setAttribute("aria-hidden", String(!isVisible));
       path.setAttribute("tabindex", isVisible ? "0" : "-1");
+
       pathLabels.forEach((label) => {
         label.classList.toggle("is-filter-hidden", !isVisible);
+        label.setAttribute("aria-hidden", String(!isVisible));
       });
 
       if (!isVisible && path.classList.contains("is-selected")) {
@@ -185,22 +147,21 @@ function zoningFilter(zoningEl) {
     });
   };
 
+  /**
+   * Bind sự kiện cho các button đã viết sẵn trong HTML.
+   */
   const bindFilterButtons = () => {
     if (!filter) return;
 
     filter.querySelectorAll("[data-filter-group]").forEach((group) => {
       const field = group.dataset.filterGroup;
+
       if (!filterFields.includes(field)) return;
 
       group
         .querySelectorAll(".zoning-filter-options button")
         .forEach((button) => {
           button.addEventListener("click", () => {
-            group
-              .querySelectorAll(".zoning-filter-options button")
-              .forEach((item) => item.classList.remove("active"));
-
-            button.classList.add("active");
             setFilterValue(field, getActiveButtonValue(button));
           });
         });
@@ -214,29 +175,35 @@ function zoningFilter(zoningEl) {
   };
 
   const clearFilterTimer = () => {
-    if (filterTimer) {
-      window.clearTimeout(filterTimer);
-      filterTimer = null;
-    }
+    if (!filterTimer) return;
+
+    window.clearTimeout(filterTimer);
+    filterTimer = null;
   };
 
   const collapseFilter = () => {
     clearFilterTimer();
+
     zoningEl.classList.remove("is-filter-expanding");
     zoningEl.classList.add("is-filter-collapsing");
+
     setFilterExpanded(false);
 
     filterTimer = window.setTimeout(() => {
       zoningEl.classList.add("is-filter-collapsed");
       zoningEl.classList.remove("is-filter-collapsing");
+
       filterTimer = null;
     }, 220);
   };
 
   const expandFilter = () => {
     clearFilterTimer();
+
     zoningEl.classList.remove("is-filter-collapsed", "is-filter-collapsing");
+
     zoningEl.classList.add("is-filter-expanding");
+
     setFilterExpanded(true);
 
     filterTimer = window.setTimeout(() => {
@@ -245,6 +212,9 @@ function zoningFilter(zoningEl) {
     }, 380);
   };
 
+  /**
+   * Bind đóng/mở filter.
+   */
   if (filterToggles.length) {
     setFilterExpanded(!zoningEl.classList.contains("is-filter-collapsed"));
 
@@ -255,7 +225,9 @@ function zoningFilter(zoningEl) {
           return;
         }
 
-        if (zoningEl.classList.contains("is-filter-expanding")) return;
+        if (zoningEl.classList.contains("is-filter-expanding")) {
+          return;
+        }
 
         collapseFilter();
       });
@@ -264,15 +236,22 @@ function zoningFilter(zoningEl) {
 
   return {
     collapse: collapseFilter,
+
     expand: expandFilter,
-    init(villas) {
+
+    init(villas = []) {
       villaDataById = new Map(villas.map((villa) => [String(villa.id), villa]));
-      renderFilterButtons(villas);
+
       bindFilterButtons();
+      updateFilterButtons();
       applyZoningFilters();
     },
+
     selectSector(sector) {
-      setFilterValue("villa", sector, { resetOthers: true });
+      setFilterValue("villa", sector, {
+        resetOthers: true
+      });
+
       expandFilter();
     }
   };
@@ -281,6 +260,11 @@ function zoningFilter(zoningEl) {
 function zoningSectors(zoningEl, filterApi) {
   const sectorLayer = zoningEl.querySelector("[data-zoning-map-sector]");
   if (!sectorLayer) return;
+  const sectorImage = sectorLayer.dataset.image;
+  if (!sectorImage) {
+    console.warn("Missing data-image for zoning sector SVG");
+    return;
+  }
 
   const normalizeSector = (value) =>
     String(value || "")
@@ -387,7 +371,7 @@ function zoningSectors(zoningEl, filterApi) {
     return labels;
   };
 
-  fetch("./assets/images/zoning-map-sector.svg")
+  fetch(sectorImage)
     .then((response) => {
       if (!response.ok) throw new Error("Could not load zoning sector SVG");
       return response.text();
@@ -477,6 +461,13 @@ function zoningLots(zoningEl, filterApi) {
   const labels = zoningEl.querySelector("[data-zoning-map-labels]");
   const card = zoningEl.querySelector("[data-zoning-card]");
   if (!overlay || !card) return;
+  const overlayImage = overlay.dataset.image;
+  if (!overlayImage) {
+    console.warn("Missing data-image for zoning map SVG");
+    return;
+  }
+
+  const zoningMapJson = labels.dataset.zoningJson;
 
   const cardArea = card.querySelector("[data-zoning-card-area]");
   const cardTitle = card.querySelector("[data-zoning-card-title]");
@@ -485,6 +476,22 @@ function zoningLots(zoningEl, filterApi) {
   const cardDetail = card.querySelector("[data-zoning-card-detail]");
   const cardCompare = card.querySelector("[data-zoning-card-compare]");
   const cardSlider = card.querySelector("[slider-parallax]");
+  const cardMetaTemplates = [...(cardMeta?.querySelectorAll("li") || [])].map(
+    (item) => ({
+      icon: item.querySelector("img")?.getAttribute("src") || "",
+      label:
+        [...(item.querySelector(".content")?.childNodes || [])]
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent.trim())
+          .find(Boolean) || "",
+      className: item.className || ""
+    })
+  );
+  const defaultGallery = [
+    ...(cardSlider?.querySelectorAll(".swiper-slide img") || [])
+  ]
+    .map((image) => image.getAttribute("src"))
+    .filter(Boolean);
   let selectedPath = null;
   let villaDataByName = new Map();
   let villaDataById = new Map();
@@ -497,16 +504,6 @@ function zoningLots(zoningEl, filterApi) {
     F: "rgb(99, 171, 97)",
     G: "rgb(135, 72, 72)"
   };
-  const defaultGallery = [
-    "./assets/images/draf/thumb-villa.jpg",
-    "./assets/images/bg-contact.avif",
-    "./assets/images/draf/thumb-villa.jpg",
-    "./assets/images/bg-contact.avif"
-  ];
-  const villaGalleries = {
-    default: defaultGallery
-  };
-
   const escapeHtml = (value) =>
     String(value ?? "")
       .replace(/&/g, "&amp;")
@@ -518,8 +515,13 @@ function zoningLots(zoningEl, filterApi) {
     String(title || "").match(/^[A-Z]/)?.[0] || "";
   const getLotUrl = (title) =>
     `./floor-plan.html?villa=${encodeURIComponent(title)}`;
-  const getLotGallery = (title) =>
-    villaGalleries[title] || villaGalleries.default;
+  const getLotGallery = (data) => data.gallery || data.images || defaultGallery;
+  const getCardMetaValues = (data) => [
+    data.floor_area ? `${data.floor_area} sqm` : "",
+    data.bedroom || "",
+    data.view || "",
+    data.floors || data.floor || 2
+  ];
 
   const selectLot = (path) => {
     const title = path.dataset.title;
@@ -544,43 +546,23 @@ function zoningLots(zoningEl, filterApi) {
       cardArea.textContent = data.villa ? `Area ${data.villa}` : "Area";
     if (cardTitle) cardTitle.textContent = lotTitle;
     if (cardMeta) {
-      const floorPlan = data.floor_area ? `${data.floor_area} sqm` : "";
-      const floors = data.floors || data.floor || 2;
-      const cardMetaItems = [
-        {
-          icon: "./assets/images/zoning/floorplan.svg",
-          value: floorPlan,
-          label: "Floor Plan"
-        },
-        {
-          icon: "./assets/images/zoning/bed.svg",
-          value: data.bedroom || "",
-          label: "Bedrooms"
-        },
-        {
-          icon: "./assets/images/zoning/view.svg",
-          value: data.view || "",
-          label: "View"
-        },
-        {
-          icon: "./assets/images/zoning/floor.svg",
-          value: floors,
-          label: "Floors"
-        }
-      ];
+      const cardMetaValues = getCardMetaValues(data);
       cardMeta.innerHTML = `
-        ${cardMetaItems
-          .map(
-            (item) => `
-              <li>
-                <img src="${item.icon}" alt="" />
+        ${cardMetaTemplates
+          .map((item, index) => {
+            const icon = item.icon
+              ? `<img src="${escapeHtml(item.icon)}" alt="" />`
+              : "";
+            return `
+              <li class="${escapeHtml(item.className)}">
+                ${icon}
                 <div class="content">
-                  <span>${escapeHtml(item.value)}</span>
+                  <span>${escapeHtml(cardMetaValues[index] || "")}</span>
                   ${escapeHtml(item.label)}
                 </div>
               </li>
-            `
-          )
+            `;
+          })
           .join("")}
       `;
     }
@@ -588,7 +570,7 @@ function zoningLots(zoningEl, filterApi) {
     if (cardTitleLink) cardTitleLink.href = detailUrl;
     if (cardDetail) cardDetail.href = detailUrl;
     if (cardCompare) cardCompare.dataset.id = data.id || "";
-    updateCardGallery(getLotGallery(lotTitle));
+    updateCardGallery(getLotGallery(data));
     zoningEl.classList.add("is-card-open");
   };
 
@@ -739,11 +721,11 @@ function zoningLots(zoningEl, filterApi) {
   };
 
   Promise.all([
-    fetch("./assets/images/zoning-map-titled.svg").then((response) => {
+    fetch(overlayImage).then((response) => {
       if (!response.ok) throw new Error("Could not load zoning SVG");
       return response.text();
     }),
-    fetch("./assets/data/zoning-villas.json").then((response) => {
+    fetch(zoningMapJson).then((response) => {
       if (!response.ok) throw new Error("Could not load zoning data");
       return response.json();
     })

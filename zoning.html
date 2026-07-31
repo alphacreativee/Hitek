@@ -114,16 +114,20 @@
                 class="zoning-map-overlay"
                 data-zoning-map-overlay
                 aria-label="Interactive zoning lots"
+                data-image="./assets/images/zoning-map-titled.svg"
               ></div>
               <div
                 class="zoning-map-sector"
                 data-zoning-map-sector
                 aria-label="Interactive zoning sectors"
+                data-image="./assets/images/zoning-map-sector.svg"
               ></div>
               <div
                 class="zoning-map-labels"
                 data-zoning-map-labels
                 aria-hidden="true"
+                data-image="./assets/images/zoning-map-titled.svg"
+                data-zoning-json="./assets/data/zoning-villas.json"
               ></div>
             </div>
           </div>
@@ -141,49 +145,92 @@
             <div class="zoning-filter-group" data-filter-group="villa">
               <p>Sector</p>
               <div class="zoning-filter-options">
-                <button type="button" class="active" value="all">All</button>
-                <button type="button" value="a">A</button>
-                <button type="button" value="b">B</button>
-                <button type="button" value="c">C</button>
-                <button type="button" value="d">D</button>
-                <button type="button" value="e">E</button>
-                <button type="button" value="f">F</button>
-                <button type="button" value="g">G</button>
+                <button
+                  type="button"
+                  class="active"
+                  value="all"
+                  data-filter-value="all"
+                >
+                  All
+                </button>
+                <button type="button" value="a" data-filter-value="a">A</button>
+                <button type="button" value="b" data-filter-value="b">B</button>
+                <button type="button" value="c" data-filter-value="c">C</button>
+                <button type="button" value="d" data-filter-value="d">D</button>
+                <button type="button" value="e" data-filter-value="e">E</button>
+                <button type="button" value="f" data-filter-value="f">F</button>
+                <button type="button" value="g" data-filter-value="g">G</button>
               </div>
             </div>
 
             <div class="zoning-filter-group" data-filter-group="bedroom">
               <p>Bedrooms</p>
               <div class="zoning-filter-options">
-                <button type="button" class="active" value="all">All</button>
-                <button type="button" value="2">2</button>
-                <button type="button" value="3">3</button>
-                <button type="button" value="4">4</button>
+                <button
+                  type="button"
+                  class="active"
+                  data-filter-value="all"
+                  value="all"
+                >
+                  All
+                </button>
+                <button type="button" value="2" data-filter-value="2">2</button>
+                <button type="button" value="3" data-filter-value="3">3</button>
+                <button type="button" value="4" data-filter-value="4">4</button>
               </div>
             </div>
 
             <div class="zoning-filter-group" data-filter-group="floor_area">
               <p>Area (sqm)</p>
               <div class="zoning-filter-options">
-                <button type="button" class="active" value="all">All</button>
-                <button type="button" value="100">100</button>
-                <button type="button" value="200">200</button>
-                <button type="button" value="300">300</button>
+                <button
+                  type="button"
+                  class="active"
+                  value="all"
+                  data-filter-value="all"
+                >
+                  All
+                </button>
+                <button type="button" value="360" data-filter-value="360">
+                  360
+                </button>
+                <button type="button" value="544" data-filter-value="544">
+                  544
+                </button>
+                <button type="button" value="630" data-filter-value="630">
+                  630
+                </button>
+                <button type="button" value="702" data-filter-value="702">
+                  702
+                </button>
+                <button type="button" value="840" data-filter-value="840">
+                  840
+                </button>
+                <button type="button" value="2208" data-filter-value="2208">
+                  2208
+                </button>
+                <button type="button" value="3132" data-filter-value="3132">
+                  3132
+                </button>
               </div>
             </div>
 
             <div class="zoning-filter-group" data-filter-group="view">
               <p>View</p>
               <div class="zoning-filter-options">
-                <button type="button" value="beach">
+                <button type="button" value="beach" data-filter-value="beach">
                   <img src="./assets/images/icon-beach.svg" alt="" />
                   <span>Beach</span>
                 </button>
-                <button type="button" value="golf_coures">
+                <button
+                  type="button"
+                  value="golf_course"
+                  data-filter-value="golf_course"
+                >
                   <img src="./assets/images/icon-golf.svg" alt="" />
                   <span>Golf Course</span>
                 </button>
-                <button type="button" value="lagoon">
+                <button type="button" value="lagoon" data-filter-value="lagoon">
                   <img src="./assets/images/icon-lagoon.svg" alt="" />
                   <span>Lagoon</span>
                 </button>
@@ -788,7 +835,7 @@
     <script type="module" src="./assets/main/js/script.min.js"></script>
     <script
       type="module"
-      src="./assets/main/js/zoning.min.js?v=sector-f-2"
+      src="./assets/main/js/zoning.min.js?v=data-image-svg-1"
     ></script>
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 
