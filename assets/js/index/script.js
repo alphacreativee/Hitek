@@ -297,6 +297,8 @@ function sectionOverview() {
 
   function embedOverviewVtour($item) {
     const vtourEl = $item.find("[data-vtour-scene]")[0];
+    const dataXML = $item.find("[data-xml]").attr("data-xml");
+
     if (!vtourEl || embeddedVtours.has(vtourEl.id)) return;
     if (typeof embedpano !== "function") return;
 
@@ -304,7 +306,7 @@ function sectionOverview() {
 
     embedpano({
       target: vtourEl.id,
-      xml: "./vtour/overview.xml?v=overview-3",
+      xml: dataXML,
       html5: "only",
       mobilescale: 1,
       passQueryParameters: false,
