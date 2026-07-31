@@ -2,6 +2,8 @@
 
 const $ = jQuery;
 
+// const themeURL = sk_object.vars.theme_url;
+
 // Lấy tọa độ vị trí x, y của floorplan
 
 // document.addEventListener("click", (e) => {
@@ -37,7 +39,7 @@ function floorPlan() {
     C: {
       1: {
         scene: "scene_floorplan_villa_c_floor_1",
-        image: "./assets/images/floorplan/C/Villa_C_F1.png",
+        image: `${themeURL}/assets/images/floorplan/C/Villa_C_F1.png`,
         markers: [
           {
             id: "c-1-entrance",
@@ -64,7 +66,7 @@ function floorPlan() {
       },
       2: {
         scene: "scene_floorplan_villa_c_floor_2",
-        image: "./assets/images/floorplan/C/Villa_C_F2.png",
+        image: `${themeURL}/assets/images/floorplan/C/Villa_C_F2.png`,
         markers: [
           {
             id: "c-2-master",
@@ -93,7 +95,7 @@ function floorPlan() {
     D: {
       1: {
         scene: "scene_260619_vr360_villad1_11_v01",
-        image: "./assets/images/floorplan/D/Villa_D_F1.png",
+        image: `${themeURL}/assets/images/floorplan/D/Villa_D_F1.png`,
         markers: [
           {
             id: "d-1-front",
@@ -127,7 +129,7 @@ function floorPlan() {
       },
       2: {
         scene: "scene_260619_vr360_villad1_11_v14",
-        image: "./assets/images/floorplan/D/Villa_D_F2.png",
+        image: `${themeURL}/assets/images/floorplan/D/Villa_D_F2.png`,
         markers: [
           {
             id: "d-2-master",
@@ -156,7 +158,7 @@ function floorPlan() {
     F: {
       1: {
         scene: "scene_360_villaf_view11_lanscape_truoc_nha_copy",
-        image: "./assets/images/floorplan/F/Villa_F_F1.png",
+        image: `${themeURL}/assets/images/floorplan/F/Villa_F_F1.png`,
         markers: [
           {
             id: "f-1-entry",
@@ -190,7 +192,7 @@ function floorPlan() {
       },
       2: {
         scene: "scene_360_villaf_view18_pngu_tang2_2",
-        image: "./assets/images/floorplan/F/Villa_F_F2.png",
+        image: `${themeURL}/assets/images/floorplan/F/Villa_F_F2.png`,
         markers: [
           {
             id: "f-2-master",
@@ -383,20 +385,20 @@ function floorPlan() {
     if (!krpano) return;
 
     const controlIcons = {
-      skin_btn_prev: "./vtour/skin/icon/arrow-left.svg",
-      skin_btn_thumbs: "./vtour/skin/icon/filter.svg",
-      skin_btn_left: "./vtour/skin/icon/arrow-left.svg",
-      skin_btn_right: "./vtour/skin/icon/arrow-right.svg",
-      skin_btn_up: "./vtour/skin/icon/arrow-up.svg",
-      skin_btn_down: "./vtour/skin/icon/arrow-down.svg",
-      skin_btn_in: "./vtour/skin/icon/plus.svg",
-      skin_btn_out: "./vtour/skin/icon/minus.svg",
-      skin_btn_gyro: "./vtour/skin/icon/hotpot.svg",
-      skin_btn_vr: "./vtour/skin/icon/vr.svg",
-      skin_btn_fs: "./vtour/skin/icon/zoom.svg",
-      skin_btn_hide: "./vtour/skin/icon/arrow-down.svg",
-      skin_btn_show_icon: "./vtour/skin/icon/arrow-up.svg",
-      skin_btn_next: "./vtour/skin/icon/arrow-right.svg"
+      skin_btn_prev: `${themeURL}/vtour/skin/icon/arrow-left.svg`,
+      skin_btn_thumbs: `${themeURL}/vtour/skin/icon/filter.svg`,
+      skin_btn_left: `${themeURL}/vtour/skin/icon/arrow-left.svg`,
+      skin_btn_right: `${themeURL}/vtour/skin/icon/arrow-right.svg`,
+      skin_btn_up: `${themeURL}/vtour/skin/icon/arrow-up.svg`,
+      skin_btn_down: `${themeURL}/vtour/skin/icon/arrow-down.svg`,
+      skin_btn_in: `${themeURL}/vtour/skin/icon/plus.svg`,
+      skin_btn_out: `${themeURL}/vtour/skin/icon/minus.svg`,
+      skin_btn_gyro: `${themeURL}/vtour/skin/icon/hotpot.svg`,
+      skin_btn_vr: `${themeURL}/vtour/skin/icon/vr.svg`,
+      skin_btn_fs: `${themeURL}/vtour/skin/icon/zoom.svg`,
+      skin_btn_hide: `${themeURL}/vtour/skin/icon/arrow-down.svg`,
+      skin_btn_show_icon: `${themeURL}/vtour/skin/icon/arrow-up.svg`,
+      skin_btn_next: `${themeURL}/vtour/skin/icon/arrow-right.svg`
     };
 
     Object.entries(controlIcons).forEach(([layerName, iconUrl]) => {
@@ -526,7 +528,7 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: "./vtour/floorplan.xml?v=floorplan-scenes-11",
+      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-11`,
       html5: "only",
       mobilescale: 1,
       vars: {
