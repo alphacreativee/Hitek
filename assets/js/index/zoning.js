@@ -345,6 +345,15 @@ function zoningSectors(zoningEl, filterApi) {
         return;
       }
 
+      if (sector === "F") {
+        createLabel(
+          sector,
+          ((box.x + box.width / 2 - viewBox.x) / viewBox.width) * 100,
+          ((box.y + box.height / 2 - viewBox.y) / viewBox.height) * 100
+        );
+        return;
+      }
+
       const current = sectors.get(sector);
       if (!current) {
         sectors.set(sector, {
