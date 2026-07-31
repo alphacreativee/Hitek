@@ -88,14 +88,12 @@ function sectionOverview() {
     krpano.set("autorotate.horizon", 0);
     krpano.set("autorotate.tofov", "off");
     krpano.call(
-      "delayedcall(overview_hide_skin, 0.2, " +
-        "set(layer[skin_layer].visible,false);" +
+      "set(layer[skin_layer].visible,false);" +
         "set(layer[skin_control_bar].visible,false);" +
         "set(layer[skin_control_bar_bg].visible,false);" +
         "set(layer[skin_btn_show].visible,false);" +
         "set(layer[skin_btn_prev_fs].visible,false);" +
-        "set(layer[skin_btn_next_fs].visible,false);" +
-      ");"
+        "set(layer[skin_btn_next_fs].visible,false);"
     );
   }
 
@@ -108,7 +106,7 @@ function sectionOverview() {
 
     embedpano({
       target: vtourEl.id,
-      xml: "./vtour/overview.xml?v=overview-2",
+      xml: "./vtour/overview.xml?v=overview-3",
       html5: "only",
       mobilescale: 1,
       passQueryParameters: false,
@@ -153,7 +151,10 @@ function gallery() {
         const $image = $item.find("img").first();
         const itemType = $item.data("type");
         const sourceType = $item.data("source");
-        const isVideo = itemType === "video" || sourceType === "mp4" || sourceType === "youtube";
+        const isVideo =
+          itemType === "video" ||
+          sourceType === "mp4" ||
+          sourceType === "youtube";
         const title =
           $item.data("gallery-title") ||
           $item.find(".gallery-caption").text().trim() ||
@@ -263,6 +264,17 @@ function initVillaCardSwipers(root = document) {
 window.initVillaCardSwiper = initVillaCardSwiper;
 window.initVillaCardSwipers = initVillaCardSwipers;
 
+function villaShareModal() {
+  const modalShare = $(".modal-share");
+  const modalShareClose = $(".modal-share-close");
+
+  if (modalShare.length < 1) return;
+
+  modalShareClose.on("click", function () {
+    modalShare.removeClass("show");
+  });
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   customDropdown();
@@ -271,6 +283,7 @@ function init() {
   sectionOverview();
   initVillaCardSwipers();
   sliderParallax();
+  villaShareModal();
   // getDateLightPick();
 }
 

@@ -653,7 +653,13 @@
   background-color: transparent;
   box-shadow: none;
 }
-.zoning-compare__modal .btn-close {
+.zoning-compare__modal .btn-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.zoning-compare__modal .btn-close,
+.zoning-compare__modal .btn-share {
   width: auto;
   height: 36px;
   padding: 0 22px;

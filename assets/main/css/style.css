@@ -838,6 +838,11 @@ body,
   font-family: var(--font-body);
 }
 
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
 #login-screen {
   position: fixed;
   inset: 0;
@@ -992,6 +997,188 @@ button.aloading::after {
     color: var(--color-black);
     border-color: var(--color-black);
   }
+}
+
+.modal-share {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(32, 79, 75, 0.86);
+  backdrop-filter: blur(7px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  display: flex;
+}
+.modal-share.show {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+.modal-share-close {
+  position: absolute;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background-color: transparent;
+  top: 16px;
+  right: 16px;
+}
+.modal-share-close::after, .modal-share-close::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  width: 10px;
+  height: 1px;
+  background-color: #fff;
+}
+.modal-share-close::before {
+  transform: rotate(45deg);
+}
+.modal-share-close::after {
+  transform: rotate(-45deg);
+}
+.modal-share .modal-wrapper {
+  margin: auto;
+}
+.modal-share .box {
+  padding: 20px 90px 50px;
+  background: #387873;
+  position: relative;
+}
+.modal-share .box .title {
+  font-size: 28px;
+  line-height: 32px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--color-white);
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+.modal-share .box .list-villas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.modal-share .box .list-villas li {
+  display: flex;
+  align-items: center;
+}
+.modal-share .box .list-villas img {
+  width: 60px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.modal-share .box .list-villas .info {
+  margin-left: 12px;
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+}
+.modal-share .box .list-villas .info span {
+  font-size: 11px;
+  line-height: 13px;
+  margin-top: 4px;
+  font-weight: 400;
+}
+.modal-share .box .note {
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  padding: 20px 0 16px;
+  color: var(--color-white);
+  text-align: center;
+}
+.modal-share .box input,
+.modal-share .box textarea {
+  height: 38px;
+  border: 0;
+  box-shadow: unset;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  width: 100%;
+  padding: 4px 16px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.modal-share .box input::placeholder,
+.modal-share .box textarea::placeholder {
+  color: rgba(102, 102, 102, 0.8705882353);
+}
+.modal-share .box .field-copy {
+  position: relative;
+}
+.modal-share .box .field-copy input {
+  padding-right: 100px;
+}
+.modal-share .box .field-copy .btn-copy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  color: #e6fff6;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 13px;
+  letter-spacing: 0.21em;
+  text-transform: uppercase;
+  background-color: #c59b67;
+  width: max-content;
+  padding: 0 20px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc7b9;
+  cursor: pointer;
+}
+.modal-share .box textarea {
+  height: 64px !important;
+  padding: 8px 16px;
+  margin-bottom: 0;
+}
+.modal-share .box button[type=submit] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+  border-radius: 0;
+  color: #e6fff6;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 13px;
+  letter-spacing: 0.21em;
+  text-transform: uppercase;
+  border: 1px solid #ccc7b9;
+  background-color: #c59b67;
+}
+.modal-share .box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(rgba(31, 79, 75, 0.9), rgba(31, 79, 75, 0.9)) padding-box, linear-gradient(90deg, #69bcb1 0%, #7aeae5 51%, rgba(105, 188, 177, 0.88) 100%) border-box;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .villa-card {
@@ -1494,7 +1681,7 @@ button.aloading::after {
 .contact-title {
   margin-bottom: 10px;
   color: #e4ae6e;
-  font-family: "Boska", var(--font-heading);
+  font-family: var(--font-heading);
   font-size: 36px;
   font-style: italic;
   font-weight: 500;
@@ -2327,7 +2514,7 @@ button.aloading::after {
   font-size: 48px;
   line-height: 1;
   color: #fff;
-  font-family: var(--font-heading);
+  font-family: Boska, var(--font-heading);
   font-weight: 500;
   font-style: italic;
 }
@@ -2357,8 +2544,9 @@ button.aloading::after {
   color: #1e4842;
   font-size: 28px;
   line-height: 32px;
-  font-family: var(--font-heading);
+  font-family: Boska, var(--font-heading);
   font-style: italic;
+  font-weight: 500;
 }
 .login .login-wrapper .box-login .sub {
   font-size: 11px;

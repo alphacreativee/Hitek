@@ -80,7 +80,8 @@ function zoningFilter(zoningEl) {
       const values = new Map();
       villas.forEach((villa) => {
         const rawValue = villa[field];
-        if (rawValue === undefined || rawValue === null || rawValue === "") return;
+        if (rawValue === undefined || rawValue === null || rawValue === "")
+          return;
         values.set(getComparableValue(rawValue), rawValue);
       });
 
@@ -92,7 +93,8 @@ function zoningFilter(zoningEl) {
             ]),
         ...sortFilterValues(field, values.values()).map((value) => {
           const normalizedValue = getComparableValue(value);
-          const activeClass = activeFilters[field] === normalizedValue ? "active" : "";
+          const activeClass =
+            activeFilters[field] === normalizedValue ? "active" : "";
           return `<button type="button" class="${activeClass}" value="${normalizedValue}" data-filter-value="${normalizedValue}">${renderFilterButtonContent(field, value)}</button>`;
         })
       ];
@@ -111,12 +113,14 @@ function zoningFilter(zoningEl) {
       const field = group.dataset.filterGroup;
       if (!filterFields.includes(field)) return;
 
-      group.querySelectorAll(".zoning-filter-options button").forEach((button) => {
-        button.classList.toggle(
-          "active",
-          getActiveButtonValue(button) === activeFilters[field]
-        );
-      });
+      group
+        .querySelectorAll(".zoning-filter-options button")
+        .forEach((button) => {
+          button.classList.toggle(
+            "active",
+            getActiveButtonValue(button) === activeFilters[field]
+          );
+        });
     });
   };
 
@@ -188,16 +192,18 @@ function zoningFilter(zoningEl) {
       const field = group.dataset.filterGroup;
       if (!filterFields.includes(field)) return;
 
-      group.querySelectorAll(".zoning-filter-options button").forEach((button) => {
-        button.addEventListener("click", () => {
-          group
-            .querySelectorAll(".zoning-filter-options button")
-            .forEach((item) => item.classList.remove("active"));
+      group
+        .querySelectorAll(".zoning-filter-options button")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            group
+              .querySelectorAll(".zoning-filter-options button")
+              .forEach((item) => item.classList.remove("active"));
 
-          button.classList.add("active");
-          setFilterValue(field, getActiveButtonValue(button));
+            button.classList.add("active");
+            setFilterValue(field, getActiveButtonValue(button));
+          });
         });
-      });
     });
   };
 
@@ -276,7 +282,10 @@ function zoningSectors(zoningEl, filterApi) {
   const sectorLayer = zoningEl.querySelector("[data-zoning-map-sector]");
   if (!sectorLayer) return;
 
-  const normalizeSector = (value) => String(value || "").trim().toUpperCase();
+  const normalizeSector = (value) =>
+    String(value || "")
+      .trim()
+      .toUpperCase();
 
   const showSector = (sector, isHovered) => {
     sectorLayer
@@ -496,9 +505,12 @@ function zoningLots(zoningEl, filterApi) {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
-  const getLotAreaKey = (title) => String(title || "").match(/^[A-Z]/)?.[0] || "";
-  const getLotUrl = (title) => `./floor-plan.html?villa=${encodeURIComponent(title)}`;
-  const getLotGallery = (title) => villaGalleries[title] || villaGalleries.default;
+  const getLotAreaKey = (title) =>
+    String(title || "").match(/^[A-Z]/)?.[0] || "";
+  const getLotUrl = (title) =>
+    `./floor-plan.html?villa=${encodeURIComponent(title)}`;
+  const getLotGallery = (title) =>
+    villaGalleries[title] || villaGalleries.default;
 
   const selectLot = (path) => {
     const title = path.dataset.title;
@@ -519,7 +531,8 @@ function zoningLots(zoningEl, filterApi) {
     selectedPath = path;
     selectedPath.classList.add("is-selected");
 
-    if (cardArea) cardArea.textContent = data.villa ? `Area ${data.villa}` : "Area";
+    if (cardArea)
+      cardArea.textContent = data.villa ? `Area ${data.villa}` : "Area";
     if (cardTitle) cardTitle.textContent = lotTitle;
     if (cardMeta) {
       const floorPlan = data.floor_area ? `${data.floor_area} sqm` : "";
@@ -595,8 +608,9 @@ function zoningLots(zoningEl, filterApi) {
 
   const getPathPoints = (path) => {
     const pathData = path.dataset.originalD || path.getAttribute("d");
-    const tokens = [...pathData.matchAll(/([MLHVQZ])|(-?\d+(?:\.\d+)?)/g)]
-      .map((match) => match[0]);
+    const tokens = [...pathData.matchAll(/([MLHVQZ])|(-?\d+(?:\.\d+)?)/g)].map(
+      (match) => match[0]
+    );
     const points = [];
     let command = "";
     let x = 0;
@@ -877,6 +891,7 @@ function zoningCompareModal(zoningEl) {
   const compareSubmit = zoningEl.querySelector(".zoning-compare-submit");
   const compareModal = zoningEl.querySelector(".zoning-compare__modal");
   const compareModalClose = compareModal?.querySelector(".btn-close");
+  const compareModalShare = compareModal?.querySelector(".btn-share");
   if (!compareSubmit || !compareModal) return;
 
   compareSubmit.addEventListener("click", () => {
@@ -885,6 +900,10 @@ function zoningCompareModal(zoningEl) {
 
   compareModalClose?.addEventListener("click", () => {
     compareModal.classList.remove("show");
+  });
+
+  compareModalShare?.addEventListener("click", () => {
+    document.querySelector(".modal-share").classList.add("show");
   });
 }
 

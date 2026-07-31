@@ -828,7 +828,14 @@
     box-shadow: none;
   }
 
-  .btn-close {
+  .btn-wrapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn-close,
+  .btn-share {
     width: auto;
     height: 36px;
     padding: 0 22px;

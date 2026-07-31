@@ -705,10 +705,61 @@
               </div>
             </div>
 
-            <button type="button" class="btn-close">Close</button>
+            <div class="btn-wrapper">
+              <button type="button" class="btn-close">Close</button>
+              <button type="button" class="btn-share">Share</button>
+            </div>
           </div>
         </div>
       </section>
+
+      <div class="modal-share show">
+        <div class="modal-wrapper limit-6-col">
+          <div class="box">
+            <button class="modal-share-close" type="button"></button>
+            <div class="title">Share</div>
+            <ul class="list-villas">
+              <li>
+                <img src="./assets/images/draf/thumb-villa.jpg" alt="" />
+                <div class="info">
+                  Villa F1.1
+                  <span>360 sqm</span>
+                </div>
+              </li>
+              <li>
+                <img src="./assets/images/draf/thumb-villa.jpg" alt="" />
+                <div class="info">
+                  Villa F1.1
+                  <span>360 sqm</span>
+                </div>
+              </li>
+              <li>
+                <img src="./assets/images/draf/thumb-villa.jpg" alt="" />
+                <div class="info">
+                  Villa F1.1
+                  <span>360 sqm</span>
+                </div>
+              </li>
+            </ul>
+            <div class="note">
+              Copy this link for sharing and send the information to others.
+            </div>
+            <div class="field-copy">
+              <input
+                type="text"
+                readonly
+                value="https://hoiana.fresh-house.com/share/345jk4rwf"
+              />
+              <div class="btn-copy">Copy</div>
+            </div>
+            <form action="">
+              <input type="email" placeholder="Email" />
+              <textarea name="" placeholder="Message"></textarea>
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </main>
     <!-- layout -->
     <!-- footer -->

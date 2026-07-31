@@ -38,6 +38,7 @@
 	               loadingtext=""
 	               layout_width="100%"
 	               layout_maxwidth="814"
+	               controlbar="false"
 	               controlbar_width="-24"
 	               controlbar_height="40"
 	               controlbar_offset="20"

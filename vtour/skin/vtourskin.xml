@@ -522,7 +522,17 @@
 		skin_onresize();
 		skin_updatethumbsview(false);
 
-		set(layer[skin_layer].visible, true);
+		if(skin_settings.controlbar === false,
+			set(layer[skin_layer].visible, false);
+			set(layer[skin_splitter_bottom].visible, false);
+			set(layer[skin_control_bar_bg].visible, false);
+			set(layer[skin_control_bar].visible, false);
+			set(layer[skin_btn_show].visible, false);
+			set(layer[skin_btn_prev_fs].visible, false);
+			set(layer[skin_btn_next_fs].visible, false);
+		  ,
+			set(layer[skin_layer].visible, true);
+		);
 	</action>
 	
 
