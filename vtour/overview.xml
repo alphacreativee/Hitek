@@ -61,15 +61,14 @@
 	<cssstyles>
 		:root {
 			--overview-hotspot-primary: #387873;
+			--overview-tag-offset-x: -5px;
 		}
 
 		.overview-hotspot-tag {
 			position: relative;
 			z-index: 0;
 			isolation: isolate;
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
+			display: inline-block;
 			overflow: visible;
 			color: #FFFFFF;
 			font-family: "Montserrat", sans-serif;
@@ -77,25 +76,36 @@
 			font-weight: 600;
 			line-height: 20px;
 			white-space: nowrap;
+			box-sizing: border-box;
+			pointer-events: none;
+		}
+
+		.overview-hotspot-title {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 8px 30px;
 			border: 1px solid transparent;
 			border-radius: 999px;
 			background:
 				linear-gradient(var(--overview-hotspot-primary), var(--overview-hotspot-primary)) padding-box,
 				linear-gradient(90deg, rgba(105,188,177,1) 0%, rgba(122,234,229,1) 51%, rgba(105,188,177,0.8) 100%) border-box;
 			box-sizing: border-box;
-			pointer-events: none;
+			transform: translateX(var(--overview-tag-offset-x));
 		}
 
-		.overview-hotspot-tag::after {
-			content: "";
+		.overview-hotspot-subtitle {
 			position: absolute;
-			left: 0;
-			top: 50%;
-			width: 1px;
-			height: calc(var(--overview-line-height, 80px) + 50%);
-			z-index: -1;
-			transform: translateX(-50%);
-			background: #FFFFFF;
+			left: calc(30px + var(--overview-tag-offset-x));
+			top: calc(100% + 8px);
+			color: #FFFFFF;
+			font-family: "Montserrat", sans-serif;
+			font-size: 11px;
+			font-weight: 500;
+			line-height: 14px;
+			white-space: nowrap;
+			pointer-events: none;
+			text-shadow: 0 1px 4px rgba(0,0,0,0.35);
 		}
 
 		.overview-hotspot-dot {
@@ -105,11 +115,12 @@
 			height: 12px;
 			border: 1px solid #FFFFFF;
 			border-radius: 50%;
-			background: radial-gradient(circle, #1F4F4B 0 3px, #387873 3px 6px, rgba(216,255,255,0.75) 100%);
+			background: radial-gradient(circle, #1F4F4B 0 3px, #387873 3px 6px, rgba(216,255,255,0.9) 100%);
 			box-shadow:
-				0 0 0 4px rgba(56,120,115,0.35),
-				0 0 12px 6px rgba(216,255,255,0.35),
-				0 0 22px 10px rgba(122,234,229,0.24);
+				0 0 4px 2px rgba(216,255,255,0.42),
+				0 0 10px 5px rgba(122,234,229,0.28),
+				0 0 18px 9px rgba(56,120,115,0.18),
+				0 0 30px 15px rgba(216,255,255,0.10);
 			box-sizing: border-box;
 			animation: overview-hotspot-dot-pulse 1.45s ease-in-out infinite;
 		}
@@ -117,18 +128,20 @@
 		@keyframes overview-hotspot-dot-pulse {
 			0%, 100% {
 				box-shadow:
-					0 0 0 3px rgba(56,120,115,0.25),
-					0 0 10px 4px rgba(216,255,255,0.25),
-					0 0 18px 8px rgba(122,234,229,0.18);
+					0 0 4px 2px rgba(216,255,255,0.34),
+					0 0 10px 5px rgba(122,234,229,0.22),
+					0 0 18px 9px rgba(56,120,115,0.14),
+					0 0 30px 15px rgba(216,255,255,0.08);
 				filter: brightness(1);
 			}
 
 			50% {
 				box-shadow:
-					0 0 0 7px rgba(56,120,115,0.42),
-					0 0 18px 8px rgba(216,255,255,0.62),
-					0 0 34px 15px rgba(122,234,229,0.38);
-				filter: brightness(1.35);
+					0 0 6px 3px rgba(216,255,255,0.62),
+					0 0 16px 8px rgba(122,234,229,0.38),
+					0 0 28px 14px rgba(56,120,115,0.24),
+					0 0 44px 22px rgba(216,255,255,0.14);
+				filter: brightness(1.28);
 			}
 		}
 	</cssstyles>
@@ -137,7 +150,7 @@
 	       type="text"
 	       renderer="css3d"
 	       edge="leftbottom"
-	       padding="8 30"
+	       padding="0"
 	       cssclass="overview-hotspot-tag"
 	       bg="false"
 	       bgalpha="0"
@@ -146,7 +159,27 @@
 	       capture="false"
 	       distorted="false"
 	       zoom="false"
+	       zorder="20"
 	       onloaded.addevent="overview_hotspot_tag_setup();"
+	       />
+
+	<style name="overview_hotspot_line"
+	       type="text"
+	       renderer="css3d"
+	       edge="bottom"
+	       width="1"
+	       height="80"
+	       html=" "
+	       bg="true"
+	       bgcolor="0xFFFFFF"
+	       bgalpha="1"
+	       txtshadow="0"
+	       enabled="false"
+	       capture="false"
+	       distorted="false"
+	       zoom="false"
+	       ox="-4"
+	       zorder="1"
 	       />
 
 	<style name="overview_hotspot_dot"
@@ -164,14 +197,25 @@
 	       capture="false"
 	       distorted="false"
 	       zoom="false"
-	       zorder="10"
+	       ox="-4"
+	       zorder="15"
 	       />
 
 	<action name="overview_hotspot_tag_setup" type="Javascript"><![CDATA[
 		var lineHeight = caller["data-line-height"] || "80";
 		lineHeight = String(lineHeight).replace("px", "").trim();
 		var lineHeightNumber = parseFloat(lineHeight) || 80;
-		caller.oy = -lineHeightNumber;
+		var title = caller.html || "";
+		var subtitle = caller["data-subtitle"] || "";
+		var subtitleHeight = subtitle ? (caller["data-subtitle-height"] || "22") : "0";
+		subtitleHeight = String(subtitleHeight).replace("px", "").trim();
+		var subtitleHeightNumber = parseFloat(subtitleHeight) || 0;
+		var tagHalfHeight = caller["data-tag-half-height"] || "19";
+		tagHalfHeight = String(tagHalfHeight).replace("px", "").trim();
+		var tagHalfHeightNumber = parseFloat(tagHalfHeight) || 19;
+		caller.oy = -(lineHeightNumber - subtitleHeightNumber) + tagHalfHeightNumber;
+		caller.html = '<span class="overview-hotspot-title">' + title + '</span>' +
+			(subtitle ? '<span class="overview-hotspot-subtitle">' + subtitle + '</span>' : '');
 
 		var hotspotElement = caller.sprite || caller.htmlsprite || caller.element;
 		var tagElement = hotspotElement && hotspotElement.querySelector
@@ -182,6 +226,18 @@
 			tagElement.style.setProperty("--overview-line-height", lineHeight + "px");
 			tagElement.setAttribute("data-line-height", lineHeight);
 		}
+
+		var lineName = caller.name + "_line";
+		if (!krpano.get("hotspot[" + lineName + "]")) {
+			krpano.call("addhotspot(" + lineName + ");");
+		}
+
+		krpano.set("hotspot[" + lineName + "].ath", caller.ath);
+		krpano.set("hotspot[" + lineName + "].atv", caller.atv);
+		krpano.set("hotspot[" + lineName + "].height", lineHeightNumber);
+		krpano.call("hotspot[" + lineName + "].loadstyle(overview_hotspot_line);");
+		krpano.set("hotspot[" + lineName + "].height", lineHeightNumber);
+		krpano.set("hotspot[" + lineName + "].visible", true);
 
 		var dotName = caller.name + "_dot";
 		if (!krpano.get("hotspot[" + dotName + "]")) {
@@ -202,15 +258,15 @@
 			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1152,2304,4608" />
 		</image>
 
-		<hotspot name="spot2079149186" style="overview_hotspot_tag" html="Hoiana Shores Golf Club" data-line-height="80" ath="155.272" atv="17.667" />
-		<hotspot name="spot2079150631" style="overview_hotspot_tag" html="New World [br] Hoiana Hotel" data-line-height="100" ath="-115.233" atv="13.851" />
-		<hotspot name="spot2079150740" style="overview_hotspot_tag" html="Hoiana Residence" data-line-height="80" ath="-107.655" atv="15.753" />
-		<hotspot name="spot2079150960" style="overview_hotspot_tag" html="Cù Lao Chàm" data-line-height="80" ath="-43.344" atv="0.554" />
-		<hotspot name="spot2079151143" style="overview_hotspot_tag" html="Hoiana [br] Resorts &amp; Golf" data-line-height="80" ath="-84.992" atv="15.017" />
-		<hotspot name="spot2079151263" style="overview_hotspot_tag" html="Bãi biển Duy Hải" data-line-height="80" ath="-80.574" atv="9.084" />
-		<hotspot name="spot2079151478" style="overview_hotspot_tag" html="Sân bay Quốc tế [br] Đà Nẵng" data-line-height="80" ath="-106.446" atv="0.359" />
-		<hotspot name="spot2079151480" style="overview_hotspot_tag" html="Phố cổ Hội An" data-line-height="80" ath="-120.446" atv="0.359" />
-		<hotspot name="spot2079151864" style="overview_hotspot_tag" html="Di sản văn hóa thế giới [br] Mỹ Sơn" data-line-height="80" ath="-142.261" atv="0.646" />
+		<hotspot name="spot2079149186" style="overview_hotspot_tag" html="Hoiana Shores Golf Club" data-subtitle="15km | 30min" data-subtitle-height="22" data-line-height="80" ath="155.272" atv="17.667" />
+		<hotspot name="spot2079150631" style="overview_hotspot_tag" html="New World [br] Hoiana Hotel" data-subtitle="500m | 2min" data-line-height="100" ath="-115.233" atv="13.851" />
+		<hotspot name="spot2079150740" style="overview_hotspot_tag" html="Hoiana Residence" data-line-height="40" data-subtitle="500m | 2min" ath="-107.655" atv="15.753" />
+		<hotspot name="spot2079150960" style="overview_hotspot_tag" html="Cù Lao Chàm" data-line-height="80" data-subtitle="8km | 20min" ath="-43.344" atv="0.554" />
+		<hotspot name="spot2079151143" style="overview_hotspot_tag" html="Hoiana [br] Resorts &amp; Golf" data-subtitle="650m | 3min" data-line-height="80" ath="-84.992" atv="15.017" />
+		<hotspot name="spot2079151263" style="overview_hotspot_tag" html="Bãi biển Duy Hải" data-subtitle="2km | 7min" data-line-height="140" ath="-80.574" atv="9.084" />
+		<hotspot name="spot2079151478" style="overview_hotspot_tag" html="Sân bay Quốc tế [br] Đà Nẵng" data-subtitle="38km | 60min" data-line-height="80" ath="-106.446" atv="0.359" />
+		<hotspot name="spot2079151480" style="overview_hotspot_tag" html="Phố cổ Hội An" data-line-height="160" data-subtitle="12km | 20min" ath="-120.446" atv="0.359" />
+		<hotspot name="spot2079151864" style="overview_hotspot_tag" html="Di sản văn hóa thế giới [br] Mỹ Sơn" data-subtitle="43km | 60min" data-line-height="80" ath="-142.261" atv="0.646" />
 	</scene>
 
 </krpano>
