@@ -279,12 +279,8 @@ function sectionOverview() {
 
   function setupOverviewVtour(krpano, sceneName) {
     krpano.call(`loadscene(${sceneName}, null, MERGE, BLEND(0))`);
-    krpano.set("autorotate.enabled", true);
-    krpano.set("autorotate.waittime", 5);
-    krpano.set("autorotate.accel", 0.25);
-    krpano.set("autorotate.speed", 1);
-    krpano.set("autorotate.horizon", 0);
-    krpano.set("autorotate.tofov", "off");
+    krpano.set("autorotate.enabled", false);
+    krpano.call("autorotate.stop();");
     krpano.call(
       "set(layer[skin_layer].visible,false);" +
         "set(layer[skin_control_bar].visible,false);" +
