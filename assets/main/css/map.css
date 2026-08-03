@@ -24,12 +24,18 @@
   object-position: center;
   user-select: none;
   opacity: 0;
-  transform: scale(1.01);
-  transition: opacity 0.28s ease, transform 0.5s ease;
+  transform: none;
+  transition: opacity 0.6s ease;
 }
 .map-page__media.active, .map-page__image.active, .map-page__video.active {
   opacity: 1;
-  transform: scale(1);
+  transform: none;
+  z-index: 2;
+}
+.map-page__media.is-leaving, .map-page__image.is-leaving, .map-page__video.is-leaving {
+  opacity: 0;
+  transform: none;
+  z-index: 1;
 }
 .map-page__filter {
   position: absolute;

@@ -19,13 +19,14 @@ function initMapPage() {
       : "image";
   };
 
-  const setMediaReady = (media) => {
+  const setMediaReady = (media, onReady) => {
     window.requestAnimationFrame(() => {
       media.classList.add("active");
+      onReady?.();
     });
   };
 
-  const createMapMedia = (item) => {
+  const createMapMedia = (item, onReady) => {
     const src = item.dataset.mapSrc;
     const label = item.dataset.mapLabel || "Map";
     const type = getMapType(item);
@@ -41,7 +42,7 @@ function initMapPage() {
       video.playsInline = true;
       video.preload = "auto";
       video.setAttribute("aria-label", label);
-      video.addEventListener("loadeddata", () => setMediaReady(video), { once: true });
+      video.addEventListener("loadeddata", () => setMediaReady(video, onReady), { once: true });
       video.addEventListener("canplay", () => {
         video.play().catch(() => {});
       }, { once: true });
@@ -54,7 +55,7 @@ function initMapPage() {
     image.src = src;
     image.alt = label;
     image.draggable = false;
-    image.addEventListener("load", () => setMediaReady(image), { once: true });
+    image.addEventListener("load", () => setMediaReady(image, onReady), { once: true });
     return image;
   };
 
@@ -103,15 +104,18 @@ function initMapPage() {
     items.forEach((button) => button.classList.remove("active"));
     item.classList.add("active");
 
-    const currentMedia = stage.querySelector("[data-map-media]");
-    const nextMedia = createMapMedia(item);
-    currentMedia?.classList.remove("active");
+    const currentMedia = stage.querySelector("[data-map-media].active");
+    const nextMedia = createMapMedia(item, () => {
+      currentMedia?.classList.remove("active");
+      currentMedia?.classList.add("is-leaving");
 
-    window.setTimeout(() => {
-      currentMedia?.remove();
-      stage.appendChild(nextMedia);
-      activeSrc = src;
-    }, 120);
+      window.setTimeout(() => {
+        currentMedia?.remove();
+        activeSrc = src;
+      }, 600);
+    });
+
+    stage.appendChild(nextMedia);
   };
 
   stage?.querySelector("[data-map-media]")?.classList.add("active");
