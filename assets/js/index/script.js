@@ -333,6 +333,30 @@ function gallery() {
   const $grid = $gallery.find("[data-gallery-list]");
   const $filters = $gallery.find(".filter-button[data-type]");
   let lightbox = null;
+  let lightboxAutoplayTimer = null;
+  const lightboxAutoplayDelay = 5000;
+
+  function stopLightboxAutoplay() {
+    if (!lightboxAutoplayTimer) return;
+
+    window.clearInterval(lightboxAutoplayTimer);
+    lightboxAutoplayTimer = null;
+  }
+
+  function startLightboxAutoplay() {
+    stopLightboxAutoplay();
+    if (!lightbox || lightbox.elements.length < 2) return;
+
+    lightboxAutoplayTimer = window.setInterval(() => {
+      lightbox.nextSlide();
+    }, lightboxAutoplayDelay);
+  }
+
+  function resetLightboxAutoplay() {
+    if (!lightboxAutoplayTimer) return;
+
+    startLightboxAutoplay();
+  }
 
   function getVisibleItems() {
     return $grid.find(".gallery-item").filter(function () {
@@ -373,6 +397,7 @@ function gallery() {
       .get();
 
     if (lightbox) {
+      stopLightboxAutoplay();
       lightbox.destroy();
     }
 
@@ -381,6 +406,9 @@ function gallery() {
       touchNavigation: true,
       loop: true
     });
+    lightbox.on("open", startLightboxAutoplay);
+    lightbox.on("close", stopLightboxAutoplay);
+    lightbox.on("slide_changed", resetLightboxAutoplay);
   }
 
   function filterGallery(type) {

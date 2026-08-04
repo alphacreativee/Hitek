@@ -189,8 +189,10 @@
 
 .glightbox-clean {
   .gslide-description {
-    background-color: transparent;
+    background-color: transparent !important;
     text-align: center;
+
+    // display: none;
   }
 
   .gdesc-inner {
@@ -199,7 +201,7 @@
 
   .gslide-title {
     margin-bottom: 0;
-    color: var(--color-white);
+    color: var(--color-white) !important;
     font-family: var(--font-body);
     font-size: 14px;
     font-weight: 600;
