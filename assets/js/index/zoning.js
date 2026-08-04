@@ -7,14 +7,13 @@ function initZoningCardSlider() {
 function zoningMapCanvas(zoningEl) {
   const canvasLayer = zoningEl.querySelector("[data-zoning-map-canvas]");
   if (!canvasLayer) return;
-  const mapImage = canvasLayer.dataset.image || "./assets/images/zoning-map.webp";
+  const mapImage =
+    canvasLayer.dataset.image || "./assets/images/zoning-map.webp";
 
   const loadThree = () => {
     if (window.THREE) return Promise.resolve(window.THREE);
 
-    return import(
-      "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-    );
+    return import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js");
   };
 
   const CLOUD_NOISE_GLSL = `
@@ -148,10 +147,23 @@ function zoningMapCanvas(zoningEl) {
       shadowOpacity: 0.16
     };
     const birdParts = [
-      [138.8, 122.1, 121.87, 126.64, 79.55, 114.85, 17.28, 158.38, 45.69, 158.38, 78.04, 144.47, 138.8, 158.38],
-      [160.34, 122.1, 177.27, 126.64, 219.59, 114.85, 281.86, 158.38, 253.45, 158.38, 221.1, 144.47, 160.34, 158.38],
-      [160.34, 122.1, 149.57, 117.05, 138.8, 122.1, 138.8, 158.38, 144.19, 171.58, 141.5, 199.85, 149.57, 199.85, 157.64, 199.85, 154.96, 171.58, 160.34, 158.38],
-      [155.93, 110.52, 149.57, 99.84, 143.22, 110.52, 138.8, 122.1, 149.57, 119.79, 160.34, 122.1, 155.93, 110.52]
+      [
+        138.8, 122.1, 121.87, 126.64, 79.55, 114.85, 17.28, 158.38, 45.69,
+        158.38, 78.04, 144.47, 138.8, 158.38
+      ],
+      [
+        160.34, 122.1, 177.27, 126.64, 219.59, 114.85, 281.86, 158.38, 253.45,
+        158.38, 221.1, 144.47, 160.34, 158.38
+      ],
+      [
+        160.34, 122.1, 149.57, 117.05, 138.8, 122.1, 138.8, 158.38, 144.19,
+        171.58, 141.5, 199.85, 149.57, 199.85, 157.64, 199.85, 154.96, 171.58,
+        160.34, 158.38
+      ],
+      [
+        155.93, 110.52, 149.57, 99.84, 143.22, 110.52, 138.8, 122.1, 149.57,
+        119.79, 160.34, 122.1, 155.93, 110.52
+      ]
     ];
     const rand = (min, max) => min + Math.random() * (max - min);
     const randInt = (min, max) => Math.floor(rand(min, max + 1));
@@ -276,11 +288,7 @@ function zoningMapCanvas(zoningEl) {
     shadowMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     scene.add(shadowMesh);
 
-    const mesh = new THREE.InstancedMesh(
-      geometry,
-      material,
-      config.maxBirds
-    );
+    const mesh = new THREE.InstancedMesh(geometry, material, config.maxBirds);
     mesh.frustumCulled = false;
     mesh.renderOrder = 30;
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -290,16 +298,48 @@ function zoningMapCanvas(zoningEl) {
       const side = Math.floor(Math.random() * 4);
       const margin = 220;
       const startPoints = [
-        new THREE.Vector3(-width / 2 - margin, rand(-height * 0.28, height * 0.24), 0.45),
-        new THREE.Vector3(width / 2 + margin, rand(-height * 0.28, height * 0.24), 0.45),
-        new THREE.Vector3(rand(-width * 0.38, width * 0.38), height / 2 + margin, 0.45),
-        new THREE.Vector3(rand(-width * 0.38, width * 0.38), -height / 2 - margin, 0.45)
+        new THREE.Vector3(
+          -width / 2 - margin,
+          rand(-height * 0.28, height * 0.24),
+          0.45
+        ),
+        new THREE.Vector3(
+          width / 2 + margin,
+          rand(-height * 0.28, height * 0.24),
+          0.45
+        ),
+        new THREE.Vector3(
+          rand(-width * 0.38, width * 0.38),
+          height / 2 + margin,
+          0.45
+        ),
+        new THREE.Vector3(
+          rand(-width * 0.38, width * 0.38),
+          -height / 2 - margin,
+          0.45
+        )
       ];
       const endPoints = [
-        new THREE.Vector3(width / 2 + margin, rand(-height * 0.28, height * 0.24), 0.45),
-        new THREE.Vector3(-width / 2 - margin, rand(-height * 0.28, height * 0.24), 0.45),
-        new THREE.Vector3(rand(-width * 0.38, width * 0.38), -height / 2 - margin, 0.45),
-        new THREE.Vector3(rand(-width * 0.38, width * 0.38), height / 2 + margin, 0.45)
+        new THREE.Vector3(
+          width / 2 + margin,
+          rand(-height * 0.28, height * 0.24),
+          0.45
+        ),
+        new THREE.Vector3(
+          -width / 2 - margin,
+          rand(-height * 0.28, height * 0.24),
+          0.45
+        ),
+        new THREE.Vector3(
+          rand(-width * 0.38, width * 0.38),
+          -height / 2 - margin,
+          0.45
+        ),
+        new THREE.Vector3(
+          rand(-width * 0.38, width * 0.38),
+          height / 2 + margin,
+          0.45
+        )
       ];
       const start = startPoints[side];
       const end = endPoints[side];
@@ -334,7 +374,8 @@ function zoningMapCanvas(zoningEl) {
           offset:
             (rank / Math.max(count / 2, 1)) * config.spread +
             rand(-0.004, 0.004),
-          lateral: wing * rank * config.rank + rand(-config.jitter, config.jitter),
+          lateral:
+            wing * rank * config.rank + rand(-config.jitter, config.jitter),
           vertical: rand(-config.jitter, config.jitter) * 0.45,
           bobPhase: Math.random() * Math.PI * 2,
           scale: rand(config.scale[0], config.scale[1])
@@ -379,7 +420,11 @@ function zoningMapCanvas(zoningEl) {
       }
 
       let slot = 0;
-      for (let flockIndex = flocks.length - 1; flockIndex >= 0; flockIndex -= 1) {
+      for (
+        let flockIndex = flocks.length - 1;
+        flockIndex >= 0;
+        flockIndex -= 1
+      ) {
         const flock = flocks[flockIndex];
         flock.t += flock.tSpeed * delta;
 
@@ -425,7 +470,6 @@ function zoningMapCanvas(zoningEl) {
           mesh.setMatrixAt(slot, matrix);
           slot += 1;
         });
-
       }
       for (let index = slot; index < config.maxBirds; index += 1) {
         mesh.setMatrixAt(index, hidden);
@@ -533,7 +577,10 @@ function zoningMapCanvas(zoningEl) {
       }
     ];
     const clouds = cloudLayers.map((cloud, index) => {
-      const direction = new THREE.Vector2(cloud.dir[0], cloud.dir[1]).normalize();
+      const direction = new THREE.Vector2(
+        cloud.dir[0],
+        cloud.dir[1]
+      ).normalize();
       const uniforms = {
         uField: { value: cloudField },
         uPeriod: { value: cloudField.userData.period },
@@ -607,7 +654,11 @@ function zoningMapCanvas(zoningEl) {
 
     const resize = () => {
       const rect = canvasLayer.getBoundingClientRect();
-      renderer.setSize(Math.max(1, rect.width), Math.max(1, rect.height), false);
+      renderer.setSize(
+        Math.max(1, rect.width),
+        Math.max(1, rect.height),
+        false
+      );
       camera.updateProjectionMatrix();
       renderer.render(scene, camera);
     };
@@ -656,9 +707,11 @@ function zoningMapCanvas(zoningEl) {
     });
   };
 
-  loadThree().then(initScene).catch((error) => {
-    console.warn("Could not initialize zoning map canvas", error);
-  });
+  loadThree()
+    .then(initScene)
+    .catch((error) => {
+      console.warn("Could not initialize zoning map canvas", error);
+    });
 }
 
 function zoningFilter(zoningEl) {
@@ -750,14 +803,12 @@ function zoningFilter(zoningEl) {
     if (shouldReturnToSector) {
       zoningEl.classList.add("is-sector-mode");
       zoningEl.classList.remove("is-detail-mode", "is-card-open");
-      overlay
-        ?.querySelectorAll("path.is-selected")
-        .forEach((path) => {
-          path.classList.remove("is-selected");
-          labels
-            ?.querySelectorAll(`span[data-id="${path.dataset.id}"]`)
-            .forEach((label) => label.classList.remove("is-selected"));
-        });
+      overlay?.querySelectorAll("path.is-selected").forEach((path) => {
+        path.classList.remove("is-selected");
+        labels
+          ?.querySelectorAll(`span[data-id="${path.dataset.id}"]`)
+          .forEach((label) => label.classList.remove("is-selected"));
+      });
     } else if (zoningEl.classList.contains("is-sector-mode")) {
       zoningEl.classList.remove("is-sector-mode");
       zoningEl.classList.add("is-detail-mode");
@@ -1576,9 +1627,11 @@ function zoningAudio(zoningEl) {
 
   const getAudio = () => {
     if (audio) return audio;
-    audio = new Audio(audioBtn.dataset.zoningAudio || "./assets/videos/ambient.mp3");
+    audio = new Audio(
+      audioBtn.dataset.zoningAudio || "./assets/videos/ambient.mp3"
+    );
     audio.loop = true;
-    audio.volume = 0.45;
+    audio.volume = 1;
     audio.preload = "none";
     return audio;
   };
