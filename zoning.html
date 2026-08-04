@@ -104,12 +104,12 @@
         <div class="zoning-map" data-zoning-map>
           <div class="zoning-map-inner" data-zoning-map-inner>
             <div class="zoning-map-fit">
-              <img
+              <div
                 class="zoning-map-image"
-                src="./assets/images/zoning-map.webp"
-                alt="Zoning map"
-                draggable="false"
-              />
+                data-zoning-map-canvas
+                data-image="./assets/images/zoning-map.webp"
+                aria-label="Zoning map background"
+              ></div>
               <div
                 class="zoning-map-overlay"
                 data-zoning-map-overlay
@@ -835,7 +835,7 @@
     <script type="module" src="./assets/main/js/script.min.js"></script>
     <script
       type="module"
-      src="./assets/main/js/zoning.min.js?v=data-image-svg-1"
+      src="./assets/main/js/zoning.min.js?v=hitek-cloud-shader-birds-4"
     ></script>
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 

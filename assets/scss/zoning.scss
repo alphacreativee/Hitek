@@ -71,8 +71,17 @@
   }
 
   .zoning-map-image {
-    object-fit: fill;
     pointer-events: none;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01)),
+      url("../images/zoning-map.webp") center / 100% 100% no-repeat;
+  }
+
+  .zoning-map-image canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .zoning-map-overlay {

@@ -4,6 +4,576 @@ function initZoningCardSlider() {
   window.initVillaCardSwipers?.(document);
 }
 
+function zoningMapCanvas(zoningEl) {
+  const canvasLayer = zoningEl.querySelector("[data-zoning-map-canvas]");
+  if (!canvasLayer) return;
+  const mapImage = canvasLayer.dataset.image || "./assets/images/zoning-map.webp";
+
+  const loadThree = () => {
+    if (window.THREE) return Promise.resolve(window.THREE);
+
+    return import(
+      "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    );
+  };
+
+  const CLOUD_NOISE_GLSL = `
+    float hash21p(vec2 p, float period) {
+      p = mod(p, period);
+      vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+      p3 += dot(p3, p3.yzx + 33.33);
+      return fract((p3.x + p3.y) * p3.z);
+    }
+
+    float vnoisep(vec2 p, float period) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      float a = hash21p(i, period);
+      float b = hash21p(i + vec2(1.0, 0.0), period);
+      float c = hash21p(i + vec2(0.0, 1.0), period);
+      float d = hash21p(i + vec2(1.0, 1.0), period);
+      return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+    }
+
+    float fbmp(vec2 p, float period) {
+      float sum = 0.0;
+      float amp = 0.5;
+      for (int i = 0; i < 7; i++) {
+        sum += amp * vnoisep(p, period);
+        p *= 2.0;
+        period *= 2.0;
+        amp *= 0.5;
+      }
+      return sum;
+    }
+
+    float cloudDensityP(vec2 p, float period) {
+      vec2 warp = vec2(
+        fbmp(p * 0.5, period * 0.5),
+        fbmp(p * 0.5 + 4.7, period * 0.5)
+      );
+      return fbmp(p + warp * 1.7, period);
+    }
+  `;
+
+  const bakeCloudField = (THREE, renderer) => {
+    const size = 1024;
+    const period = 16;
+    const target = new THREE.WebGLRenderTarget(size, size, {
+      type: renderer.capabilities.isWebGL2
+        ? THREE.HalfFloatType
+        : THREE.UnsignedByteType,
+      format: THREE.RGBAFormat,
+      wrapS: THREE.RepeatWrapping,
+      wrapT: THREE.RepeatWrapping,
+      minFilter: THREE.LinearMipmapLinearFilter,
+      magFilter: THREE.LinearFilter,
+      generateMipmaps: true,
+      depthBuffer: false,
+      stencilBuffer: false
+    });
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = vec4(position.xy, 0.0, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec2 vUv;
+        uniform float uPeriod;
+        ${CLOUD_NOISE_GLSL}
+        void main() {
+          float d = cloudDensityP(vUv * uPeriod, uPeriod);
+          gl_FragColor = vec4(d, 0.0, 0.0, 1.0);
+        }
+      `,
+      uniforms: {
+        uPeriod: { value: period }
+      },
+      depthTest: false,
+      depthWrite: false
+    });
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute([-1, -1, 0, 3, -1, 0, -1, 3, 0], 3)
+    );
+    geometry.setAttribute(
+      "uv",
+      new THREE.Float32BufferAttribute([0, 0, 2, 0, 0, 2], 2)
+    );
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.frustumCulled = false;
+
+    const bakeScene = new THREE.Scene();
+    bakeScene.add(mesh);
+    const bakeCamera = new THREE.Camera();
+    const previousTarget = renderer.getRenderTarget();
+
+    renderer.setRenderTarget(target);
+    renderer.render(bakeScene, bakeCamera);
+    renderer.setRenderTarget(previousTarget);
+
+    geometry.dispose();
+    material.dispose();
+
+    target.texture.userData.period = period;
+    target.texture.userData.target = target;
+    return target.texture;
+  };
+
+  const createBirdLayer = (THREE, scene, width, height) => {
+    const config = {
+      maxBirds: 28,
+      maxFlocks: 2,
+      flockSize: [4, 7],
+      gap: [8, 18],
+      firstGap: 0,
+      speed: [220, 320],
+      spread: 0.16,
+      rank: 22,
+      jitter: 5,
+      scale: [11, 17],
+      flap: [7.5, 11.5],
+      bob: 10,
+      color: new THREE.Color("#ffffff"),
+      opacity: 0.82
+    };
+    const rand = (min, max) => min + Math.random() * (max - min);
+    const randInt = (min, max) => Math.floor(rand(min, max + 1));
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(
+        [
+          0, 1.05, 0,
+          0, -0.85, 0,
+          -1.55, -0.3, 0,
+          0, 1.05, 0,
+          1.55, -0.3, 0,
+          0, -0.85, 0
+        ],
+        3
+      )
+    );
+
+    const phases = new Float32Array(config.maxBirds);
+    const flapSpeeds = new Float32Array(config.maxBirds);
+    for (let index = 0; index < config.maxBirds; index += 1) {
+      phases[index] = Math.random() * Math.PI * 2;
+      flapSpeeds[index] = rand(config.flap[0], config.flap[1]);
+    }
+    geometry.setAttribute(
+      "aPhase",
+      new THREE.InstancedBufferAttribute(phases, 1)
+    );
+    geometry.setAttribute(
+      "aFlapSpeed",
+      new THREE.InstancedBufferAttribute(flapSpeeds, 1)
+    );
+
+    const material = new THREE.ShaderMaterial({
+      side: THREE.DoubleSide,
+      transparent: true,
+      depthWrite: false,
+      uniforms: {
+        uTime: { value: 0 },
+        uColor: { value: config.color },
+        uOpacity: { value: config.opacity }
+      },
+      vertexShader: `
+        attribute float aPhase;
+        attribute float aFlapSpeed;
+        uniform float uTime;
+
+        void main() {
+          vec3 p = position;
+          float flap = sin(uTime * aFlapSpeed + aPhase);
+          float span = abs(p.x);
+          p.z += flap * pow(span, 1.3) * 0.5;
+          p.x *= 1.0 - abs(flap) * 0.12;
+          gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(p, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform float uOpacity;
+
+        void main() {
+          gl_FragColor = vec4(uColor, uOpacity);
+        }
+      `
+    });
+
+    const mesh = new THREE.InstancedMesh(
+      geometry,
+      material,
+      config.maxBirds
+    );
+    mesh.frustumCulled = false;
+    mesh.renderOrder = 20;
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(mesh);
+
+    const makeFlock = () => {
+      const side = Math.floor(Math.random() * 4);
+      const margin = 220;
+      const startPoints = [
+        new THREE.Vector3(-width / 2 - margin, rand(-height * 0.28, height * 0.24), 0.45),
+        new THREE.Vector3(width / 2 + margin, rand(-height * 0.28, height * 0.24), 0.45),
+        new THREE.Vector3(rand(-width * 0.38, width * 0.38), height / 2 + margin, 0.45),
+        new THREE.Vector3(rand(-width * 0.38, width * 0.38), -height / 2 - margin, 0.45)
+      ];
+      const endPoints = [
+        new THREE.Vector3(width / 2 + margin, rand(-height * 0.28, height * 0.24), 0.45),
+        new THREE.Vector3(-width / 2 - margin, rand(-height * 0.28, height * 0.24), 0.45),
+        new THREE.Vector3(rand(-width * 0.38, width * 0.38), -height / 2 - margin, 0.45),
+        new THREE.Vector3(rand(-width * 0.38, width * 0.38), height / 2 + margin, 0.45)
+      ];
+      const start = startPoints[side];
+      const end = endPoints[side];
+      const tangent = new THREE.Vector3().subVectors(end, start).normalize();
+      const normal = new THREE.Vector3(-tangent.y, tangent.x, 0);
+      const points = [];
+      const steps = 5;
+
+      for (let index = 0; index <= steps; index += 1) {
+        const k = index / steps;
+        const point = new THREE.Vector3().lerpVectors(start, end, k);
+        point.addScaledVector(normal, Math.sin(k * Math.PI) * rand(-420, 420));
+        point.x += rand(-70, 70);
+        point.y += rand(-70, 70);
+        points.push(point);
+      }
+
+      const curve = new THREE.CatmullRomCurve3(
+        points,
+        false,
+        "catmullrom",
+        0.5
+      );
+      const length = curve.getLength();
+      const count = randInt(config.flockSize[0], config.flockSize[1]);
+      const birds = [];
+
+      for (let index = 0; index < count; index += 1) {
+        const rank = Math.ceil(index / 2);
+        const wing = index === 0 ? 0 : index % 2 === 0 ? 1 : -1;
+        birds.push({
+          offset:
+            (rank / Math.max(count / 2, 1)) * config.spread +
+            rand(-0.004, 0.004),
+          lateral: wing * rank * config.rank + rand(-config.jitter, config.jitter),
+          vertical: rand(-config.jitter, config.jitter) * 0.45,
+          bobPhase: Math.random() * Math.PI * 2,
+          scale: rand(config.scale[0], config.scale[1])
+        });
+      }
+
+      return {
+        birds,
+        curve,
+        maxOffset: birds.reduce((max, bird) => Math.max(max, bird.offset), 0),
+        t: 0,
+        tSpeed: rand(config.speed[0], config.speed[1]) / length
+      };
+    };
+
+    const flocks = [];
+    let spawnTimer = config.firstGap;
+    let time = 0;
+    const position = new THREE.Vector3();
+    const tangent = new THREE.Vector3();
+    const ahead = new THREE.Vector3();
+    const right = new THREE.Vector3();
+    const up = new THREE.Vector3(0, 0, 1);
+    const scale = new THREE.Vector3();
+    const matrix = new THREE.Matrix4();
+    const hidden = new THREE.Matrix4().makeScale(0, 0, 0);
+
+    const update = (delta) => {
+      time += delta;
+      material.uniforms.uTime.value = time;
+      spawnTimer -= delta;
+
+      if (spawnTimer <= 0) {
+        if (flocks.length < config.maxFlocks) {
+          flocks.push(makeFlock());
+        }
+        spawnTimer = rand(config.gap[0], config.gap[1]);
+      }
+
+      let slot = 0;
+      for (let flockIndex = flocks.length - 1; flockIndex >= 0; flockIndex -= 1) {
+        const flock = flocks[flockIndex];
+        flock.t += flock.tSpeed * delta;
+
+        if (flock.t - flock.maxOffset > 1) {
+          flocks.splice(flockIndex, 1);
+          continue;
+        }
+
+        flock.birds.forEach((bird) => {
+          const t = flock.t - bird.offset;
+          if (t < 0 || t > 1 || slot >= config.maxBirds) return;
+
+          flock.curve.getPointAt(t, position);
+          flock.curve.getTangentAt(t, tangent);
+          right.set(-tangent.y, tangent.x, 0).normalize();
+          flock.curve.getTangentAt(Math.min(t + 0.012, 1), ahead);
+
+          const turn = right.dot(ahead);
+          const rollScale = THREE.MathUtils.clamp(1 - Math.abs(turn) * 0.2, 0.82, 1);
+          position.addScaledVector(right, bird.lateral);
+          position.z +=
+            0.45 +
+            bird.vertical * 0.01 +
+            Math.sin(time * 1.15 + bird.bobPhase) * config.bob * 0.01;
+
+          matrix.makeBasis(right, tangent, up);
+          scale.set(bird.scale * rollScale, bird.scale, bird.scale);
+          matrix.scale(scale);
+          matrix.setPosition(position);
+          mesh.setMatrixAt(slot, matrix);
+          slot += 1;
+        });
+      }
+
+      for (let index = slot; index < config.maxBirds; index += 1) {
+        mesh.setMatrixAt(index, hidden);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    };
+
+    const dispose = () => {
+      scene.remove(mesh);
+      geometry.dispose();
+      material.dispose();
+    };
+
+    return { dispose, update };
+  };
+
+  const initScene = (THREE) => {
+    if (!THREE) return;
+
+    canvasLayer.innerHTML = "";
+    const width = 5276;
+    const height = 2944;
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(
+      -width / 2,
+      width / 2,
+      height / 2,
+      -height / 2,
+      0.1,
+      10
+    );
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    canvasLayer.appendChild(renderer.domElement);
+
+    const addTexturedPlane = (
+      texture,
+      x,
+      y,
+      planeWidth,
+      planeHeight,
+      opacity = 1
+    ) => {
+      const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
+      const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: opacity < 1,
+        opacity,
+        depthWrite: false
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(x, y, 0);
+      scene.add(mesh);
+      return mesh;
+    };
+
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(mapImage, (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      const mapMesh = addTexturedPlane(texture, 0, 0, width, height);
+      mapMesh.renderOrder = 0;
+      renderer.render(scene, camera);
+    });
+
+    const cloudField = bakeCloudField(THREE, renderer);
+    const cloudGeometry = new THREE.PlaneGeometry(width, height);
+    const cloudLayers = [
+      {
+        scale: 1 / 520,
+        cover: 0.56,
+        sharp: 0.15,
+        opacity: 0.38,
+        speed: 16,
+        dir: [1, 0.22],
+        offset: [1.2, 3.6]
+      },
+      {
+        scale: 1 / 820,
+        cover: 0.6,
+        sharp: 0.13,
+        opacity: 0.28,
+        speed: 11,
+        dir: [0.94, -0.34],
+        offset: [9.4, -4.2]
+      },
+      {
+        scale: 1 / 1180,
+        cover: 0.64,
+        sharp: 0.11,
+        opacity: 0.2,
+        speed: 7,
+        dir: [0.88, 0.48],
+        offset: [-6.8, 6.1]
+      }
+    ];
+    const clouds = cloudLayers.map((cloud, index) => {
+      const direction = new THREE.Vector2(cloud.dir[0], cloud.dir[1]).normalize();
+      const uniforms = {
+        uField: { value: cloudField },
+        uPeriod: { value: cloudField.userData.period },
+        uMapSize: { value: new THREE.Vector2(width, height) },
+        uOffset: { value: new THREE.Vector2(cloud.offset[0], cloud.offset[1]) },
+        uScale: { value: cloud.scale },
+        uCover: { value: cloud.cover },
+        uSharp: { value: cloud.sharp },
+        uOpacity: { value: cloud.opacity },
+        uBody: { value: new THREE.Color("#ffffff") },
+        uUnderside: { value: new THREE.Color("#b8c7c0") }
+      };
+      const material = new THREE.ShaderMaterial({
+        uniforms,
+        vertexShader: `
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec2 vUv;
+          uniform sampler2D uField;
+          uniform float uPeriod;
+          uniform vec2 uMapSize;
+          uniform vec2 uOffset;
+          uniform float uScale;
+          uniform float uCover;
+          uniform float uSharp;
+          uniform float uOpacity;
+          uniform vec3 uBody;
+          uniform vec3 uUnderside;
+
+          void main() {
+            vec2 centeredUv = vUv - 0.5;
+            vec2 p = centeredUv * uMapSize * uScale + uOffset;
+            float d = texture2D(uField, p / uPeriod).r;
+            float alpha = smoothstep(uCover, uCover + uSharp, d);
+            if (alpha < 0.004) discard;
+
+            float lit = smoothstep(uCover, uCover + uSharp * 2.4, d);
+            vec3 color = mix(uUnderside, uBody, lit);
+            float edgeFade = smoothstep(0.0, 0.12, vUv.y) *
+              (1.0 - smoothstep(0.9, 1.0, vUv.y));
+            gl_FragColor = vec4(color, alpha * uOpacity * edgeFade);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      });
+      const mesh = new THREE.Mesh(cloudGeometry, material);
+      mesh.position.z = 0.14 + index * 0.02;
+      mesh.renderOrder = 10 + index;
+      scene.add(mesh);
+
+      return {
+        direction,
+        material,
+        mesh,
+        speed: cloud.speed,
+        scale: cloud.scale,
+        uniforms
+      };
+    });
+    const birdLayer = createBirdLayer(THREE, scene, width, height);
+    birdLayer.update(0);
+
+    const resize = () => {
+      const rect = canvasLayer.getBoundingClientRect();
+      renderer.setSize(Math.max(1, rect.width), Math.max(1, rect.height), false);
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    };
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    let previousTime = performance.now();
+    let frameId = 0;
+    const animate = (time) => {
+      const delta = Math.min(0.05, (time - previousTime) / 1000);
+      previousTime = time;
+
+      if (!reducedMotion) {
+        clouds.forEach((cloud) => {
+          const step = cloud.speed * cloud.scale * delta;
+          cloud.uniforms.uOffset.value.x -= cloud.direction.x * step;
+          cloud.uniforms.uOffset.value.y -= cloud.direction.y * step;
+          cloud.uniforms.uOffset.value.x %= cloudField.userData.period;
+          cloud.uniforms.uOffset.value.y %= cloudField.userData.period;
+        });
+        birdLayer.update(delta);
+      }
+
+      renderer.render(scene, camera);
+      frameId = window.requestAnimationFrame(animate);
+    };
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvasLayer);
+    resize();
+    frameId = window.requestAnimationFrame(animate);
+
+    window.addEventListener("pagehide", () => {
+      window.cancelAnimationFrame(frameId);
+      resizeObserver.disconnect();
+      clouds.forEach((cloud) => {
+        scene.remove(cloud.mesh);
+        cloud.material.dispose();
+      });
+      birdLayer.dispose();
+      cloudGeometry.dispose();
+      cloudField.userData.target?.dispose();
+      cloudField.dispose();
+      renderer.dispose();
+    });
+  };
+
+  loadThree().then(initScene).catch((error) => {
+    console.warn("Could not initialize zoning map canvas", error);
+  });
+}
+
 function zoningFilter(zoningEl) {
   const filter = zoningEl.querySelector("[data-zoning-filter]");
   const overlay = zoningEl.querySelector("[data-zoning-map-overlay]");
@@ -902,6 +1472,7 @@ function zoning() {
   const zoningEl = document.querySelector(".zoning");
   if (!zoningEl) return;
 
+  zoningMapCanvas(zoningEl);
   const filterApi = zoningFilter(zoningEl);
   zoningSectors(zoningEl, filterApi);
   zoningLots(zoningEl, filterApi);
