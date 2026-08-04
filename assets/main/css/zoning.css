@@ -426,6 +426,17 @@
   font-weight: 400;
   line-height: 1;
 }
+.zoning .zoning-controls button svg {
+  display: block;
+  margin: 0 auto;
+  width: 12px;
+}
+.zoning .zoning-controls button.is-audio-playing .line-muted {
+  opacity: 0;
+}
+.zoning .zoning-controls button .line-muted {
+  transition: opacity 0.2s ease;
+}
 .zoning .zoning-card {
   position: absolute;
   top: 10px;

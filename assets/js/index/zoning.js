@@ -139,30 +139,73 @@ function zoningMapCanvas(zoningEl) {
       spread: 0.16,
       rank: 22,
       jitter: 5,
-      scale: [11, 17],
+      scale: [16.5, 25.5],
       flap: [7.5, 11.5],
       bob: 10,
       color: new THREE.Color("#ffffff"),
-      opacity: 0.82
+      opacity: 1,
+      shadowColor: new THREE.Color("#173936"),
+      shadowOpacity: 0.16
     };
+    const birdParts = [
+      [138.8, 122.1, 121.87, 126.64, 79.55, 114.85, 17.28, 158.38, 45.69, 158.38, 78.04, 144.47, 138.8, 158.38],
+      [160.34, 122.1, 177.27, 126.64, 219.59, 114.85, 281.86, 158.38, 253.45, 158.38, 221.1, 144.47, 160.34, 158.38],
+      [160.34, 122.1, 149.57, 117.05, 138.8, 122.1, 138.8, 158.38, 144.19, 171.58, 141.5, 199.85, 149.57, 199.85, 157.64, 199.85, 154.96, 171.58, 160.34, 158.38],
+      [155.93, 110.52, 149.57, 99.84, 143.22, 110.52, 138.8, 122.1, 149.57, 119.79, 160.34, 122.1, 155.93, 110.52]
+    ];
     const rand = (min, max) => min + Math.random() * (max - min);
     const randInt = (min, max) => Math.floor(rand(min, max + 1));
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute(
-      "position",
-      new THREE.Float32BufferAttribute(
-        [
-          0, 1.05, 0,
-          0, -0.85, 0,
-          -1.55, -0.3, 0,
-          0, 1.05, 0,
-          1.55, -0.3, 0,
-          0, -0.85, 0
-        ],
-        3
-      )
-    );
+    const buildBirdGeometry = () => {
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+
+      birdParts.forEach((points) => {
+        for (let index = 0; index < points.length; index += 2) {
+          minX = Math.min(minX, points[index]);
+          maxX = Math.max(maxX, points[index]);
+          minY = Math.min(minY, points[index + 1]);
+          maxY = Math.max(maxY, points[index + 1]);
+        }
+      });
+
+      const centerX = (minX + maxX) / 2;
+      const centerY = (minY + maxY) / 2;
+      const shapeScale = 3 / (maxX - minX);
+      const positions = [];
+
+      birdParts.forEach((points) => {
+        const contour = [];
+        for (let index = 0; index < points.length; index += 2) {
+          contour.push(new THREE.Vector2(points[index], points[index + 1]));
+        }
+        if (contour[0].distanceTo(contour[contour.length - 1]) < 1e-6) {
+          contour.pop();
+        }
+
+        THREE.ShapeUtils.triangulateShape(contour, []).forEach((face) => {
+          face.forEach((pointIndex) => {
+            const point = contour[pointIndex];
+            positions.push(
+              (point.x - centerX) * shapeScale,
+              0,
+              (centerY - point.y) * shapeScale
+            );
+          });
+        });
+      });
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(positions, 3)
+      );
+      return geometry;
+    };
+
+    const geometry = buildBirdGeometry();
 
     const phases = new Float32Array(config.maxBirds);
     const flapSpeeds = new Float32Array(config.maxBirds);
@@ -179,16 +222,8 @@ function zoningMapCanvas(zoningEl) {
       new THREE.InstancedBufferAttribute(flapSpeeds, 1)
     );
 
-    const material = new THREE.ShaderMaterial({
-      side: THREE.DoubleSide,
-      transparent: true,
-      depthWrite: false,
-      uniforms: {
-        uTime: { value: 0 },
-        uColor: { value: config.color },
-        uOpacity: { value: config.opacity }
-      },
-      vertexShader: `
+    const timeUniform = { value: 0 };
+    const birdVertexShader = `
         attribute float aPhase;
         attribute float aFlapSpeed;
         uniform float uTime;
@@ -197,20 +232,49 @@ function zoningMapCanvas(zoningEl) {
           vec3 p = position;
           float flap = sin(uTime * aFlapSpeed + aPhase);
           float span = abs(p.x);
-          p.z += flap * pow(span, 1.3) * 0.5;
+          p.y += flap * pow(span, 1.3) * 0.5;
           p.x *= 1.0 - abs(flap) * 0.12;
           gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(p, 1.0);
         }
-      `,
-      fragmentShader: `
+      `;
+    const birdFragmentShader = `
         uniform vec3 uColor;
         uniform float uOpacity;
 
         void main() {
           gl_FragColor = vec4(uColor, uOpacity);
         }
-      `
-    });
+      `;
+    const createBirdMaterial = (color, opacity) =>
+      new THREE.ShaderMaterial({
+        side: THREE.DoubleSide,
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+        uniforms: {
+          uTime: timeUniform,
+          uColor: { value: color },
+          uOpacity: { value: opacity }
+        },
+        vertexShader: birdVertexShader,
+        fragmentShader: birdFragmentShader
+      });
+
+    const shadowMaterial = createBirdMaterial(
+      config.shadowColor,
+      config.shadowOpacity
+    );
+    const material = createBirdMaterial(config.color, config.opacity);
+
+    const shadowMesh = new THREE.InstancedMesh(
+      geometry,
+      shadowMaterial,
+      config.maxBirds
+    );
+    shadowMesh.frustumCulled = false;
+    shadowMesh.renderOrder = 29;
+    shadowMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(shadowMesh);
 
     const mesh = new THREE.InstancedMesh(
       geometry,
@@ -218,7 +282,7 @@ function zoningMapCanvas(zoningEl) {
       config.maxBirds
     );
     mesh.frustumCulled = false;
-    mesh.renderOrder = 20;
+    mesh.renderOrder = 30;
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     scene.add(mesh);
 
@@ -294,13 +358,17 @@ function zoningMapCanvas(zoningEl) {
     const ahead = new THREE.Vector3();
     const right = new THREE.Vector3();
     const up = new THREE.Vector3(0, 0, 1);
+    const bankedUp = new THREE.Vector3();
+    const quaternion = new THREE.Quaternion();
     const scale = new THREE.Vector3();
     const matrix = new THREE.Matrix4();
+    const shadowMatrix = new THREE.Matrix4();
+    const shadowPosition = new THREE.Vector3();
     const hidden = new THREE.Matrix4().makeScale(0, 0, 0);
 
     const update = (delta) => {
       time += delta;
-      material.uniforms.uTime.value = time;
+      timeUniform.value = time;
       spawnTimer -= delta;
 
       if (spawnTimer <= 0) {
@@ -330,31 +398,48 @@ function zoningMapCanvas(zoningEl) {
           flock.curve.getTangentAt(Math.min(t + 0.012, 1), ahead);
 
           const turn = right.dot(ahead);
-          const rollScale = THREE.MathUtils.clamp(1 - Math.abs(turn) * 0.2, 0.82, 1);
-          position.addScaledVector(right, bird.lateral);
-          position.z +=
-            0.45 +
-            bird.vertical * 0.01 +
-            Math.sin(time * 1.15 + bird.bobPhase) * config.bob * 0.01;
+          const roll = THREE.MathUtils.clamp(-turn * 7, -0.58, 0.58);
+          quaternion.setFromAxisAngle(tangent, roll);
+          right.applyQuaternion(quaternion);
+          bankedUp.copy(up).applyQuaternion(quaternion);
 
-          matrix.makeBasis(right, tangent, up);
-          scale.set(bird.scale * rollScale, bird.scale, bird.scale);
+          position.addScaledVector(right, bird.lateral);
+          position.addScaledVector(
+            bankedUp,
+            bird.vertical * 0.01 +
+              Math.sin(time * 1.15 + bird.bobPhase) * config.bob * 0.01
+          );
+
+          matrix.makeBasis(right, bankedUp, tangent);
+          scale.setScalar(bird.scale);
           matrix.scale(scale);
           matrix.setPosition(position);
+
+          shadowPosition
+            .copy(position)
+            .addScaledVector(right, bird.scale * 0.08)
+            .addScaledVector(tangent, -bird.scale * 0.05);
+          shadowMatrix.copy(matrix);
+          shadowMatrix.setPosition(shadowPosition);
+          shadowMesh.setMatrixAt(slot, shadowMatrix);
           mesh.setMatrixAt(slot, matrix);
           slot += 1;
         });
-      }
 
+      }
       for (let index = slot; index < config.maxBirds; index += 1) {
         mesh.setMatrixAt(index, hidden);
+        shadowMesh.setMatrixAt(index, hidden);
       }
       mesh.instanceMatrix.needsUpdate = true;
+      shadowMesh.instanceMatrix.needsUpdate = true;
     };
 
     const dispose = () => {
+      scene.remove(shadowMesh);
       scene.remove(mesh);
       geometry.dispose();
+      shadowMaterial.dispose();
       material.dispose();
     };
 
@@ -373,8 +458,8 @@ function zoningMapCanvas(zoningEl) {
       width / 2,
       height / 2,
       -height / 2,
-      0.1,
-      10
+      -1000,
+      1000
     );
     camera.position.z = 5;
 
@@ -421,27 +506,27 @@ function zoningMapCanvas(zoningEl) {
     const cloudLayers = [
       {
         scale: 1 / 520,
-        cover: 0.56,
+        cover: 0.54,
         sharp: 0.15,
-        opacity: 0.38,
+        opacity: 0.46,
         speed: 16,
         dir: [1, 0.22],
         offset: [1.2, 3.6]
       },
       {
         scale: 1 / 820,
-        cover: 0.6,
+        cover: 0.58,
         sharp: 0.13,
-        opacity: 0.28,
+        opacity: 0.34,
         speed: 11,
         dir: [0.94, -0.34],
         offset: [9.4, -4.2]
       },
       {
         scale: 1 / 1180,
-        cover: 0.64,
+        cover: 0.62,
         sharp: 0.11,
-        opacity: 0.2,
+        opacity: 0.24,
         speed: 7,
         dir: [0.88, 0.48],
         offset: [-6.8, 6.1]
@@ -494,7 +579,9 @@ function zoningMapCanvas(zoningEl) {
             vec3 color = mix(uUnderside, uBody, lit);
             float edgeFade = smoothstep(0.0, 0.12, vUv.y) *
               (1.0 - smoothstep(0.9, 1.0, vUv.y));
-            gl_FragColor = vec4(color, alpha * uOpacity * edgeFade);
+            vec2 villaClearUv = vec2(centeredUv.x * 1.25, centeredUv.y * 1.85);
+            float villaClear = smoothstep(0.19, 0.34, length(villaClearUv));
+            gl_FragColor = vec4(color, alpha * uOpacity * edgeFade * villaClear);
           }
         `,
         transparent: true,
@@ -646,11 +733,7 @@ function zoningFilter(zoningEl) {
   const setFilterValue = (field, value, options = {}) => {
     if (!filterFields.includes(field)) return;
 
-    if (zoningEl.classList.contains("is-sector-mode")) {
-      zoningEl.classList.remove("is-sector-mode");
-      zoningEl.classList.add("is-detail-mode");
-      zoningEl.classList.remove("is-card-open");
-    }
+    const nextValue = getComparableValue(value || "all") || "all";
 
     if (options.resetOthers) {
       filterFields.forEach((filterField) => {
@@ -658,7 +741,23 @@ function zoningFilter(zoningEl) {
       });
     }
 
-    activeFilters[field] = getComparableValue(value || "all") || "all";
+    activeFilters[field] = nextValue;
+
+    const shouldReturnToSector = Object.values(activeFilters).every(
+      (filterValue) => filterValue === "all"
+    );
+
+    if (shouldReturnToSector) {
+      zoningEl.classList.add("is-sector-mode");
+      zoningEl.classList.remove("is-detail-mode", "is-card-open");
+      overlay
+        ?.querySelectorAll("path.is-selected")
+        .forEach((path) => path.classList.remove("is-selected"));
+    } else if (zoningEl.classList.contains("is-sector-mode")) {
+      zoningEl.classList.remove("is-sector-mode");
+      zoningEl.classList.add("is-detail-mode");
+      zoningEl.classList.remove("is-card-open");
+    }
 
     updateFilterButtons();
 
@@ -1448,6 +1547,58 @@ function zoningScale(zoningEl) {
   updateZoom();
 }
 
+function zoningAudio(zoningEl) {
+  const audioBtn = zoningEl.querySelector("[data-zoning-audio-toggle]");
+  if (!audioBtn) return;
+
+  let audio = null;
+  let isPlaying = false;
+
+  const setPlaying = (value) => {
+    isPlaying = value;
+    audioBtn.classList.toggle("is-audio-playing", isPlaying);
+    audioBtn.setAttribute("aria-pressed", String(isPlaying));
+    audioBtn.setAttribute(
+      "aria-label",
+      isPlaying ? "Turn sound off" : "Turn sound on"
+    );
+  };
+
+  const getAudio = () => {
+    if (audio) return audio;
+    audio = new Audio(audioBtn.dataset.zoningAudio || "./assets/videos/ambient.mp3");
+    audio.loop = true;
+    audio.volume = 0.45;
+    audio.preload = "none";
+    return audio;
+  };
+
+  audioBtn.addEventListener("click", () => {
+    const ambient = getAudio();
+
+    if (isPlaying) {
+      ambient.pause();
+      setPlaying(false);
+      return;
+    }
+
+    ambient
+      .play()
+      .then(() => {
+        setPlaying(true);
+      })
+      .catch(() => {
+        setPlaying(false);
+      });
+  });
+
+  window.addEventListener("pagehide", () => {
+    if (!audio) return;
+    audio.pause();
+    setPlaying(false);
+  });
+}
+
 function zoningCompareModal(zoningEl) {
   const compareSubmit = zoningEl.querySelector(".zoning-compare-submit");
   const compareModal = zoningEl.querySelector(".zoning-compare__modal");
@@ -1477,6 +1628,7 @@ function zoning() {
   zoningSectors(zoningEl, filterApi);
   zoningLots(zoningEl, filterApi);
   zoningScale(zoningEl);
+  zoningAudio(zoningEl);
   zoningCompareModal(zoningEl);
 }
 
