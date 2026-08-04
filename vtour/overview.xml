@@ -252,7 +252,7 @@
 
 	<scene name="scene_overview_vr360" title="overview_VR360" onstart="" thumburl="panos/overview_VR360.tiles/thumb.jpg" lat="15.82564778" lng="108.40854294" alt="279.36" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="-91.775" vlookat="23.448" fovtype="MFOV" fov="110.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="-90.775" vlookat="10" fovtype="MFOV" fov="110.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/overview_VR360.tiles/preview.jpg" />
 		<image>
 			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1152,2304,4608" />

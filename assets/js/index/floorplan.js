@@ -115,14 +115,14 @@ function floorPlan() {
             id: "d-1-garden",
             x: 41.67,
             y: 58.05,
-            radar: 0,
+            radar: 180,
             scene: "scene_260619_vr360_villad1_11_v07" // 260619_VR360_VillaD1.11_V07
           },
           {
             id: "d-1-8",
             x: 37.67,
             y: 49.57,
-            radar: 0,
+            radar: 180,
             scene: "scene_260619_vr360_villad1_11_v08" // 260619_VR360_VillaD1.11_V08
           }
         ]
@@ -164,28 +164,28 @@ function floorPlan() {
             id: "f-1-entry",
             x: 50,
             y: 90,
-            radar: 0,
+            radar: 90,
             scene: "scene_360_villaf_view11_lanscape_truoc_nha_copy" // 360_VillaF_View11_Lanscape truoc nha copy
           },
           {
             id: "f-1-pool",
             x: 35,
             y: 52.87,
-            radar: 0,
+            radar: 40,
             scene: "scene_360_villaf_view05_phong_bep_copy" // 360_VillaF_View05_Phong Bep copy
           },
           {
             id: "f-1-dining",
             x: 39.67,
             y: 34.48,
-            radar: 0,
+            radar: -90,
             scene: "scene_360_villaf_view04_phong_khach_copy" // 360_VillaF_View04_Phong Khach copy
           },
           {
             id: "f-1-gym",
             x: 66.33,
             y: 78.32,
-            radar: 0,
+            radar: 180,
             scene: "scene_360_villaf_view12_p_gym_copy" // 360_VillaF_View12_P gym copy
           }
         ]
@@ -528,7 +528,7 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-11`,
+      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-13`,
       html5: "only",
       mobilescale: 1,
       vars: {
