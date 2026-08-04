@@ -190,10 +190,10 @@
     border-radius: inherit;
     background: conic-gradient(
       from var(--zoning-label-angle),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.95),
-      rgba(255, 255, 255, 0)
+      rgba(208, 255, 239, 0),
+      rgba(208, 255, 239, 0),
+      rgba(208, 255, 239, 0.95),
+      rgba(208, 255, 239, 0)
     );
     padding: 1px;
     pointer-events: none;
@@ -238,8 +238,9 @@
   }
 
   .zoning-map-overlay path[data-id] {
+    fill: #387873;
     fill-opacity: 1;
-    stroke: #ffffff;
+    stroke: #69bcb1;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-opacity: 1;
@@ -251,19 +252,21 @@
     transition:
       fill 0.18s ease,
       fill-opacity 0.18s ease,
+      stroke 0.18s ease,
       stroke-opacity 0.18s ease;
   }
 
   .zoning-map-overlay path[data-id]:hover,
   .zoning-map-overlay path[data-id].is-hovered {
-    fill: rgb(250, 186, 107);
-    fill-opacity: 1;
+    fill: #d0ffef;
+    fill-opacity: 0.76;
+    stroke: #d0ffef;
   }
 
   .zoning-map-overlay path[data-id].is-selected {
-    fill: rgb(250, 186, 107);
-    fill-opacity: 1;
-    stroke: rgb(250, 186, 107);
+    fill: #d0ffef;
+    fill-opacity: 0.76;
+    stroke: #d0ffef;
   }
 
   .zoning-map-overlay path[data-id]:focus,
@@ -290,9 +293,14 @@
     font-weight: 800;
     line-height: 1;
     text-align: center;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
     white-space: nowrap;
     transform: translate(-50%, -50%) rotate(var(--label-rotate, 0deg));
+    transition: color 0.18s ease;
+  }
+
+  .zoning-map-labels span.is-hovered,
+  .zoning-map-labels span.is-selected {
+    color: #1f4f4b;
   }
 
   .zoning-filter {

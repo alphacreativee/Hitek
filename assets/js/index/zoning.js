@@ -752,7 +752,12 @@ function zoningFilter(zoningEl) {
       zoningEl.classList.remove("is-detail-mode", "is-card-open");
       overlay
         ?.querySelectorAll("path.is-selected")
-        .forEach((path) => path.classList.remove("is-selected"));
+        .forEach((path) => {
+          path.classList.remove("is-selected");
+          labels
+            ?.querySelectorAll(`span[data-id="${path.dataset.id}"]`)
+            .forEach((label) => label.classList.remove("is-selected"));
+        });
     } else if (zoningEl.classList.contains("is-sector-mode")) {
       zoningEl.classList.remove("is-sector-mode");
       zoningEl.classList.add("is-detail-mode");
@@ -811,6 +816,7 @@ function zoningFilter(zoningEl) {
 
       if (!isVisible && path.classList.contains("is-selected")) {
         path.classList.remove("is-selected");
+        pathLabels.forEach((label) => label.classList.remove("is-selected"));
         zoningEl.classList.remove("is-card-open");
       }
     });
@@ -1164,15 +1170,6 @@ function zoningLots(zoningEl, filterApi) {
   let selectedPath = null;
   let villaDataByName = new Map();
   let villaDataById = new Map();
-  const lotColors = {
-    A: "rgb(116, 140, 176)",
-    B: "rgb(89, 89, 153)",
-    C: "rgb(164, 104, 176)",
-    D: "rgb(51, 166, 149)",
-    E: "rgb(161, 109, 87)",
-    F: "rgb(99, 171, 97)",
-    G: "rgb(135, 72, 72)"
-  };
   const escapeHtml = (value) =>
     String(value ?? "")
       .replace(/&/g, "&amp;")
@@ -1191,6 +1188,10 @@ function zoningLots(zoningEl, filterApi) {
     data.view || "",
     data.floors || data.floor || 2
   ];
+  const getPathLabels = (path) =>
+    labels && path.dataset.id
+      ? labels.querySelectorAll(`span[data-id="${path.dataset.id}"]`)
+      : [];
 
   const selectLot = (path) => {
     const title = path.dataset.title;
@@ -1207,9 +1208,17 @@ function zoningLots(zoningEl, filterApi) {
     };
     const lotTitle = data.name || title;
 
-    selectedPath?.classList.remove("is-selected");
+    if (selectedPath) {
+      selectedPath.classList.remove("is-selected");
+      getPathLabels(selectedPath).forEach((label) => {
+        label.classList.remove("is-selected");
+      });
+    }
     selectedPath = path;
     selectedPath.classList.add("is-selected");
+    getPathLabels(selectedPath).forEach((label) => {
+      label.classList.add("is-selected");
+    });
 
     if (cardArea)
       cardArea.textContent = data.villa ? `Area ${data.villa}` : "Area";
@@ -1412,11 +1421,6 @@ function zoningLots(zoningEl, filterApi) {
       svg.querySelectorAll("path[data-title]").forEach((path) => {
         const title = path.dataset.title || "";
         const villaData = villaDataByName.get(title);
-        const area = villaData?.villa || getLotAreaKey(title);
-        const color = lotColors[area];
-        if (color) {
-          path.setAttribute("fill", color);
-        }
         path.setAttribute("fill-opacity", "1");
         if (villaData) {
           path.dataset.id = villaData.id;
@@ -1429,10 +1433,16 @@ function zoningLots(zoningEl, filterApi) {
 
         path.addEventListener("mouseenter", () => {
           path.classList.add("is-hovered");
+          getPathLabels(path).forEach((label) => {
+            label.classList.add("is-hovered");
+          });
         });
 
         path.addEventListener("mouseleave", () => {
           path.classList.remove("is-hovered");
+          getPathLabels(path).forEach((label) => {
+            label.classList.remove("is-hovered");
+          });
         });
 
         path.addEventListener("click", (event) => {
