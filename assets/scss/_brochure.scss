@@ -15,11 +15,22 @@
     background-color: #fff !important;
     position: relative !important;
     margin: 0 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100%;
+    max-width: 100%;
   }
 
-  #dflip-brochure {
+  #dflip_brochure {
+    width: 100% !important;
+    height: 100% !important;
     margin: 0 auto;
     cursor: grab;
+  }
+
+  .df-3dcanvas {
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .brochure-nav {

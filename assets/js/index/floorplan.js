@@ -402,11 +402,7 @@ function floorPlan() {
     };
 
     Object.entries(controlIcons).forEach(([layerName, iconUrl]) => {
-      krpano.set(`layer[${layerName}].url`, iconUrl);
-      krpano.set(`layer[${layerName}].crop`, "");
-      krpano.set(`layer[${layerName}].width`, 23);
-      krpano.set(`layer[${layerName}].height`, 23);
-      krpano.set(`layer[${layerName}].scale`, 1);
+      setControlIcon(layerName, iconUrl);
     });
 
     krpano.set("layer[skin_layer].visible", true);
@@ -416,6 +412,26 @@ function floorPlan() {
     krpano.set("layer[skin_control_bar].alpha", 1);
     krpano.set("layer[skin_control_bar_buttons].visible", true);
     krpano.set("layer[skin_btn_navi].visible", true);
+  }
+
+  function setControlIcon(layerName, iconUrl) {
+    if (!krpano) return;
+
+    krpano.set(`layer[${layerName}].url`, iconUrl);
+    krpano.set(`layer[${layerName}].crop`, "");
+    krpano.set(`layer[${layerName}].width`, 23);
+    krpano.set(`layer[${layerName}].height`, 23);
+    krpano.set(`layer[${layerName}].scale`, 1);
+  }
+
+  function syncFullscreenIcon() {
+    setControlIcon("skin_btn_fs", `${themeURL}/vtour/skin/icon/zoom.svg`);
+  }
+
+  function queueFullscreenIconSync() {
+    [0, 80, 240].forEach((delay) => {
+      setTimeout(syncFullscreenIcon, delay);
+    });
   }
 
   function queueSceneActivation(sceneName) {
@@ -505,10 +521,22 @@ function floorPlan() {
       syncFloorplanFromScene(krpano.get("xml.scene"));
     };
 
+    window.floorplanHandleFullscreenChange = function () {
+      queueFullscreenIconSync();
+    };
+
     krpano.set("events[floorplan_events].keep", true);
     krpano.set(
       "events[floorplan_events].onnewscene",
       "js(window.floorplanHandleSceneChange());"
+    );
+    krpano.set(
+      "events[floorplan_events].onenterfullscreen",
+      "js(window.floorplanHandleFullscreenChange());"
+    );
+    krpano.set(
+      "events[floorplan_events].onexitfullscreen",
+      "js(window.floorplanHandleFullscreenChange());"
     );
   }
 

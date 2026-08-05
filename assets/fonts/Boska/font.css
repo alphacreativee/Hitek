@@ -1,37 +1,7 @@
 @font-face {
     font-family: 'Boska';
-    src: url('Boska-Black.eot');
-    src: url('Boska-Black.eot?#iefix') format('embedded-opentype'),
-        url('Boska-Black.woff2') format('woff2'),
-        url('Boska-Black.woff') format('woff'),
-        url('Boska-Black.ttf') format('truetype'),
-        url('Boska-Black.svg#Boska-Black') format('svg');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('Boska-BlackItalic.eot');
-    src: url('Boska-BlackItalic.eot?#iefix') format('embedded-opentype'),
-        url('Boska-BlackItalic.woff2') format('woff2'),
-        url('Boska-BlackItalic.woff') format('woff'),
-        url('Boska-BlackItalic.ttf') format('truetype'),
-        url('Boska-BlackItalic.svg#Boska-BlackItalic') format('svg');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('Boska-Bold.eot');
-    src: url('Boska-Bold.eot?#iefix') format('embedded-opentype'),
-        url('Boska-Bold.woff2') format('woff2'),
-        url('Boska-Bold.woff') format('woff'),
-        url('Boska-Bold.ttf') format('truetype'),
-        url('Boska-Bold.svg#Boska-Bold') format('svg');
+    src: url('Boska-Bold.woff2') format('woff2'),
+        url('Boska-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -39,12 +9,8 @@
 
 @font-face {
     font-family: 'Boska';
-    src: url('Boska-BoldItalic.eot');
-    src: url('Boska-BoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('Boska-BoldItalic.woff2') format('woff2'),
-        url('Boska-BoldItalic.woff') format('woff'),
-        url('Boska-BoldItalic.ttf') format('truetype'),
-        url('Boska-BoldItalic.svg#Boska-BoldItalic') format('svg');
+    src: url('Boska-BoldItalic.woff2') format('woff2'),
+        url('Boska-BoldItalic.woff') format('woff');
     font-weight: bold;
     font-style: italic;
     font-display: swap;
@@ -52,64 +18,8 @@
 
 @font-face {
     font-family: 'Boska';
-    src: url('Boska-Extralight.eot');
-    src: url('Boska-Extralight.eot?#iefix') format('embedded-opentype'),
-        url('Boska-Extralight.woff2') format('woff2'),
-        url('Boska-Extralight.woff') format('woff'),
-        url('Boska-Extralight.ttf') format('truetype'),
-        url('Boska-Extralight.svg#Boska-Extralight') format('svg');
-    font-weight: 200;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('Boska-ExtralightItalic.eot');
-    src: url('Boska-ExtralightItalic.eot?#iefix') format('embedded-opentype'),
-        url('Boska-ExtralightItalic.woff2') format('woff2'),
-        url('Boska-ExtralightItalic.woff') format('woff'),
-        url('Boska-ExtralightItalic.ttf') format('truetype'),
-        url('Boska-ExtralightItalic.svg#Boska-ExtralightItalic') format('svg');
-    font-weight: 200;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('Boska-Light.eot');
-    src: url('Boska-Light.eot?#iefix') format('embedded-opentype'),
-        url('Boska-Light.woff2') format('woff2'),
-        url('Boska-Light.woff') format('woff'),
-        url('Boska-Light.ttf') format('truetype'),
-        url('Boska-Light.svg#Boska-Light') format('svg');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('Boska-LightItalic.eot');
-    src: url('Boska-LightItalic.eot?#iefix') format('embedded-opentype'),
-        url('Boska-LightItalic.woff2') format('woff2'),
-        url('Boska-LightItalic.woff') format('woff'),
-        url('Boska-LightItalic.ttf') format('truetype'),
-        url('Boska-LightItalic.svg#Boska-LightItalic') format('svg');
-    font-weight: 300;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('Boska-Medium.eot');
-    src: url('Boska-Medium.eot?#iefix') format('embedded-opentype'),
-        url('Boska-Medium.woff2') format('woff2'),
-        url('Boska-Medium.woff') format('woff'),
-        url('Boska-Medium.ttf') format('truetype'),
-        url('Boska-Medium.svg#Boska-Medium') format('svg');
+    src: url('Boska-Medium.woff2') format('woff2'),
+        url('Boska-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -117,12 +27,8 @@
 
 @font-face {
     font-family: 'Boska';
-    src: url('Boska-MediumItalic.eot');
-    src: url('Boska-MediumItalic.eot?#iefix') format('embedded-opentype'),
-        url('Boska-MediumItalic.woff2') format('woff2'),
-        url('Boska-MediumItalic.woff') format('woff'),
-        url('Boska-MediumItalic.ttf') format('truetype'),
-        url('Boska-MediumItalic.svg#Boska-MediumItalic') format('svg');
+    src: url('Boska-MediumItalic.woff2') format('woff2'),
+        url('Boska-MediumItalic.woff') format('woff');
     font-weight: 500;
     font-style: italic;
     font-display: swap;
@@ -130,12 +36,8 @@
 
 @font-face {
     font-family: 'Boska';
-    src: url('Boska-Regular.eot');
-    src: url('Boska-Regular.eot?#iefix') format('embedded-opentype'),
-        url('Boska-Regular.woff2') format('woff2'),
-        url('Boska-Regular.woff') format('woff'),
-        url('Boska-Regular.ttf') format('truetype'),
-        url('Boska-Regular.svg#Boska-Regular') format('svg');
+    src: url('Boska-Regular.woff2') format('woff2'),
+        url('Boska-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

@@ -6,6 +6,7 @@ function initZoningCardSlider() {
 
 function zoningMapCanvas(zoningEl) {
   const canvasLayer = zoningEl.querySelector("[data-zoning-map-canvas]");
+  const birdsLayer = zoningEl.querySelector("[data-zoning-map-birds]");
   if (!canvasLayer) return;
   const mapImage =
     canvasLayer.dataset.image || "./assets/images/zoning-map.webp";
@@ -494,9 +495,13 @@ function zoningMapCanvas(zoningEl) {
     if (!THREE) return;
 
     canvasLayer.innerHTML = "";
+    if (birdsLayer) {
+      birdsLayer.innerHTML = "";
+    }
     const width = 5276;
     const height = 2944;
     const scene = new THREE.Scene();
+    const birdScene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(
       -width / 2,
       width / 2,
@@ -506,6 +511,7 @@ function zoningMapCanvas(zoningEl) {
       1000
     );
     camera.position.z = 5;
+    const birdCamera = camera.clone();
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -515,6 +521,14 @@ function zoningMapCanvas(zoningEl) {
     renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     canvasLayer.appendChild(renderer.domElement);
+    const birdRenderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+    birdRenderer.setClearColor(0x000000, 0);
+    birdRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    (birdsLayer || canvasLayer).appendChild(birdRenderer.domElement);
 
     const addTexturedPlane = (
       texture,
@@ -649,18 +663,26 @@ function zoningMapCanvas(zoningEl) {
         uniforms
       };
     });
-    const birdLayer = createBirdLayer(THREE, scene, width, height);
+    const birdLayer = createBirdLayer(THREE, birdScene, width, height);
     birdLayer.update(0);
 
     const resize = () => {
       const rect = canvasLayer.getBoundingClientRect();
+      const birdRect = (birdsLayer || canvasLayer).getBoundingClientRect();
       renderer.setSize(
         Math.max(1, rect.width),
         Math.max(1, rect.height),
         false
       );
+      birdRenderer.setSize(
+        Math.max(1, birdRect.width),
+        Math.max(1, birdRect.height),
+        false
+      );
       camera.updateProjectionMatrix();
+      birdCamera.updateProjectionMatrix();
       renderer.render(scene, camera);
+      birdRenderer.render(birdScene, birdCamera);
     };
 
     const reducedMotion = window.matchMedia(
@@ -684,6 +706,7 @@ function zoningMapCanvas(zoningEl) {
       }
 
       renderer.render(scene, camera);
+      birdRenderer.render(birdScene, birdCamera);
       frameId = window.requestAnimationFrame(animate);
     };
 
@@ -704,6 +727,7 @@ function zoningMapCanvas(zoningEl) {
       cloudField.userData.target?.dispose();
       cloudField.dispose();
       renderer.dispose();
+      birdRenderer.dispose();
     });
   };
 
@@ -1187,6 +1211,7 @@ function zoningLots(zoningEl, filterApi) {
   const labels = zoningEl.querySelector("[data-zoning-map-labels]");
   const card = zoningEl.querySelector("[data-zoning-card]");
   if (!overlay || !card) return;
+  zoningEl.classList.remove("is-zoning-overlay-ready");
   const overlayImage = overlay.dataset.image;
   if (!overlayImage) {
     console.warn("Missing data-image for zoning map SVG");
@@ -1510,8 +1535,10 @@ function zoningLots(zoningEl, filterApi) {
       });
 
       filterApi?.init(villas);
+      zoningEl.classList.add("is-zoning-overlay-ready");
     })
     .catch((error) => {
+      zoningEl.classList.remove("is-zoning-overlay-ready");
       console.warn(error);
     });
 }

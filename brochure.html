@@ -106,10 +106,10 @@
     <main>
       <section class="brochure-section">
         <div
-          class="_df_book"
-          id="dflip-brochure"
+          class="_df_book brochure-book"
+          id="dflip_brochure"
           source="./assets/images/draf/file.pdf"
-          style="width: 100%; height: 500px"
+          style="width: 100%; height: 100%"
         ></div>
         <div class="brochure-nav">
           <button
@@ -177,10 +177,49 @@
     <script src="./assets/libs/moment.min.js"></script>
     <script src="./assets/libs/lightpick.min.js"></script>
     <script src="./assets/libs/glightbox.min.js"></script>
+    <script>
+      (function () {
+        var sectionHeight =
+          document.querySelector(".brochure-section")?.getBoundingClientRect()
+            .height || window.innerHeight;
+        var pdfHeight = Math.min(500, Math.round(sectionHeight * 0.62));
+        var verticalPadding = Math.max(
+          0,
+          Math.round((sectionHeight - pdfHeight) / 2),
+        );
+
+        window.brochureFlipbookInstance = null;
+        window.option_dflip_brochure = {
+          webgl: true,
+          autoEnableOutline: false,
+          autoEnableThumbnail: false,
+          height: Math.round(sectionHeight) + "px",
+          paddingTop: verticalPadding,
+          paddingBottom: verticalPadding,
+          paddingLeft: 40,
+          paddingRight: 40,
+          pageMode: 2,
+          duration: 800,
+          soundEnable: false,
+          showDownloadControl: false,
+          showSearchControl: false,
+          showPrintControl: false,
+          showShareControl: false,
+          enableAnnotation: false,
+          forceFit: true,
+          onReady: function (flipbook) {
+            window.brochureFlipbookInstance = flipbook;
+          },
+        };
+      })();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/js/dflip.min.js"></script>
     <!-- import custom js -->
     <script type="module" src="./assets/main/js/script.min.js"></script>
-    <script type="module" src="./assets/main/js/brochure.min.js"></script>
+    <script
+      type="module"
+      src="./assets/main/js/brochure.min.js?v=brochure-full-section-5"
+    ></script>
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 
     <!-- end import custom js -->

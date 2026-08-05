@@ -1,5 +1,5 @@
 :root {
-  --font-heading: "Boska Variable", serif;
+  --font-heading: "Boska", serif;
   --font-body: "Montserrat", sans-serif;
   --color-black: #000000;
   --color-white: #ffffff;
@@ -2465,10 +2465,20 @@ button.aloading::after {
   background-color: #fff !important;
   position: relative !important;
   margin: 0 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100%;
+  max-width: 100%;
 }
-.brochure-section #dflip-brochure {
+.brochure-section #dflip_brochure {
+  width: 100% !important;
+  height: 100% !important;
   margin: 0 auto;
   cursor: grab;
+}
+.brochure-section .df-3dcanvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 .brochure-section .brochure-nav {
   position: absolute;
