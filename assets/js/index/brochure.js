@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         wheelTimeout = null;
       }, WHEEL_COOLDOWN);
     },
-    { passive: false },
+    { passive: false }
   );
 
   document.getElementById("brochure-prev")?.addEventListener("click", () => {
