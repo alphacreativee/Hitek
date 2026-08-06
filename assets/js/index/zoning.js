@@ -1709,6 +1709,25 @@ function zoningCompareModal(zoningEl) {
   });
 }
 
+function zoningGuide(zoningEl) {
+  const guide = zoningEl.querySelector("[data-zoning-guide]");
+  const closeBtn = zoningEl.querySelector("[data-zoning-guide-close]");
+  if (!guide) return;
+
+  let isClosed = false;
+  const showTimer = window.setTimeout(() => {
+    if (!isClosed) {
+      guide.classList.add("is-visible");
+    }
+  }, 2000);
+
+  closeBtn?.addEventListener("click", () => {
+    isClosed = true;
+    window.clearTimeout(showTimer);
+    guide.classList.remove("is-visible");
+  });
+}
+
 function zoning() {
   const zoningEl = document.querySelector(".zoning");
   if (!zoningEl) return;
@@ -1720,6 +1739,7 @@ function zoning() {
   zoningScale(zoningEl);
   zoningAudio(zoningEl);
   zoningCompareModal(zoningEl);
+  zoningGuide(zoningEl);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
