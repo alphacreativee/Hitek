@@ -276,6 +276,30 @@ function sectionOverview() {
 
   const toggleInput = $(".overview-switcher .toggle-checkbox");
   const embeddedVtours = new Set();
+  const vtourInstances = new Map();
+  const compassNeedle = document.querySelector(
+    "[data-overview-compass-needle]"
+  );
+  const compassHeadingOffset = -80;
+  let activeVtourId = $(".overview-main__item.active [data-vtour-scene]").attr(
+    "id"
+  );
+  let compassFrame = null;
+
+  function syncCompass() {
+    const krpano = vtourInstances.get(activeVtourId);
+
+    if (krpano && compassNeedle) {
+      const hlookat = parseFloat(krpano.get("view.hlookat")) || 0;
+      compassNeedle.style.transform = `rotate(${hlookat + compassHeadingOffset}deg)`;
+    }
+
+    compassFrame = window.requestAnimationFrame(syncCompass);
+  }
+
+  if (compassNeedle) {
+    compassFrame = window.requestAnimationFrame(syncCompass);
+  }
 
   function setupOverviewVtour(krpano, sceneName) {
     krpano.call(`loadscene(${sceneName}, null, MERGE, BLEND(0))`);
@@ -307,6 +331,7 @@ function sectionOverview() {
       mobilescale: 1,
       passQueryParameters: false,
       onready(krpano) {
+        vtourInstances.set(vtourEl.id, krpano);
         setupOverviewVtour(krpano, vtourEl.dataset.vtourScene);
       }
     });
@@ -322,6 +347,7 @@ function sectionOverview() {
     const $activeItem = $(`.overview-main__${theme}`);
 
     $activeItem.addClass("active");
+    activeVtourId = $activeItem.find("[data-vtour-scene]").attr("id");
     embedOverviewVtour($activeItem);
   });
 }
