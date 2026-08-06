@@ -61,6 +61,20 @@ function floorPlan() {
             y: 37.78,
             radar: -180,
             scene: "scene_floorplan_villa_c_floor_1_living" // 360_View02_Phong khach
+          },
+          {
+            id: "c-1-05",
+            x: 62.33,
+            y: 55.54,
+            radar: 0,
+            scene: "scene_floorplan_villa_c_floor_1_05" // 360_View09_Tien sanh
+          },
+          {
+            id: "c-1-07",
+            x: 55,
+            y: 15.78,
+            radar: -160,
+            scene: "scene_floorplan_villa_c_floor_1_07" // 360_View02_Phong khach
           }
         ]
       },
@@ -124,6 +138,20 @@ function floorPlan() {
             y: 49.57,
             radar: 180,
             scene: "scene_260619_vr360_villad1_11_v08" // 260619_VR360_VillaD1.11_V08
+          },
+          {
+            id: "d-1-10",
+            x: 60.67,
+            y: 35.32,
+            radar: 210,
+            scene: "scene_260617_vr360_villad1_11_v10" // 260619_VR360_VillaD1.11_V10
+          },
+          {
+            id: "d-1-11",
+            x: 62,
+            y: 54.18,
+            radar: 0,
+            scene: "scene_260619_vr360_villad1_11_v11" // 260619_VR360_VillaD1.11_V11
           }
         ]
       },
@@ -151,6 +179,20 @@ function floorPlan() {
             y: 61.59,
             radar: 0,
             scene: "scene_260619_vr360_villad1_11_v16" // 260619_VR360_VillaD1.11_V16
+          },
+          {
+            id: "d-2-18",
+            x: 42,
+            y: 46.55,
+            radar: 0,
+            scene: "scene_260617_vr360_villad1_11_v18" // 260619_VR360_VillaD1.11_V18
+          },
+          {
+            id: "d-2-19",
+            x: 62.4,
+            y: 56.16,
+            radar: 0,
+            scene: "scene_260619_vr360_villad1_11_v19" // 260619_VR360_VillaD1.11_V19
           }
         ]
       }
@@ -187,6 +229,20 @@ function floorPlan() {
             y: 78.32,
             radar: 180,
             scene: "scene_360_villaf_view12_p_gym_copy" // 360_VillaF_View12_P gym copy
+          },
+          {
+            id: "f-1-3",
+            x: 70.8,
+            y: 20.81,
+            radar: 0,
+            scene: "scene_360_villaf_view3_vuon_canh_be_boi_copy" // 360_VillaF_View12_P gym copy
+          },
+          {
+            id: "f-1-7",
+            x: 53.6,
+            y: 50.51,
+            radar: 0,
+            scene: "scene_360_villaf_view07_sanh_truoc_copy" // 360_VillaF_View12_P gym copy
           }
         ]
       },
@@ -198,7 +254,7 @@ function floorPlan() {
             id: "f-2-master",
             x: 68.33,
             y: 54.75,
-            radar: 0,
+            radar: 180,
             scene: "scene_360_villaf_view18_pngu_tang2_2" // 360_VillaF_View18_Pngu_Tang2_2
           },
           {
@@ -207,6 +263,27 @@ function floorPlan() {
             y: 64.41,
             radar: 0,
             scene: "scene_360_villaf_view19_p_family_room_tang2" // 360_VillaF_View19_P Family room_Tang2
+          },
+          {
+            id: "f-2-16",
+            x: 30,
+            y: 36.37,
+            radar: 0,
+            scene: "scene_360_villaf_view16_p_thay_do" // 360_VillaF_View19_P Family room_Tang2
+          },
+          {
+            id: "f-2-17",
+            x: 41,
+            y: 42.87,
+            radar: 0,
+            scene: "scene_360_villaf_view17_p_ngu_master" // 360_VillaF_View19_P Family room_Tang2
+          },
+          {
+            id: "f-2-20",
+            x: 36.4,
+            y: 69.74,
+            radar: 0,
+            scene: "scene_360_villaf_view20_p_ngu_2_tang2" // 360_VillaF_View19_P Family room_Tang2
           }
         ]
       }

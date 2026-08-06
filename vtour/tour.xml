@@ -3,7 +3,7 @@
 	<include url="skin/vtourskin.xml" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
-	<skin_settings maps="true"
+	<skin_settings maps="false"
 	               maps_type="openstreetmaps"
 	               maps_bing_api_key=""
 	               maps_google_api_key=""
@@ -71,16 +71,170 @@
 	
 
 	
-	<scene name="scene_overview_vr360" title="overview_VR360" onstart="" thumburl="panos/overview_VR360.tiles/thumb.jpg" lat="15.82564778" lng="108.40854294" alt="279.36" heading="0.0">
+	<scene name="scene_360_view05_phong_ngu_tang_1" title="360_View05_Phong ngu tang 1" onstart="" thumburl="panos/360_View05_Phong_ngu_tang_1.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/overview_VR360.tiles/preview.jpg" />
+		<preview url="panos/360_View05_Phong_ngu_tang_1.tiles/preview.jpg" />
 
 		<image>
-			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1152,2304,4608" />
+			<cube url="panos/360_View05_Phong_ngu_tang_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_view07_san_sau" title="360_VIew07_San Sau" onstart="" thumburl="panos/360_VIew07_San_Sau.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_VIew07_San_Sau.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_VIew07_San_Sau.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_villaf_view07_sanh_truoc_copy" title="360_VillaF_View07_Sanh truoc copy" onstart="" thumburl="panos/360_VillaF_View07_Sanh_truoc_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_VillaF_View07_Sanh_truoc_copy.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_VillaF_View07_Sanh_truoc_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_villaf_view3_vuon_canh_be_boi_copy" title="360_VillaF_View3_Vuon canh be boi copy" onstart="" thumburl="panos/360_VillaF_View3_Vuon_canh_be_boi_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_VillaF_View3_Vuon_canh_be_boi_copy.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_VillaF_View3_Vuon_canh_be_boi_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_villaf_view16_p_thay_do" title="360_VillaF_View16_P thay do" onstart="" thumburl="panos/360_VillaF_View16_P_thay_do.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_VillaF_View16_P_thay_do.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_VillaF_View16_P_thay_do.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_villaf_view17_p_ngu_master" title="360_VillaF_View17_P ngu Master" onstart="" thumburl="panos/360_VillaF_View17_P_ngu_Master.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_VillaF_View17_P_ngu_Master.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_VillaF_View17_P_ngu_Master.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_360_villaf_view20_p_ngu_2_tang2" title="360_VillaF_View20_P ngu 2_Tang2" onstart="" thumburl="panos/360_VillaF_View20_P_ngu_2_Tang2.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/360_VillaF_View20_P_ngu_2_Tang2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/360_VillaF_View20_P_ngu_2_Tang2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_260617_vr360_villad1_11_v10" title="260617_VR360_VillaD1.11_V10" onstart="" thumburl="panos/260617_VR360_VillaD1_11_V10.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/260617_VR360_VillaD1_11_V10.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/260617_VR360_VillaD1_11_V10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_260617_vr360_villad1_11_v18" title="260617_VR360_VillaD1.11_V18" onstart="" thumburl="panos/260617_VR360_VillaD1_11_V18.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/260617_VR360_VillaD1_11_V18.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/260617_VR360_VillaD1_11_V18.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v08" title="260619_VR360_VillaD1.11_V08" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V08.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/260619_VR360_VillaD1_11_V08.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V08.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v11" title="260619_VR360_VillaD1.11_V11" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V11.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/260619_VR360_VillaD1_11_V11.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V11.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_260619_vr360_villad1_11_v19" title="260619_VR360_VillaD1.11_V19" onstart="" thumburl="panos/260619_VR360_VillaD1_11_V19.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/260619_VR360_VillaD1_11_V19.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/260619_VR360_VillaD1_11_V19.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
 		</image>
 
 	</scene>

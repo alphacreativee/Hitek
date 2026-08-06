@@ -269,7 +269,7 @@
 	       />
 
 	<!-- skin_thumbtext_style - style/textfield for the (optional, skin_settings.thumbs_text) thumbnails texts -->
-	<style name="skin_thumbtext_style" type="text" align="top" width="100%" height="get:skin_settings.thumbs_textheight" y="calc:skin_settings.thumbs_height + 4" enabled="false" bg="false" bgborder="false" css="calc:skin_settings.design_text_css + ' text-align:center; font-size:10px; line-height:12px;'" txtshadow="get:skin_settings.design_text_txtshadow" />
+	<style name="skin_thumbtext_style" type="text" align="bottom" width="100%" y="5" enabled="false" bg="false" bgborder="false" css="calc:skin_settings.design_text_css + ' text-align:center; font-size:10px;'" txtshadow="get:skin_settings.design_text_txtshadow" />
 
 	<!-- skin_hotspotstyle - style for the hotspots -->
 	<style name="skin_hotspotstyle" url="vtourskin_hotspot.png" edge="top" distorted="true"
@@ -522,17 +522,7 @@
 		skin_onresize();
 		skin_updatethumbsview(false);
 
-		if(skin_settings.controlbar === false,
-			set(layer[skin_layer].visible, false);
-			set(layer[skin_splitter_bottom].visible, false);
-			set(layer[skin_control_bar_bg].visible, false);
-			set(layer[skin_control_bar].visible, false);
-			set(layer[skin_btn_show].visible, false);
-			set(layer[skin_btn_prev_fs].visible, false);
-			set(layer[skin_btn_next_fs].visible, false);
-		  ,
-			set(layer[skin_layer].visible, true);
-		);
+		set(layer[skin_layer].visible, true);
 	</action>
 	
 
@@ -581,9 +571,6 @@
 			calc(thumbxcenter, thumbxoffset * 0.5);
 			calc(thumbbarwidth, thumbxoffset * thumbcount + thumbpadding);
 			calc(thumbbarheight, thumbpadding + thumbheight + thumbpadding);
-			if(skin_settings.thumbs_text,
-				add(thumbbarheight, skin_settings.thumbs_textheight);
-			);
 
 			if(skin_settings.thumbs_scrollindicator,
 				copy(layer[skin_thumbs_scrollindicator].y, thumbbarheight);
