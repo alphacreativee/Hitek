@@ -1914,19 +1914,19 @@ button.aloading::after {
   right: 40px;
   bottom: 40px;
   z-index: 8;
-  width: 85px;
-  height: 85px;
+  width: 97px;
+  height: 97px;
   pointer-events: none;
 }
 .overview-compass svg {
   display: block;
-  width: 85px;
-  height: 85px;
+  width: 97px;
+  height: 97px;
 }
 .overview-compass__needle {
   transform: rotate(-150deg);
-  transform-box: view-box;
-  transform-origin: 42.66px 42.98px;
+  transform-box: fill-box;
+  transform-origin: center;
   will-change: transform;
 }
 @media (max-width: 991px) {

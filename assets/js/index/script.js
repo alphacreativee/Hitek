@@ -280,7 +280,7 @@ function sectionOverview() {
   const compassNeedle = document.querySelector(
     "[data-overview-compass-needle]"
   );
-  const compassHeadingOffset = 0;
+  const compassHeadingOffset = 90;
   let activeVtourId = $(".overview-main__item.active [data-vtour-scene]").attr(
     "id"
   );
