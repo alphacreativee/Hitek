@@ -115,6 +115,57 @@
           World-class everything.
         </h2>
       </section>
+      <div class="index-login-modal" data-index-login-modal>
+        <div class="index-login-modal__overlay" data-index-login-close></div>
+        <div
+          class="index-login-modal__dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="index-login-title"
+        >
+          <button
+            class="index-login-modal__close"
+            type="button"
+            aria-label="Close login popup"
+            data-index-login-close
+          ></button>
+          <div class="index-login-modal__title" id="index-login-title">
+            Welcome back
+          </div>
+          <form class="index-login-modal__form">
+            <div class="field-item">
+              <label for="index-login-username">Username</label>
+              <input
+                type="text"
+                id="index-login-username"
+                name="username"
+                placeholder="Enter your username"
+              />
+            </div>
+            <div class="field-item">
+              <label for="index-login-password">Password</label>
+              <input
+                type="password"
+                id="index-login-password"
+                name="password"
+                placeholder="Enter your password"
+              />
+            </div>
+            <button class="btn-submit" type="submit">Login</button>
+          </form>
+          <div class="index-login-modal__signup">
+            <span>Don't have an account?</span>
+            <a href="./register.html">Sign up</a>
+          </div>
+          <button
+            class="index-login-modal__skip"
+            type="button"
+            data-index-login-close
+          >
+            Skip
+          </button>
+        </div>
+      </div>
     </main>
     <!-- layout -->
     <!-- footer -->

@@ -569,6 +569,35 @@ function bannerIntroTextAnimation() {
     });
 }
 
+function indexLoginModal() {
+  const modal = document.querySelector("[data-index-login-modal]");
+  if (!modal) return;
+
+  const showTimer = window.setTimeout(() => {
+    modal.classList.add("show");
+  }, 1000);
+
+  const closeModal = () => {
+    window.clearTimeout(showTimer);
+    modal.classList.remove("show");
+  };
+
+  modal.querySelectorAll("[data-index-login-close]").forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  modal.querySelector("form")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    closeModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   createFilterTab();
@@ -578,6 +607,7 @@ function init() {
   sliderParallax();
   villaShareModal();
   bannerIntroTextAnimation();
+  indexLoginModal();
   // getDateLightPick();
 }
 
