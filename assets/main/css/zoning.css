@@ -638,8 +638,16 @@
   padding-bottom: 0;
   border-bottom: 0;
 }
+.zoning .zoning-card-body {
+  padding: 16px;
+}
+.zoning .zoning-card .villa-card__title {
+  font-size: 24px;
+  line-height: 28px;
+}
 .zoning .zoning-card-footer {
-  margin: 0 -32px -32px;
+  margin: 0 -16px -16px;
+  padding: 32px;
 }
 .zoning .zoning-card-footer > button {
   border: 1px solid #e6fff6;
@@ -849,6 +857,16 @@
   border-radius: 0;
   background-color: transparent;
   box-shadow: none;
+}
+.zoning-compare__modal .zoning-compare-card-body {
+  padding: 16px;
+}
+.zoning-compare__modal .zoning-compare-card .villa-card__title {
+  font-size: 24px;
+  line-height: 28px;
+}
+.zoning-compare__modal .zoning-compare-card .villa-card__footer {
+  padding: 32px;
 }
 .zoning-compare__modal .btn-wrapper {
   display: flex;

@@ -829,8 +829,18 @@
     border-bottom: 0;
   }
 
+  .zoning-card-body {
+    padding: 16px;
+  }
+
+  .zoning-card .villa-card__title {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
   .zoning-card-footer {
-    margin: 0 -32px -32px;
+    margin: 0 -16px -16px;
+    padding: 32px;
   }
 
   .zoning-card-footer > button {
@@ -1077,6 +1087,19 @@
     border-radius: 0;
     background-color: transparent;
     box-shadow: none;
+  }
+
+  .zoning-compare-card-body {
+    padding: 16px;
+  }
+
+  .zoning-compare-card .villa-card__title {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .zoning-compare-card .villa-card__footer {
+    padding: 32px;
   }
 
   .btn-wrapper {

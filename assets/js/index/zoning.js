@@ -1331,11 +1331,18 @@ function zoningLots(zoningEl, filterApi) {
   const getLotUrl = (title) =>
     `./floor-plan.html?villa=${encodeURIComponent(title)}`;
   const getLotGallery = (data) => data.gallery || data.images || defaultGallery;
+  const formatDirectionLabel = (value) =>
+    String(value || "")
+      .split(/[-_\s]+/)
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   const getCardMetaValues = (data) => [
     data.floor_area ? `${data.floor_area} sqm` : "",
     data.bedroom || "",
     data.view || "",
-    data.floors || data.floor || 2
+    data.floors || data.floor || 2,
+    formatDirectionLabel(data.direction)
   ];
   const getPathLabels = (path) =>
     labels && path.dataset.id
