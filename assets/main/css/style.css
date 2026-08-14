@@ -1602,6 +1602,7 @@ button.aloading::after {
 }
 
 .banner-intro {
+  position: relative;
   width: 100vw;
   max-width: 100%;
   height: calc(100dvh - 47px);
@@ -1611,11 +1612,44 @@ button.aloading::after {
 }
 
 .banner-intro-video {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+.banner-intro-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(100% - 40px, 980px);
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.12;
+  text-align: center;
+  font-style: italic;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+.banner-intro-title * {
+  font-family: var(--font-heading);
+}
+
+.banner-intro-title .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 575px) {
+  .banner-intro-title {
+    width: calc(100% - 32px);
+    font-size: 36px;
+  }
+}
 .contact {
   display: flex;
   align-items: center;

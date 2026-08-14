@@ -533,6 +533,42 @@ function villaShareModal() {
   );
 }
 
+function bannerIntroTextAnimation() {
+  const title = document.querySelector("[data-banner-intro-title]");
+  if (!title || typeof gsap !== "object" || typeof SplitText !== "function") {
+    return;
+  }
+
+  gsap.registerPlugin(SplitText);
+
+  (document.fonts?.ready || Promise.resolve())
+    .catch(() => {})
+    .finally(() => {
+      const split = new SplitText(title, {
+        type: "chars",
+        charsClass: "char"
+      });
+
+      gsap.set(title, { autoAlpha: 1 });
+      gsap.set(split.chars, {
+        autoAlpha: 0,
+        yPercent: 70,
+        rotateX: -45,
+        transformOrigin: "50% 100%"
+      });
+
+      gsap.to(split.chars, {
+        autoAlpha: 1,
+        yPercent: 0,
+        rotateX: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.025,
+        delay: 3
+      });
+    });
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   createFilterTab();
@@ -541,6 +577,7 @@ function init() {
   initVillaCardSwipers();
   sliderParallax();
   villaShareModal();
+  bannerIntroTextAnimation();
   // getDateLightPick();
 }
 
