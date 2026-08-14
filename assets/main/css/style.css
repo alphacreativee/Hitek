@@ -1925,8 +1925,8 @@ button.aloading::after {
 }
 .overview-compass__needle {
   transform: rotate(-150deg);
-  transform-box: fill-box;
-  transform-origin: center;
+  transform-box: view-box;
+  transform-origin: 42.66px 42.98px;
   will-change: transform;
 }
 @media (max-width: 991px) {

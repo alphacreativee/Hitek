@@ -742,6 +742,8 @@ function zoningFilter(zoningEl) {
   const filter = zoningEl.querySelector("[data-zoning-filter]");
   const overlay = zoningEl.querySelector("[data-zoning-map-overlay]");
   const labels = zoningEl.querySelector("[data-zoning-map-labels]");
+  const filterScroll = zoningEl.querySelector(".zoning-filter-scroll");
+  const filterScrollbar = zoningEl.querySelector(".zoning-filter-scrollbar");
   const filterToggles = zoningEl.querySelectorAll(
     "[data-zoning-filter-toggle]"
   );
@@ -749,12 +751,14 @@ function zoningFilter(zoningEl) {
   let filterTimer = null;
   let villaDataById = new Map();
 
-  const filterFields = ["villa", "bedroom", "floor_area", "view"];
+  const filterFields = ["villa", "bedroom", "floor_area", "view", "direction"];
 
   const activeFilters = filterFields.reduce((filters, field) => {
-    filters[field] = "all";
+    filters[field] = field === "direction" ? "" : "all";
     return filters;
   }, {});
+
+  const isAllFilterValue = (value) => value === "all" || value === "";
 
   /**
    * Chuẩn hóa giá trị để so sánh giữa:
@@ -795,10 +799,12 @@ function zoningFilter(zoningEl) {
         .querySelectorAll(".zoning-filter-options button")
         .forEach((button) => {
           const buttonValue = getActiveButtonValue(button);
+          const isDirectionReset =
+            field === "direction" && buttonValue === "all";
 
           button.classList.toggle(
             "active",
-            buttonValue === activeFilters[field]
+            !isDirectionReset && buttonValue === activeFilters[field]
           );
         });
     });
@@ -814,14 +820,15 @@ function zoningFilter(zoningEl) {
 
     if (options.resetOthers) {
       filterFields.forEach((filterField) => {
-        activeFilters[filterField] = "all";
+        activeFilters[filterField] = filterField === "direction" ? "" : "all";
       });
     }
 
-    activeFilters[field] = nextValue;
+    activeFilters[field] =
+      field === "direction" && nextValue === "all" ? "" : nextValue;
 
     const shouldReturnToSector = Object.values(activeFilters).every(
-      (filterValue) => filterValue === "all"
+      (filterValue) => isAllFilterValue(filterValue)
     );
 
     if (shouldReturnToSector) {
@@ -853,13 +860,13 @@ function zoningFilter(zoningEl) {
     const villa = villaDataById.get(String(villaId || ""));
 
     if (!villa) {
-      return Object.values(activeFilters).every((value) => value === "all");
+      return Object.values(activeFilters).every(isAllFilterValue);
     }
 
     return filterFields.every((field) => {
       const activeValue = activeFilters[field];
 
-      if (activeValue === "all") return true;
+      if (isAllFilterValue(activeValue)) return true;
 
       return getComparableValue(villa[field]) === activeValue;
     });
@@ -917,6 +924,44 @@ function zoningFilter(zoningEl) {
         });
     });
   };
+
+  const updateFilterScrollbar = () => {
+    if (!filterScroll || !filterScrollbar) return;
+
+    const maxScroll = filterScroll.scrollHeight - filterScroll.clientHeight;
+    const hasScroll = maxScroll > 1;
+
+    filterScrollbar.classList.toggle("is-hidden", !hasScroll);
+
+    if (!hasScroll) {
+      filterScrollbar.style.setProperty("--zoning-filter-scrollbar-height", "0px");
+      filterScrollbar.style.setProperty("--zoning-filter-scrollbar-y", "0px");
+      return;
+    }
+
+    const trackHeight = filterScroll.clientHeight;
+    const thumbHeight = Math.max(
+      24,
+      Math.round((filterScroll.clientHeight / filterScroll.scrollHeight) * trackHeight)
+    );
+    const thumbY = Math.round(
+      (filterScroll.scrollTop / maxScroll) * (trackHeight - thumbHeight)
+    );
+
+    filterScrollbar.style.setProperty(
+      "--zoning-filter-scrollbar-height",
+      `${thumbHeight}px`
+    );
+    filterScrollbar.style.setProperty(
+      "--zoning-filter-scrollbar-y",
+      `${thumbY}px`
+    );
+  };
+
+  filterScroll?.addEventListener("scroll", updateFilterScrollbar, {
+    passive: true,
+  });
+  window.addEventListener("resize", updateFilterScrollbar);
 
   const setFilterExpanded = (isExpanded) => {
     filterToggles.forEach((toggle) => {
@@ -995,6 +1040,7 @@ function zoningFilter(zoningEl) {
       bindFilterButtons();
       updateFilterButtons();
       applyZoningFilters();
+      updateFilterScrollbar();
     },
 
     selectSector(sector) {
@@ -1206,6 +1252,35 @@ function zoningSectors(zoningEl, filterApi) {
     });
 }
 
+function normalizeZoningVillaData(payload) {
+  if (payload?.success === false) {
+    throw new Error(payload?.data?.message || "Could not load zoning data");
+  }
+
+  const data = payload?.data ?? payload;
+
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.villas)) return data.villas;
+  if (Array.isArray(data?.items)) return data.items;
+
+  return [];
+}
+
+function fetchZoningVillaData(sourceEl) {
+  const jsonUrl = sourceEl?.dataset.zoningJson || "";
+
+  if (!jsonUrl) {
+    return Promise.reject(new Error("Missing JSON URL for zoning villa data"));
+  }
+
+  return fetch(jsonUrl)
+    .then((response) => {
+      if (!response.ok) throw new Error("Could not load zoning data");
+      return response.json();
+    })
+    .then(normalizeZoningVillaData);
+}
+
 function zoningLots(zoningEl, filterApi) {
   const overlay = zoningEl.querySelector("[data-zoning-map-overlay]");
   const labels = zoningEl.querySelector("[data-zoning-map-labels]");
@@ -1217,8 +1292,6 @@ function zoningLots(zoningEl, filterApi) {
     console.warn("Missing data-image for zoning map SVG");
     return;
   }
-
-  const zoningMapJson = labels.dataset.zoningJson;
 
   const cardArea = card.querySelector("[data-zoning-card-area]");
   const cardTitle = card.querySelector("[data-zoning-card-title]");
@@ -1268,21 +1341,22 @@ function zoningLots(zoningEl, filterApi) {
     labels && path.dataset.id
       ? labels.querySelectorAll(`span[data-id="${path.dataset.id}"]`)
       : [];
+  const getVillaByPath = (path) =>
+    villaDataById.get(String(path?.dataset.id || ""));
 
   const selectLot = (path) => {
-    const title = path.dataset.title;
     const id = path.dataset.id;
-    if (!id && !title) return;
-    const data = villaDataById.get(String(id || "")) || {
+    if (!id) return;
+    const data = getVillaByPath(path) || {
       id: "",
-      name: title,
-      villa: getLotAreaKey(title),
+      name: "",
+      villa: "",
       bedroom: "",
       floor_area: "",
       view: "",
-      detail_url: getLotUrl(title)
+      detail_url: getLotUrl(id)
     };
-    const lotTitle = data.name || title;
+    const lotTitle = data.name || id;
 
     if (selectedPath) {
       selectedPath.classList.remove("is-selected");
@@ -1406,6 +1480,8 @@ function zoningLots(zoningEl, filterApi) {
   };
 
   const getPathLabelAngle = (path) => {
+    if (!path) return 0;
+
     const points = getPathPoints(path);
     let longestEdge = { angle: 0, length: 0 };
 
@@ -1444,23 +1520,24 @@ function zoningLots(zoningEl, filterApi) {
     labels.innerHTML = "";
     const viewBox = svg.viewBox.baseVal;
     if (!viewBox.width || !viewBox.height) return;
+    const getPathByVillaName = (name) => {
+      const villa = villaDataByName.get(name);
+      return villa ? svg.querySelector(`path[data-id="${villa.id}"]`) : null;
+    };
     const referenceAngles = {
-      "D2.15": getPathLabelAngle(svg.querySelector('path[data-title="D2.15"]')),
-      "E2.1": getPathLabelAngle(svg.querySelector('path[data-title="E2.1"]'))
+      "D2.15": getPathLabelAngle(getPathByVillaName("D2.15")),
+      "E2.1": getPathLabelAngle(getPathByVillaName("E2.1"))
     };
 
-    svg.querySelectorAll("path[data-title]").forEach((path) => {
-      const title = path.dataset.title;
-      if (!title) return;
+    svg.querySelectorAll("path[data-id]").forEach((path) => {
+      const villaData = getVillaByPath(path);
+      const title = villaData?.name || "";
+      if (!title || !villaData?.id) return;
 
       const box = path.getBBox();
       const label = document.createElement("span");
       label.textContent = title;
-      label.dataset.title = title;
-      const villaData = villaDataByName.get(title);
-      if (villaData) {
-        label.dataset.id = villaData.id;
-      }
+      label.dataset.id = villaData.id;
       label.style.left = `${((box.x + box.width / 2 - viewBox.x) / viewBox.width) * 100}%`;
       label.style.top = `${((box.y + box.height / 2 - viewBox.y) / viewBox.height) * 100}%`;
       const labelAngle =
@@ -1479,10 +1556,7 @@ function zoningLots(zoningEl, filterApi) {
       if (!response.ok) throw new Error("Could not load zoning SVG");
       return response.text();
     }),
-    fetch(zoningMapJson).then((response) => {
-      if (!response.ok) throw new Error("Could not load zoning data");
-      return response.json();
-    })
+    fetchZoningVillaData(labels)
   ])
     .then(([svgText, villas]) => {
       villaDataByName = new Map(villas.map((villa) => [villa.name, villa]));
@@ -1494,14 +1568,10 @@ function zoningLots(zoningEl, filterApi) {
       svg.setAttribute("preserveAspectRatio", "xMidYMid slice");
       svg.setAttribute("aria-hidden", "true");
       createLotLabels(svg);
-      svg.querySelectorAll("path[data-title]").forEach((path) => {
-        const title = path.dataset.title || "";
-        const villaData = villaDataByName.get(title);
+      svg.querySelectorAll("path[data-id]").forEach((path) => {
+        const villaData = getVillaByPath(path);
+        const title = villaData?.name || path.dataset.id || "";
         path.setAttribute("fill-opacity", "1");
-        if (villaData) {
-          path.dataset.id = villaData.id;
-        }
-        path.removeAttribute("data-title");
 
         path.setAttribute("tabindex", "0");
         path.setAttribute("role", "button");

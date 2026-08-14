@@ -328,9 +328,10 @@
     position: absolute;
     top: 10px;
     left: 8px;
-    z-index: 5;
-    width: 290px;
-    padding: 30px 20px 20px;
+    z-index: 7;
+    width: 320px;
+    height: 520px;
+    padding: 40px 20px 30px;
     border: 1px solid transparent;
     border-radius: 20px;
     // background:
@@ -441,6 +442,46 @@
     -webkit-mask-size: contain;
   }
 
+  .zoning-filter-scroll {
+    max-height: 100%;
+    padding: 0 14px 0 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+
+  .zoning-filter-scroll::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .zoning-filter-scrollbar {
+    position: absolute;
+    top: 50px;
+    right: 12px;
+    bottom: 30px;
+    width: 1px;
+    border-radius: 999px;
+    background-color: transparent;
+    pointer-events: none;
+    opacity: 1;
+  }
+
+  .zoning-filter-scrollbar::before {
+    content: "";
+    position: absolute;
+    top: var(--zoning-filter-scrollbar-y, 0);
+    left: 0;
+    width: 1px;
+    height: var(--zoning-filter-scrollbar-height, 24px);
+    border-radius: inherit;
+    background-color: #ffffff;
+  }
+
+  .zoning-filter-scrollbar.is-hidden {
+    opacity: 0;
+  }
+
   .zoning-filter-content {
     display: flex;
     flex-direction: column;
@@ -511,6 +552,57 @@
     }
   }
 
+  .zoning-filter-group[data-filter-group="direction"] .zoning-filter-options {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    justify-content: flex-start;
+  }
+
+  .zoning-filter-group[data-filter-group="direction"]
+    .zoning-filter-options
+    button {
+    min-width: 0;
+    width: 100%;
+    height: 40px;
+    padding: 0 22px;
+    border-radius: 999px;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  .zoning-filter-group[data-filter-group="direction"]
+    .zoning-filter-options
+    button:nth-child(3n + 1) {
+    justify-self: start;
+  }
+
+  .zoning-filter-group[data-filter-group="direction"]
+    .zoning-filter-options
+    button:nth-child(3n) {
+    justify-self: end;
+  }
+
+  .zoning-filter-group[data-filter-group="direction"]
+    .zoning-filter-direction-reset {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-color: transparent;
+    transition: opacity 0.2s ease;
+  }
+
+  .zoning-filter-group[data-filter-group="direction"]
+    .zoning-filter-direction-reset
+    img {
+    flex-basis: auto;
+    width: 30px;
+    height: 30px;
+  }
+
   .zoning-filter-options button.active,
   .zoning-filter-options button:hover {
     border-color: transparent;
@@ -527,6 +619,14 @@
     color: #ffffff;
   }
 
+  .zoning-filter-group[data-filter-group="direction"]
+    .zoning-filter-direction-reset:hover {
+    border-color: transparent;
+    background: transparent;
+    background-color: transparent;
+    opacity: 0.5;
+  }
+
   &.is-filter-collapsed .zoning-filter {
     clip-path: inset(0 calc(100% - 46px) calc(100% - 46px) 0 round 12px);
     border-radius: 12px;
@@ -537,18 +637,24 @@
     opacity: 0;
   }
 
+  &.is-filter-expanding .zoning-filter-scroll,
   &.is-filter-expanding .zoning-filter-content,
   &.is-filter-expanding .zoning-filter-close,
+  &.is-filter-collapsing .zoning-filter-scroll,
   &.is-filter-collapsing .zoning-filter-content,
   &.is-filter-collapsing .zoning-filter-close,
+  &.is-filter-collapsed .zoning-filter-scroll,
   &.is-filter-collapsed .zoning-filter-content,
   &.is-filter-collapsed .zoning-filter-close {
     pointer-events: none;
     opacity: 0;
   }
 
+  &.is-filter-expanding .zoning-filter-scroll,
   &.is-filter-expanding .zoning-filter-content,
+  &.is-filter-collapsing .zoning-filter-scroll,
   &.is-filter-collapsing .zoning-filter-content,
+  &.is-filter-collapsed .zoning-filter-scroll,
   &.is-filter-collapsed .zoning-filter-content {
     transform: translateX(-8px);
   }

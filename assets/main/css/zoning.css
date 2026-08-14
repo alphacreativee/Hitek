@@ -252,9 +252,10 @@
   position: absolute;
   top: 10px;
   left: 8px;
-  z-index: 5;
-  width: 290px;
-  padding: 30px 20px 20px;
+  z-index: 7;
+  width: 320px;
+  height: 520px;
+  padding: 40px 20px 30px;
   border: 1px solid transparent;
   border-radius: 20px;
   background: rgba(31, 79, 75, 0.9);
@@ -334,6 +335,41 @@
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
 }
+.zoning .zoning-filter-scroll {
+  max-height: 100%;
+  padding: 0 14px 0 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.zoning .zoning-filter-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.zoning .zoning-filter-scrollbar {
+  position: absolute;
+  top: 50px;
+  right: 12px;
+  bottom: 30px;
+  width: 1px;
+  border-radius: 999px;
+  background-color: transparent;
+  pointer-events: none;
+  opacity: 1;
+}
+.zoning .zoning-filter-scrollbar::before {
+  content: "";
+  position: absolute;
+  top: var(--zoning-filter-scrollbar-y, 0);
+  left: 0;
+  width: 1px;
+  height: var(--zoning-filter-scrollbar-height, 24px);
+  border-radius: inherit;
+  background-color: #ffffff;
+}
+.zoning .zoning-filter-scrollbar.is-hidden {
+  opacity: 0;
+}
 .zoning .zoning-filter-content {
   display: flex;
   flex-direction: column;
@@ -393,12 +429,54 @@
 .zoning .zoning-filter-group[data-filter-group=view] .zoning-filter-options button span {
   font-weight: 400;
 }
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-options {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+  justify-content: flex-start;
+}
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-options button {
+  min-width: 0;
+  width: 100%;
+  height: 40px;
+  padding: 0 22px;
+  border-radius: 999px;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-options button:nth-child(3n+1) {
+  justify-self: start;
+}
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-options button:nth-child(3n) {
+  justify-self: end;
+}
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-direction-reset {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-color: transparent;
+  transition: opacity 0.2s ease;
+}
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-direction-reset img {
+  flex-basis: auto;
+  width: 30px;
+  height: 30px;
+}
 .zoning .zoning-filter-options button.active,
 .zoning .zoning-filter-options button:hover {
   border-color: transparent;
   background: linear-gradient(#387873, #387873) padding-box, linear-gradient(90deg, #69bcb1 0%, #7aeae5 51%, rgba(105, 188, 177, 0.88) 100%) border-box;
   background-color: #387873;
   color: #ffffff;
+}
+.zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-direction-reset:hover {
+  border-color: transparent;
+  background: transparent;
+  background-color: transparent;
+  opacity: 0.5;
 }
 .zoning.is-filter-collapsed .zoning-filter {
   clip-path: inset(0 calc(100% - 46px) calc(100% - 46px) 0 round 12px);
@@ -408,11 +486,11 @@
 .zoning.is-filter-collapsed .zoning-filter::after {
   opacity: 0;
 }
-.zoning.is-filter-expanding .zoning-filter-content, .zoning.is-filter-expanding .zoning-filter-close, .zoning.is-filter-collapsing .zoning-filter-content, .zoning.is-filter-collapsing .zoning-filter-close, .zoning.is-filter-collapsed .zoning-filter-content, .zoning.is-filter-collapsed .zoning-filter-close {
+.zoning.is-filter-expanding .zoning-filter-scroll, .zoning.is-filter-expanding .zoning-filter-content, .zoning.is-filter-expanding .zoning-filter-close, .zoning.is-filter-collapsing .zoning-filter-scroll, .zoning.is-filter-collapsing .zoning-filter-content, .zoning.is-filter-collapsing .zoning-filter-close, .zoning.is-filter-collapsed .zoning-filter-scroll, .zoning.is-filter-collapsed .zoning-filter-content, .zoning.is-filter-collapsed .zoning-filter-close {
   pointer-events: none;
   opacity: 0;
 }
-.zoning.is-filter-expanding .zoning-filter-content, .zoning.is-filter-collapsing .zoning-filter-content, .zoning.is-filter-collapsed .zoning-filter-content {
+.zoning.is-filter-expanding .zoning-filter-scroll, .zoning.is-filter-expanding .zoning-filter-content, .zoning.is-filter-collapsing .zoning-filter-scroll, .zoning.is-filter-collapsing .zoning-filter-content, .zoning.is-filter-collapsed .zoning-filter-scroll, .zoning.is-filter-collapsed .zoning-filter-content {
   transform: translateX(-8px);
 }
 .zoning.is-filter-collapsed .zoning-filter-search {

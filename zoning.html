@@ -22,7 +22,10 @@
     <!-- end meta -->
     <!-- link custom css page -->
     <link rel="stylesheet" href="./assets/main/css/style.min.css" />
-    <link rel="stylesheet" href="./assets/main/css/zoning.min.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/main/css/zoning.min.css?v=zoning-data-id-flow-3"
+    />
     <!-- end link custom css page -->
     <!-- scrollRestoration -->
     <script>
@@ -114,7 +117,7 @@
                 class="zoning-map-overlay"
                 data-zoning-map-overlay
                 aria-label="Interactive zoning lots"
-                data-image="./assets/images/zoning-map-titled.svg"
+                data-image="./assets/images/zoning-map-titled.svg?v=zoning-data-id-flow-3"
               ></div>
               <div class="zoning-map-birds" data-zoning-map-birds></div>
               <div
@@ -127,7 +130,7 @@
                 class="zoning-map-labels"
                 data-zoning-map-labels
                 aria-hidden="true"
-                data-image="./assets/images/zoning-map-titled.svg"
+                data-image="./assets/images/zoning-map-titled.svg?v=zoning-data-id-flow-3"
                 data-zoning-json="./assets/data/zoning-villas.json?v=2"
               ></div>
             </div>
@@ -142,102 +145,186 @@
             data-zoning-filter-toggle
           ></button>
 
-          <div class="zoning-filter-content">
-            <div class="zoning-filter-group" data-filter-group="villa">
-              <p>Sector</p>
-              <div class="zoning-filter-options">
-                <button
-                  type="button"
-                  class="active"
-                  value="all"
-                  data-filter-value="all"
-                >
-                  All
-                </button>
-                <button type="button" value="a" data-filter-value="a">A</button>
-                <button type="button" value="b" data-filter-value="b">B</button>
-                <button type="button" value="c" data-filter-value="c">C</button>
-                <button type="button" value="d" data-filter-value="d">D</button>
-                <button type="button" value="e" data-filter-value="e">E</button>
-                <button type="button" value="f" data-filter-value="f">F</button>
-                <button type="button" value="g" data-filter-value="g">G</button>
+          <div class="zoning-filter-scroll" data-lenis-prevent>
+            <div class="zoning-filter-content">
+              <div class="zoning-filter-group" data-filter-group="villa">
+                <p>Sector</p>
+                <div class="zoning-filter-options">
+                  <button
+                    type="button"
+                    class="active"
+                    value="all"
+                    data-filter-value="all"
+                  >
+                    All
+                  </button>
+                  <button type="button" value="a" data-filter-value="a">
+                    A
+                  </button>
+                  <button type="button" value="b" data-filter-value="b">
+                    B
+                  </button>
+                  <button type="button" value="c" data-filter-value="c">
+                    C
+                  </button>
+                  <button type="button" value="d" data-filter-value="d">
+                    D
+                  </button>
+                  <button type="button" value="e" data-filter-value="e">
+                    E
+                  </button>
+                  <button type="button" value="f" data-filter-value="f">
+                    F
+                  </button>
+                  <button type="button" value="g" data-filter-value="g">
+                    G
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div class="zoning-filter-group" data-filter-group="bedroom">
-              <p>Bedrooms</p>
-              <div class="zoning-filter-options">
-                <button
-                  type="button"
-                  class="active"
-                  data-filter-value="all"
-                  value="all"
-                >
-                  All
-                </button>
-                <button type="button" value="2" data-filter-value="2">2</button>
-                <button type="button" value="3" data-filter-value="3">3</button>
-                <button type="button" value="4" data-filter-value="4">4</button>
+              <div class="zoning-filter-group" data-filter-group="bedroom">
+                <p>Bedrooms</p>
+                <div class="zoning-filter-options">
+                  <button
+                    type="button"
+                    class="active"
+                    data-filter-value="all"
+                    value="all"
+                  >
+                    All
+                  </button>
+                  <button type="button" value="2" data-filter-value="2">
+                    2
+                  </button>
+                  <button type="button" value="3" data-filter-value="3">
+                    3
+                  </button>
+                  <button type="button" value="4" data-filter-value="4">
+                    4
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div class="zoning-filter-group" data-filter-group="floor_area">
-              <p>Area (sqm)</p>
-              <div class="zoning-filter-options">
-                <button
-                  type="button"
-                  class="active"
-                  value="all"
-                  data-filter-value="all"
-                >
-                  All
-                </button>
-                <button type="button" value="360" data-filter-value="360">
-                  360
-                </button>
-                <button type="button" value="544" data-filter-value="544">
-                  544
-                </button>
-                <button type="button" value="630" data-filter-value="630">
-                  630
-                </button>
-                <button type="button" value="702" data-filter-value="702">
-                  702
-                </button>
-                <button type="button" value="840" data-filter-value="840">
-                  840
-                </button>
-                <button type="button" value="2208" data-filter-value="2208">
-                  2208
-                </button>
-                <button type="button" value="3132" data-filter-value="3132">
-                  3132
-                </button>
+              <div class="zoning-filter-group" data-filter-group="floor_area">
+                <p>Area (sqm)</p>
+                <div class="zoning-filter-options">
+                  <button
+                    type="button"
+                    class="active"
+                    value="all"
+                    data-filter-value="all"
+                  >
+                    All
+                  </button>
+                  <button type="button" value="360" data-filter-value="360">
+                    360
+                  </button>
+                  <button type="button" value="544" data-filter-value="544">
+                    544
+                  </button>
+                  <button type="button" value="630" data-filter-value="630">
+                    630
+                  </button>
+                  <button type="button" value="702" data-filter-value="702">
+                    702
+                  </button>
+                  <button type="button" value="840" data-filter-value="840">
+                    840
+                  </button>
+                  <button type="button" value="2208" data-filter-value="2208">
+                    2208
+                  </button>
+                  <button type="button" value="3132" data-filter-value="3132">
+                    3132
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div class="zoning-filter-group" data-filter-group="view">
-              <p>View</p>
-              <div class="zoning-filter-options">
-                <button type="button" value="beach" data-filter-value="beach">
-                  <img src="./assets/images/icon-beach.svg" alt="" />
-                  <span>Beach</span>
-                </button>
-                <button
-                  type="button"
-                  value="golf_course"
-                  data-filter-value="golf_course"
+              <div class="zoning-filter-group" data-filter-group="view">
+                <p>View</p>
+                <div class="zoning-filter-options">
+                  <button type="button" value="beach" data-filter-value="beach">
+                    <img src="./assets/images/icon-beach.svg" alt="" />
+                    <span>Beach</span>
+                  </button>
+                  <button
+                    type="button"
+                    value="golf_course"
+                    data-filter-value="golf_course"
+                  >
+                    <img src="./assets/images/icon-golf.svg" alt="" />
+                    <span>Golf Course</span>
+                  </button>
+                  <button
+                    type="button"
+                    value="lagoon"
+                    data-filter-value="lagoon"
+                  >
+                    <img src="./assets/images/icon-lagoon.svg" alt="" />
+                    <span>Lagoon</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="zoning-filter-group" data-filter-group="direction">
+                <p>Facing Direction</p>
+                <div
+                  class="zoning-filter-options zoning-filter-options--direction"
                 >
-                  <img src="./assets/images/icon-golf.svg" alt="" />
-                  <span>Golf Course</span>
-                </button>
-                <button type="button" value="lagoon" data-filter-value="lagoon">
-                  <img src="./assets/images/icon-lagoon.svg" alt="" />
-                  <span>Lagoon</span>
-                </button>
+                  <button
+                    type="button"
+                    value="north-west"
+                    data-filter-value="north-west"
+                  >
+                    NW
+                  </button>
+                  <button type="button" value="north" data-filter-value="north">
+                    North
+                  </button>
+                  <button
+                    type="button"
+                    value="north-east"
+                    data-filter-value="north-east"
+                  >
+                    NE
+                  </button>
+                  <button type="button" value="west" data-filter-value="west">
+                    West
+                  </button>
+                  <button
+                    type="button"
+                    class="zoning-filter-direction-reset"
+                    value="all"
+                    data-filter-value="all"
+                    aria-label="Show all facing directions"
+                  >
+                    <img src="./assets/images/pinhead_compass.svg" alt="" />
+                  </button>
+                  <button type="button" value="east" data-filter-value="east">
+                    East
+                  </button>
+                  <button
+                    type="button"
+                    value="south-west"
+                    data-filter-value="south-west"
+                  >
+                    SW
+                  </button>
+                  <button type="button" value="south" data-filter-value="south">
+                    South
+                  </button>
+                  <button
+                    type="button"
+                    value="south-east"
+                    data-filter-value="south-east"
+                  >
+                    SE
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <span class="zoning-filter-scrollbar" aria-hidden="true"></span>
 
           <button
             class="zoning-filter-search"
@@ -907,7 +994,7 @@
     <script type="module" src="./assets/main/js/script.min.js"></script>
     <script
       type="module"
-      src="./assets/main/js/zoning.min.js?v=hitek-cloud-shader-birds-23"
+      src="./assets/main/js/zoning.min.js?v=zoning-data-id-flow-3"
     ></script>
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 
