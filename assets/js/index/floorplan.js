@@ -204,22 +204,22 @@ function floorPlan() {
         markers: [
           {
             id: "f-1-entry",
-            x: 50,
-            y: 90,
+            x: 55,
+            y: 85,
             radar: 90,
             scene: "scene_360_villaf_view11_lanscape_truoc_nha_copy" // 360_VillaF_View11_Lanscape truoc nha copy
           },
           {
             id: "f-1-pool",
-            x: 35,
-            y: 52.87,
+            x: 42,
+            y: 61.25,
             radar: 40,
             scene: "scene_360_villaf_view05_phong_bep_copy" // 360_VillaF_View05_Phong Bep copy
           },
           {
             id: "f-1-dining",
-            x: 39.67,
-            y: 34.48,
+            x: 42.8,
+            y: 49.94,
             radar: -90,
             scene: "scene_360_villaf_view04_phong_khach_copy" // 360_VillaF_View04_Phong Khach copy
           },
@@ -232,15 +232,15 @@ function floorPlan() {
           },
           {
             id: "f-1-3",
-            x: 70.8,
-            y: 20.81,
+            x: 63.6,
+            y: 37.78,
             radar: 0,
             scene: "scene_360_villaf_view3_vuon_canh_be_boi_copy" // 360_VillaF_View12_P gym copy
           },
           {
             id: "f-1-7",
-            x: 53.6,
-            y: 50.51,
+            x: 54.8,
+            y: 63.8,
             radar: 0,
             scene: "scene_360_villaf_view07_sanh_truoc_copy" // 360_VillaF_View12_P gym copy
           }
@@ -252,36 +252,36 @@ function floorPlan() {
         markers: [
           {
             id: "f-2-master",
-            x: 68.33,
-            y: 54.75,
+            x: 66,
+            y: 60,
             radar: 180,
             scene: "scene_360_villaf_view18_pngu_tang2_2" // 360_VillaF_View18_Pngu_Tang2_2
           },
           {
             id: "f-2-family",
             x: 53,
-            y: 64.41,
+            y: 64,
             radar: 0,
             scene: "scene_360_villaf_view19_p_family_room_tang2" // 360_VillaF_View19_P Family room_Tang2
           },
           {
             id: "f-2-16",
-            x: 30,
-            y: 36.37,
+            x: 40,
+            y: 53.62,
             radar: 0,
             scene: "scene_360_villaf_view16_p_thay_do" // 360_VillaF_View19_P Family room_Tang2
           },
           {
             id: "f-2-17",
-            x: 41,
-            y: 42.87,
+            x: 46,
+            y: 57.88,
             radar: 0,
             scene: "scene_360_villaf_view17_p_ngu_master" // 360_VillaF_View19_P Family room_Tang2
           },
           {
             id: "f-2-20",
-            x: 36.4,
-            y: 69.74,
+            x: 43.6,
+            y: 76.24,
             radar: 0,
             scene: "scene_360_villaf_view20_p_ngu_2_tang2" // 360_VillaF_View19_P Family room_Tang2
           }
