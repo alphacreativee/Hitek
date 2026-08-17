@@ -277,6 +277,7 @@ function sectionOverview() {
   const toggleInput = $(".overview-switcher .toggle-checkbox");
   const embeddedVtours = new Set();
   const vtourInstances = new Map();
+  const vtourDefaultFovs = new Map();
   const compassNeedle = document.querySelector(
     "[data-overview-compass-needle]"
   );
@@ -285,6 +286,257 @@ function sectionOverview() {
     "id"
   );
   let compassFrame = null;
+  let overviewInfoSwiper = null;
+  let overviewInfoSwiperTimer = null;
+
+  const overviewInfo = document.querySelector("[data-overview-info]");
+  const overviewInfoTitle = overviewInfo?.querySelector(
+    "[data-overview-info-title]"
+  );
+  const overviewInfoDescription = overviewInfo?.querySelector(
+    "[data-overview-info-description]"
+  );
+  const overviewInfoMedia = overviewInfo?.querySelector(
+    "[data-overview-info-media]"
+  );
+  const overviewInfoClose = overviewInfo?.querySelector(
+    "[data-overview-info-close]"
+  );
+  const overviewGuide = document.querySelector("[data-overview-guide]");
+  const overviewGuideClose = overviewGuide?.querySelector(
+    "[data-overview-guide-close]"
+  );
+  let overviewGuideTimer = null;
+  const overviewInfoItems = new Map(
+    Array.from(
+      overviewInfo?.querySelectorAll(".overview-info__item[data-hotspot-name]") ||
+        []
+    ).map((item) => [item.dataset.hotspotName, item])
+  );
+
+  function destroyOverviewInfoSwiper() {
+    if (overviewInfoSwiperTimer) {
+      window.clearInterval(overviewInfoSwiperTimer);
+      overviewInfoSwiperTimer = null;
+    }
+
+    if (!overviewInfoSwiper) return;
+
+    overviewInfoSwiper.destroy(true, true);
+    overviewInfoSwiper = null;
+  }
+
+  function renderOverviewInfoSlider(item) {
+    const images = Array.from(item.querySelectorAll("img[src]"));
+    if (!images.length || !overviewInfoMedia) return;
+
+    const slider = document.createElement("div");
+    slider.className = "overview-info__slider wrapper-slider-parallax";
+
+    const swiperEl = document.createElement("div");
+    swiperEl.className = "swiper";
+    swiperEl.setAttribute("slider-parallax", "");
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "swiper-wrapper";
+
+    images.forEach((image) => {
+      const slide = document.createElement("div");
+      slide.className = "swiper-slide";
+
+      const imageWrap = document.createElement("div");
+      imageWrap.className = "image";
+
+      const mediaImage = document.createElement("img");
+      mediaImage.src = image.getAttribute("src");
+      mediaImage.alt = image.getAttribute("alt") || "";
+
+      imageWrap.append(mediaImage);
+      slide.append(imageWrap);
+      wrapper.append(slide);
+    });
+
+    const pagination = document.createElement("div");
+    pagination.className = "slider-pagination";
+
+    swiperEl.append(wrapper);
+    slider.append(swiperEl, pagination);
+    overviewInfoMedia.append(slider);
+
+    overviewInfoSwiper = initParallaxSwiper(swiperEl, {
+      autoplay: {
+        delay: 3200,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: pagination,
+        clickable: true
+      }
+    });
+
+    if (overviewInfoSwiper.autoplay?.start) {
+      overviewInfoSwiper.autoplay.start();
+    } else {
+      overviewInfoSwiperTimer = window.setInterval(() => {
+        overviewInfoSwiper?.slideNext?.();
+      }, 3200);
+    }
+  }
+
+  function renderOverviewInfoVideo(item) {
+    const videoSrc = item.dataset.videoSrc;
+    if (!videoSrc || !overviewInfoMedia) {
+      renderOverviewInfoSlider(item);
+      return;
+    }
+
+    const videoWrap = document.createElement("div");
+    videoWrap.className = "overview-info__video";
+
+    const video = document.createElement("video");
+    video.autoplay = true;
+    video.controls = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = "auto";
+
+    if (item.dataset.videoPoster) {
+      video.poster = item.dataset.videoPoster;
+    }
+
+    const source = document.createElement("source");
+    source.src = videoSrc;
+    source.type = "video/mp4";
+
+    video.append(source);
+    videoWrap.append(video);
+    overviewInfoMedia.append(videoWrap);
+
+    video.play().catch(() => {});
+  }
+
+  function getOverviewDefaultFov(krpano) {
+    return (
+      vtourDefaultFovs.get(activeVtourId) ||
+      parseFloat(krpano.get("view.fov")) ||
+      110
+    );
+  }
+
+  function getOverviewVisibleCenterAth(ath, fov) {
+    if (!overviewInfo) return ath;
+
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    const panelWidth = overviewInfo.getBoundingClientRect().width;
+    if (!viewportWidth || !panelWidth || panelWidth >= viewportWidth) return ath;
+
+    const coveredRatio = panelWidth / viewportWidth;
+    return ath + (fov * coveredRatio) / 2;
+  }
+
+  function focusOverviewHotspot(detail = {}) {
+    const krpano = vtourInstances.get(activeVtourId);
+    if (!krpano) return;
+
+    const ath = parseFloat(detail.ath);
+    const atv = parseFloat(detail.atv);
+    if (Number.isNaN(ath) || Number.isNaN(atv)) return;
+
+    const defaultFov = getOverviewDefaultFov(krpano);
+    const minFov = parseFloat(krpano.get("view.fovmin")) || 70;
+    const targetFov = Math.max(minFov, defaultFov * 0.8);
+    const targetAth = getOverviewVisibleCenterAth(ath, targetFov);
+
+    krpano.call(
+      `lookto(${targetAth}, ${atv}, ${targetFov}, smooth(260,-180,260), true, true);`
+    );
+  }
+
+  function resetOverviewZoom() {
+    const krpano = vtourInstances.get(activeVtourId);
+    if (!krpano) return;
+
+    const defaultFov = getOverviewDefaultFov(krpano);
+    krpano.call(`tween(view.fov, ${defaultFov}, 0.55, easeOutQuad);`);
+  }
+
+  function openOverviewInfo(hotspotName) {
+    if (!overviewInfo || !overviewInfoMedia) return;
+
+    const normalizedHotspotName = String(hotspotName || "").replace(
+      /_(dot|line)$/,
+      ""
+    );
+    const item = overviewInfoItems.get(normalizedHotspotName);
+    if (!item) return;
+
+    destroyOverviewInfoSwiper();
+    overviewInfoMedia.replaceChildren();
+
+    if (overviewInfoTitle) {
+      overviewInfoTitle.textContent = item.dataset.title || "";
+    }
+
+    if (overviewInfoDescription) {
+      const description = item.querySelector(
+        ".overview-info__item-description"
+      );
+
+      if (description) {
+        overviewInfoDescription.innerHTML = description.innerHTML;
+      } else {
+        overviewInfoDescription.textContent = item.dataset.description || "";
+      }
+    }
+
+    if (item.dataset.mediaType === "video") {
+      renderOverviewInfoVideo(item);
+    } else {
+      renderOverviewInfoSlider(item);
+    }
+
+    overviewInfo.classList.add("is-open");
+    overviewInfo.setAttribute("aria-hidden", "false");
+  }
+
+  function closeOverviewInfo() {
+    if (!overviewInfo) return;
+
+    overviewInfo.classList.remove("is-open");
+    overviewInfo.setAttribute("aria-hidden", "true");
+    destroyOverviewInfoSwiper();
+    overviewInfoMedia?.replaceChildren();
+    resetOverviewZoom();
+  }
+
+  window.addEventListener("overview:hotspot-click", (event) => {
+    focusOverviewHotspot(event.detail);
+    openOverviewInfo(event.detail?.name);
+  });
+
+  overviewInfoClose?.addEventListener("click", closeOverviewInfo);
+
+  if (overviewGuide) {
+    overviewGuideTimer = window.setTimeout(() => {
+      overviewGuide.classList.add("is-visible");
+    }, 2000);
+  }
+
+  overviewGuideClose?.addEventListener("click", () => {
+    if (overviewGuideTimer) {
+      window.clearTimeout(overviewGuideTimer);
+      overviewGuideTimer = null;
+    }
+
+    overviewGuide?.classList.remove("is-visible");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && overviewInfo?.classList.contains("is-open")) {
+      closeOverviewInfo();
+    }
+  });
 
   function syncCompass() {
     const krpano = vtourInstances.get(activeVtourId);
@@ -301,8 +553,9 @@ function sectionOverview() {
     compassFrame = window.requestAnimationFrame(syncCompass);
   }
 
-  function setupOverviewVtour(krpano, sceneName) {
+  function setupOverviewVtour(krpano, sceneName, vtourId) {
     krpano.call(`loadscene(${sceneName}, null, MERGE, BLEND(0))`);
+    vtourDefaultFovs.set(vtourId, parseFloat(krpano.get("view.fov")) || 110);
     krpano.set("autorotate.enabled", false);
     krpano.call("autorotate.stop();");
     krpano.call(
@@ -332,7 +585,7 @@ function sectionOverview() {
       passQueryParameters: false,
       onready(krpano) {
         vtourInstances.set(vtourEl.id, krpano);
-        setupOverviewVtour(krpano, vtourEl.dataset.vtourScene);
+        setupOverviewVtour(krpano, vtourEl.dataset.vtourScene, vtourEl.id);
       }
     });
   }

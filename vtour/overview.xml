@@ -98,6 +98,9 @@
 			position: absolute;
 			left: calc(30px + var(--overview-tag-offset-x));
 			top: calc(100% + 8px);
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
 			color: #FFFFFF;
 			font-family: "Montserrat", sans-serif;
 			font-size: 11px;
@@ -106,6 +109,18 @@
 			white-space: nowrap;
 			pointer-events: none;
 			text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+		}
+
+		.overview-hotspot-subtitle::before {
+			content: "";
+			display: block;
+			width: 18px;
+			height: 18px;
+			flex: 0 0 18px;
+			background-image: url("./assets/images/icon-car-wheel.svg?v=2");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
 		}
 
 		.overview-hotspot-dot {
@@ -155,11 +170,13 @@
 	       bg="false"
 	       bgalpha="0"
 	       txtshadow="0"
-	       enabled="false"
-	       capture="false"
+	       enabled="true"
+	       capture="true"
+	       handcursor="true"
 	       distorted="false"
 	       zoom="false"
 	       zorder="20"
+	       onclick="overview_hotspot_open_info();"
 	       onloaded.addevent="overview_hotspot_tag_setup();"
 	       />
 
@@ -174,12 +191,14 @@
 	       bgcolor="0xFFFFFF"
 	       bgalpha="1"
 	       txtshadow="0"
-	       enabled="false"
-	       capture="false"
+	       enabled="true"
+	       capture="true"
+	       handcursor="true"
 	       distorted="false"
 	       zoom="false"
 	       ox="-4"
 	       zorder="1"
+	       onclick="overview_hotspot_open_info();"
 	       />
 
 	<style name="overview_hotspot_dot"
@@ -193,12 +212,14 @@
 	       bg="false"
 	       bgalpha="0"
 	       txtshadow="0"
-	       enabled="false"
-	       capture="false"
+	       enabled="true"
+	       capture="true"
+	       handcursor="true"
 	       distorted="false"
 	       zoom="false"
 	       ox="-4"
 	       zorder="15"
+	       onclick="overview_hotspot_open_info();"
 	       />
 
 	<action name="overview_hotspot_tag_setup" type="Javascript"><![CDATA[
@@ -250,12 +271,32 @@
 		krpano.set("hotspot[" + dotName + "].visible", true);
 	]]></action>
 
-	<scene name="scene_overview_vr360" title="overview_VR360" onstart="" thumburl="panos/overview_VR360.tiles/thumb.jpg" lat="15.82564778" lng="108.40854294" alt="279.36" heading="0.0">
+	<action name="overview_hotspot_open_info" type="Javascript"><![CDATA[
+		var eventDetail = {
+			name: caller.name,
+			ath: caller.ath,
+			atv: caller.atv
+		};
+		var event;
+
+		if (typeof window.CustomEvent === "function") {
+			event = new CustomEvent("overview:hotspot-click", {
+				detail: eventDetail
+			});
+		} else {
+			event = document.createEvent("CustomEvent");
+			event.initCustomEvent("overview:hotspot-click", true, true, eventDetail);
+		}
+
+		window.dispatchEvent(event);
+	]]></action>
+
+	<scene name="scene_overview_vr360" title="overview_VR360" onstart="" thumburl="panos/overview_VR360.tiles/thumb.webp" lat="15.82564778" lng="108.40854294" alt="279.36" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
 		<view hlookat="-90.775" vlookat="10" fovtype="MFOV" fov="110.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-		<preview url="panos/overview_VR360.tiles/preview.jpg" />
+		<preview url="panos/overview_VR360.tiles/preview.webp" />
 		<image>
-			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1152,2304,4608" />
+			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.webp" multires="512,640,1280" />
 		</image>
 
 		<hotspot name="spot2079149186" style="overview_hotspot_tag" html="Hoiana Shores Golf Club" data-subtitle="15km | 30min" data-subtitle-height="22" data-line-height="80" ath="155.272" atv="17.667" />
