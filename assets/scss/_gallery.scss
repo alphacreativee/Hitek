@@ -210,6 +210,13 @@
   }
 }
 
+.gallery-lightbox-video {
+  display: block;
+  width: min(960px, 90vw);
+  max-height: 80vh;
+  background-color: #000;
+}
+
 @media (max-width: 991px) {
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

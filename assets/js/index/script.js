@@ -612,30 +612,6 @@ function gallery() {
   const $grid = $gallery.find("[data-gallery-list]");
   const $filters = $gallery.find(".filter-button[data-type]");
   let lightbox = null;
-  let lightboxAutoplayTimer = null;
-  const lightboxAutoplayDelay = 5000;
-
-  function stopLightboxAutoplay() {
-    if (!lightboxAutoplayTimer) return;
-
-    window.clearInterval(lightboxAutoplayTimer);
-    lightboxAutoplayTimer = null;
-  }
-
-  function startLightboxAutoplay() {
-    stopLightboxAutoplay();
-    if (!lightbox || lightbox.elements.length < 2) return;
-
-    lightboxAutoplayTimer = window.setInterval(() => {
-      lightbox.nextSlide();
-    }, lightboxAutoplayDelay);
-  }
-
-  function resetLightboxAutoplay() {
-    if (!lightboxAutoplayTimer) return;
-
-    startLightboxAutoplay();
-  }
 
   function getVisibleItems() {
     return $grid.find(".gallery-item").filter(function () {
@@ -659,16 +635,19 @@ function gallery() {
           $item.find(".gallery-caption").text().trim() ||
           $image.attr("alt") ||
           "";
+        const href = $item.attr("href") || $image.attr("src");
         const lightboxItem = {
-          href: $item.attr("href") || $image.attr("src"),
+          href,
           type: isVideo ? "video" : "image",
           title
         };
 
         if (sourceType === "mp4") {
           lightboxItem.source = "local";
+          lightboxItem.videoProvider = "local";
         } else if (sourceType === "youtube") {
           lightboxItem.source = "youtube";
+          lightboxItem.videoProvider = "youtube";
         }
 
         return lightboxItem;
@@ -676,18 +655,20 @@ function gallery() {
       .get();
 
     if (lightbox) {
-      stopLightboxAutoplay();
       lightbox.destroy();
     }
 
     lightbox = GLightbox({
       elements,
       touchNavigation: true,
-      loop: true
+      loop: true,
+      autoplayVideos: true,
+      plyr: {
+        config: {
+          autoplay: true
+        }
+      }
     });
-    lightbox.on("open", startLightboxAutoplay);
-    lightbox.on("close", stopLightboxAutoplay);
-    lightbox.on("slide_changed", resetLightboxAutoplay);
   }
 
   function filterGallery(type) {
