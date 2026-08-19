@@ -1307,13 +1307,18 @@ button.aloading::after {
 }
 
 .villa-card__action-icon--heart {
-  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 18.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10.1 15.55 L 10 15.65 L 9.89 15.55 C 5.14 11.24 2 8.39 2 5.5 C 2 3.5 3.5 2 5.5 2 C 7.04 2 8.54 3 9.07 4.36 L 10.93 4.36 C 11.46 3 12.96 2 14.5 2 C 16.5 2 18 3.5 18 5.5 C 18 8.39 14.86 11.24 10.1 15.55 M 14.5 0 C 12.76 0 11.09 0.81 10 2.08 C 8.91 0.81 7.24 0 5.5 0 C 2.42 0 0 2.41 0 5.5 C 0 9.27 3.4 12.36 8.55 17.03 L 10 18.35 L 11.45 17.03 C 16.6 12.36 20 9.27 20 5.5 C 20 2.41 17.58 0 14.5 0'/%3E%3C/svg%3E");
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 18.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10.1 15.55 L 10 15.65 L 9.89 15.55 C 5.14 11.24 2 8.39 2 5.5 C 2 3.5 3.5 2 5.5 2 C 7.04 2 8.54 3 9.07 4.36 L 10.93 4.36 C 11.46 3 12.96 2 14.5 2 C 16.5 2 18 3.5 18 5.5 C 18 8.39 14.86 11.24 10.1 15.55 M 14.5 0 C 12.76 0 11.09 0.81 10 2.08 C 8.91 0.81 7.24 0 5.5 0 C 2.42 0 0 2.41 0 5.5 C 0 9.27 3.4 12.36 8.55 17.03 L 10 18.35 L 11.45 17.03 C 16.6 12.36 20 9.27 20 5.5 C 20 2.41 17.58 0 14.5 0'/%3E%3C/svg%3E");
+  mask-image: none;
+  -webkit-mask-image: none;
+  background: transparent url("data:image/svg+xml,%3Csvg viewBox='-1 -1 22 20.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 18.35 8.55 17.03C3.4 12.36 0 9.27 0 5.5 0 2.41 2.42 0 5.5 0 7.24 0 8.91.81 10 2.08 11.09.81 12.76 0 14.5 0 17.58 0 20 2.41 20 5.5 20 9.27 16.6 12.36 11.45 17.03L10 18.35Z' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.villa-card__action-icon--heart:hover {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='-1 -1 22 20.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 18.35 8.55 17.03C3.4 12.36 0 9.27 0 5.5 0 2.41 2.42 0 5.5 0 7.24 0 8.91.81 10 2.08 11.09.81 12.76 0 14.5 0 17.58 0 20 2.41 20 5.5 20 9.27 16.6 12.36 11.45 17.03L10 18.35Z' fill='%23d94141' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 .villa-card__actions .is-favorite .villa-card__action-icon--heart {
   background-color: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 18.35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 18.35 8.55 17.03C3.4 12.36 0 9.27 0 5.5 0 2.41 2.42 0 5.5 0 7.24 0 8.91.81 10 2.08 11.09.81 12.76 0 14.5 0 17.58 0 20 2.41 20 5.5 20 9.27 16.6 12.36 11.45 17.03L10 18.35Z' fill='%23d94141' stroke='%23ffffff' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='-0.6 -0.6 21.2 19.55' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 18.35 8.55 17.03C3.4 12.36 0 9.27 0 5.5 0 2.41 2.42 0 5.5 0 7.24 0 8.91.81 10 2.08 11.09.81 12.76 0 14.5 0 17.58 0 20 2.41 20 5.5 20 9.27 16.6 12.36 11.45 17.03L10 18.35Z' fill='%23d94141' stroke='%23ffffff' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -1441,6 +1446,11 @@ button.aloading::after {
   border: 1px solid #ccc7b9;
   background-color: #c59b67;
   color: #fff9e9;
+  transition: all 0.4s ease;
+}
+.villa-card__footer > a:hover {
+  background-color: #387873;
+  border: 1px solid #387873;
 }
 
 .villa-card__footer > button {
@@ -1448,6 +1458,11 @@ button.aloading::after {
   border: 1px solid #e6fff6;
   background-color: #1f4f4b;
   color: #e6fff6;
+  transition: all 0.4s ease;
+}
+.villa-card__footer > button:hover {
+  background-color: #387873;
+  border: 1px solid #387873 !important;
 }
 
 .header {
@@ -1665,25 +1680,22 @@ button.aloading::after {
   gap: 10px;
 }
 .contact .field-item label {
-  color: #666666;
-  font-family: "Boska", var(--font-heading);
   font-size: 11px;
-  font-style: italic;
-  font-weight: 700;
-  line-height: 18px;
+  line-height: 13px;
+  font-weight: 500;
+  color: #1e4842;
 }
 .contact .field-item input {
   width: 100%;
   height: 40px;
   padding: 12px;
   border: 0;
-  border-radius: 10px;
   color: var(--color-black);
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 16px;
-  background-color: rgba(187, 187, 187, 0.15);
-  border: 1px solid rgba(136, 136, 136, 0.1);
+  background-color: #fff;
+  border: 1px solid #e0ddd6;
 }
 .contact .field-item input::placeholder {
   color: #999999;
@@ -1694,17 +1706,17 @@ button.aloading::after {
   justify-content: center;
   min-height: 40px;
   padding: 12px 20px;
-  border-radius: 999px;
-  background-color: #6d9695;
   color: var(--color-white);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
-  line-height: 16px;
+  line-height: 13px;
+  letter-spacing: 0.21em;
   transition: background-color 0.3s ease;
+  background-color: #387873;
 }
 .contact .btn-submit:hover {
-  background-color: #6d9695;
+  background-color: rgba(31, 79, 75, 0.9);
 }
 
 .contact-container {
@@ -1733,7 +1745,7 @@ button.aloading::after {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 16px;
+  padding: 20px;
 }
 
 .index-login-modal {
@@ -1787,6 +1799,10 @@ button.aloading::after {
   border: 1px solid #e0ddd6;
   border-radius: 50%;
   background-color: transparent;
+  transition: all 0.3s ease;
+}
+.index-login-modal__close:hover {
+  background-color: rgba(224, 221, 214, 0.2);
 }
 
 .index-login-modal__close::before,
@@ -1873,6 +1889,10 @@ button.aloading::after {
   line-height: 13px;
   letter-spacing: 0.21em;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.index-login-modal .btn-submit:hover {
+  background-color: rgba(31, 79, 75, 0.9);
 }
 
 .index-login-modal__signup {
@@ -1905,6 +1925,10 @@ button.aloading::after {
   line-height: 13px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.index-login-modal__skip:hover {
+  background-color: rgba(224, 221, 214, 0.2);
 }
 
 .lightpick {
@@ -2182,6 +2206,10 @@ button.aloading::after {
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 50%;
   background-color: transparent;
+  transition: all 0.3s ease;
+}
+.overview-guide__close:hover {
+  background-color: rgba(255, 255, 255, 0.12);
 }
 .overview-guide__close::before, .overview-guide__close::after {
   content: "";
@@ -2411,12 +2439,17 @@ button.aloading::after {
 }
 .galleryTab {
   min-height: calc(100dvh - 63px);
-  padding: 40px 10px 73px;
+  padding: 120px 10px 73px;
 }
 .galleryTab .gallery-filter-section {
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+  z-index: 3;
 }
 .galleryTab .filter-list-button {
   display: flex;
@@ -2433,6 +2466,7 @@ button.aloading::after {
   border: 1px solid rgba(31, 79, 75, 0.28);
   border-radius: 999px;
   color: var(--color-primary);
+  background-color: white;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -2682,6 +2716,10 @@ button.aloading::after {
   top: 16px;
   right: 16px;
   border: 1px solid #fff !important;
+  transition: all 0.3s ease;
+}
+.floor-plan-page__filter-close:hover {
+  background-color: rgba(255, 255, 255, 0.12);
 }
 .floor-plan-page__filter-close::before, .floor-plan-page__filter-close::after, .floor-plan-page__plan-close::before, .floor-plan-page__plan-close::after {
   content: "";
@@ -2823,6 +2861,10 @@ button.aloading::after {
   top: 14px;
   right: 14px;
   border: 1px solid #fff !important;
+  transition: all 0.3s ease;
+}
+.floor-plan-page__plan-close:hover {
+  background-color: rgba(255, 255, 255, 0.12);
 }
 .floor-plan-page__plan-figure {
   position: relative;
@@ -3085,6 +3127,10 @@ button.aloading::after {
   line-height: 13px;
   font-weight: 700;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.login .login-wrapper .box-login .btn-google-login:hover {
+  background-color: rgba(224, 221, 214, 0.2);
 }
 .login .login-wrapper .box-login .btn-google-login svg {
   width: 18px;
@@ -3167,6 +3213,10 @@ button.aloading::after {
   text-transform: uppercase;
   color: #fff;
   margin: 24px 0;
+  transition: all 0.3s ease;
+}
+.login .login-wrapper .box-login .btn-login:hover {
+  background-color: rgba(31, 79, 75, 0.9);
 }
 .login .login-wrapper .box-login .sign-up-inner {
   display: flex;

@@ -16,12 +16,12 @@
   }
 
   .field-item label {
-    color: #666666;
-    font-family: "Boska", var(--font-heading);
+    // color: #666666;
+    // font-family: "Boska", var(--font-heading);
     font-size: 11px;
-    font-style: italic;
-    font-weight: 700;
-    line-height: 18px;
+    line-height: 13px;
+    font-weight: 500;
+    color: #1e4842;
   }
 
   .field-item input {
@@ -29,14 +29,13 @@
     height: 40px;
     padding: 12px;
     border: 0;
-    border-radius: 10px;
     color: var(--color-black);
     font-family: var(--font-body);
     font-size: 14px;
     line-height: 16px;
 
-    background-color: rgba(187, 187, 187, 0.15);
-    border: 1px solid rgba(136, 136, 136, 0.1);
+    background-color: #fff;
+    border: 1px solid #e0ddd6;
   }
 
   .field-item input::placeholder {
@@ -49,18 +48,18 @@
     justify-content: center;
     min-height: 40px;
     padding: 12px 20px;
-    border-radius: 999px;
-    background-color: #6d9695;
     color: var(--color-white);
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 700;
-    line-height: 16px;
+    line-height: 13px;
+    letter-spacing: 0.21em;
     transition: background-color 0.3s ease;
+    background-color: #387873;
   }
 
   .btn-submit:hover {
-    background-color: #6d9695;
+    background-color: rgba(31, 79, 75, 0.9);
   }
 }
 
@@ -90,7 +89,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 16px;
+  padding: 20px;
 }
 
 .index-login-modal {
@@ -147,6 +146,11 @@
   border: 1px solid #e0ddd6;
   border-radius: 50%;
   background-color: transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(224, 221, 214, 0.2);
+  }
 }
 
 .index-login-modal__close::before,
@@ -233,6 +237,11 @@
   line-height: 13px;
   letter-spacing: 0.21em;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(31, 79, 75, 0.9);
+  }
 }
 
 .index-login-modal__signup {
@@ -265,4 +274,9 @@
   line-height: 13px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(224, 221, 214, 0.2);
+  }
 }

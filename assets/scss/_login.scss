@@ -79,6 +79,11 @@
         line-height: 13px;
         font-weight: 700;
         text-transform: uppercase;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: rgba(224, 221, 214, 0.2);
+        }
 
         svg {
           width: 18px;
@@ -166,6 +171,11 @@
         text-transform: uppercase;
         color: #fff;
         margin: 24px 0;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: rgba(31, 79, 75, 0.9);
+        }
       }
       .sign-up-inner {
         display: flex;

@@ -1,11 +1,17 @@
 .galleryTab {
   min-height: calc(100dvh - 63px);
-  padding: 40px 10px calc(63px + 10px);
+  padding: 120px 10px calc(63px + 10px);
 
   .gallery-filter-section {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 40px;
+    z-index: 3;
   }
 
   .filter-list-button {
@@ -24,6 +30,7 @@
     border: 1px solid rgba(31, 79, 75, 0.28);
     border-radius: 999px;
     color: var(--color-primary);
+    background-color: white;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
