@@ -2300,7 +2300,6 @@ button.aloading::after {
   padding: 82px 32px 32px;
 }
 .overview-info__title {
-  padding-right: 42px;
   font-family: var(--font-heading);
   font-size: 34px;
   font-weight: 500;
