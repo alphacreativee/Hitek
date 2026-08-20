@@ -282,9 +282,7 @@ function sectionOverview() {
     "[data-overview-compass-needle]"
   );
   const compassHeadingOffset = 90;
-  let activeVtourId = $(".overview-main__item.active [data-vtour-scene]").attr(
-    "id"
-  );
+  let activeVtourId = "overview-vtour";
   let compassFrame = null;
   let overviewInfoSwiper = null;
   let overviewInfoSwiperTimer = null;
@@ -309,8 +307,9 @@ function sectionOverview() {
   let overviewGuideTimer = null;
   const overviewInfoItems = new Map(
     Array.from(
-      overviewInfo?.querySelectorAll(".overview-info__item[data-hotspot-name]") ||
-        []
+      overviewInfo?.querySelectorAll(
+        ".overview-info__item[data-hotspot-name]"
+      ) || []
     ).map((item) => [item.dataset.hotspotName, item])
   );
 
@@ -427,9 +426,11 @@ function sectionOverview() {
   function getOverviewVisibleCenterAth(ath, fov) {
     if (!overviewInfo) return ath;
 
-    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    const viewportWidth =
+      window.innerWidth || document.documentElement.clientWidth;
     const panelWidth = overviewInfo.getBoundingClientRect().width;
-    if (!viewportWidth || !panelWidth || panelWidth >= viewportWidth) return ath;
+    if (!viewportWidth || !panelWidth || panelWidth >= viewportWidth)
+      return ath;
 
     const coveredRatio = panelWidth / viewportWidth;
     return ath + (fov * coveredRatio) / 2;
@@ -568,40 +569,57 @@ function sectionOverview() {
     );
   }
 
-  function embedOverviewVtour($item) {
-    const vtourEl = $item.find("[data-vtour-scene]")[0];
-    const dataXML = $item.find("[data-xml]").attr("data-xml");
+  const vtourEl = document.getElementById("overview-vtour");
 
-    if (!vtourEl || embeddedVtours.has(vtourEl.id)) return;
-    if (typeof embedpano !== "function") return;
-
-    embeddedVtours.add(vtourEl.id);
-
+  if (vtourEl && typeof embedpano === "function") {
     embedpano({
       target: vtourEl.id,
-      xml: dataXML,
+      xml: vtourEl.dataset.xml,
       html5: "only",
       mobilescale: 1,
       passQueryParameters: false,
+
       onready(krpano) {
+        // lưu duy nhất 1 instance
         vtourInstances.set(vtourEl.id, krpano);
-        setupOverviewVtour(krpano, vtourEl.dataset.vtourScene, vtourEl.id);
+        activeVtourId = vtourEl.id;
+
+        // scene mặc định = sáng
+        setupOverviewVtour(krpano, "scene_overview_vr360", vtourEl.id);
       }
     });
   }
 
-  embedOverviewVtour($(".overview-main__light"));
-
   toggleInput.on("change", function () {
-    const isDark = $(this).is(":checked");
-    const theme = isDark ? "dark" : "light";
+    const krpano = vtourInstances.get(activeVtourId);
 
-    $(".overview-main__item").removeClass("active");
-    const $activeItem = $(`.overview-main__${theme}`);
+    if (!krpano) return;
 
-    $activeItem.addClass("active");
-    activeVtourId = $activeItem.find("[data-vtour-scene]").attr("id");
-    embedOverviewVtour($activeItem);
+    const isAfternoon = $(this).is(":checked");
+
+    const sceneName = isAfternoon
+      ? "scene_overview_vr360_afternoon"
+      : "scene_overview_vr360";
+
+    // lưu camera hiện tại
+    const hlookat = parseFloat(krpano.get("view.hlookat"));
+
+    const vlookat = parseFloat(krpano.get("view.vlookat"));
+
+    const fov = parseFloat(krpano.get("view.fov"));
+
+    closeOverviewInfo();
+
+    // chỉ panorama bị blend
+    krpano.call(`loadscene(${sceneName}, null, MERGE, BLEND(0.6));`);
+
+    // restore đúng camera
+    krpano.set("view.hlookat", hlookat);
+    krpano.set("view.vlookat", vlookat);
+    krpano.set("view.fov", fov);
+
+    krpano.set("autorotate.enabled", false);
+    krpano.call("autorotate.stop();");
   });
 }
 
@@ -820,10 +838,10 @@ function indexLoginModal() {
     button.addEventListener("click", closeModal);
   });
 
-  modal.querySelector("form")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    closeModal();
-  });
+  // modal.querySelector("form")?.addEventListener("submit", (event) => {
+  //   event.preventDefault();
+  //   closeModal();
+  // });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && modal.classList.contains("show")) {
@@ -862,82 +880,3 @@ document.addEventListener("click", (e) => {
     isLinkClicked = true;
   }
 });
-
-// window.addEventListener("beforeunload", () => {
-//   if (!isLinkClicked) window.scrollTo(0, 0);
-//   isLinkClicked = false;
-// });
-// // ==== ĐỔI MẬT KHẨU Ở ĐÂY ====
-// const CORRECT_PASSWORD = "hitek2026";
-// const SESSION_KEY = "site_unlocked";
-
-// const loginScreen = document.getElementById("login-screen");
-// const passwordInput = document.getElementById("password-input");
-// const loginBtn = document.getElementById("login-btn");
-// const errorMsg = document.getElementById("error-msg");
-
-// function unlockSite() {
-//   loginScreen.style.display = "none";
-//   sessionStorage.setItem(SESSION_KEY, "true");
-//   removeInspectBlock(); // tắt chặn inspect sau khi login thành công
-// }
-
-// function checkPassword() {
-//   if (passwordInput.value === CORRECT_PASSWORD) {
-//     unlockSite();
-//   } else {
-//     errorMsg.style.display = "block";
-//     passwordInput.value = "";
-//     passwordInput.focus();
-//   }
-// }
-
-// loginBtn.addEventListener("click", checkPassword);
-// passwordInput.addEventListener("keydown", (e) => {
-//   if (e.key === "Enter") checkPassword();
-// });
-
-// // Nếu đã từng nhập đúng trong phiên này (session) thì khỏi hỏi lại
-// if (sessionStorage.getItem(SESSION_KEY) === "true") {
-//   unlockSite();
-// }
-
-// // ============================================
-// // CHẶN INSPECT NHẸ — CHỈ áp dụng khi CHƯA đăng
-// // nhập. Sau khi login thành công sẽ tự động tắt
-// // chặn, cho phép inspect bình thường trở lại.
-// // (Chỉ cản người không rành kỹ thuật, KHÔNG phải
-// // bảo mật thật sự — vẫn bypass được qua menu
-// // trình duyệt hoặc view-source:)
-// // ============================================
-
-// function blockContextMenu(e) {
-//   e.preventDefault();
-// }
-
-// function blockDevtoolsKeys(e) {
-//   if (
-//     e.key === "F12" ||
-//     (e.ctrlKey &&
-//       e.shiftKey &&
-//       (e.key === "I" || e.key === "J" || e.key === "C")) ||
-//     (e.ctrlKey && e.key === "u")
-//   ) {
-//     e.preventDefault();
-//   }
-// }
-
-// function addInspectBlock() {
-//   document.addEventListener("contextmenu", blockContextMenu);
-//   document.addEventListener("keydown", blockDevtoolsKeys);
-// }
-
-// function removeInspectBlock() {
-//   document.removeEventListener("contextmenu", blockContextMenu);
-//   document.removeEventListener("keydown", blockDevtoolsKeys);
-// }
-
-// // Chỉ bật chặn ngay từ đầu nếu CHƯA từng đăng nhập trong phiên này
-// if (sessionStorage.getItem(SESSION_KEY) !== "true") {
-//   addInspectBlock();
-// }

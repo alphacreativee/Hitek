@@ -222,53 +222,252 @@
 	       onclick="overview_hotspot_open_info();"
 	       />
 
+	<hotspot
+		name="spot2079149186"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Hoiana Shores Golf Club"
+		data-subtitle="1.7km | 4min"
+		data-subtitle-height="22"
+		data-line-height="80"
+		ath="155.272"
+		atv="17.667"
+	/>
+
+	<hotspot
+		name="spot2079150631"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="New World [br] Hoiana Hotel"
+		data-subtitle="850m | 3min"
+		data-line-height="100"
+		ath="-115.233"
+		atv="13.851"
+	/>
+
+	<hotspot
+		name="spot2079150740"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Hoiana Residence"
+		data-line-height="40"
+		data-subtitle="500m | 2min"
+		ath="-107.655"
+		atv="15.753"
+	/>
+
+	<hotspot
+		name="spot2079150960"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Cù Lao Chàm"
+		data-line-height="80"
+		data-subtitle="14.2km | 23min"
+		ath="-43.344"
+		atv="0.554"
+	/>
+
+	<hotspot
+		name="spot2079151143"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Hoiana [br] Resorts &amp; Golf"
+		data-subtitle="650m | 3min"
+		data-line-height="80"
+		ath="-84.992"
+		atv="15.017"
+	/>
+
+	<hotspot
+		name="spot2079151263"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Bãi biển Duy Hải"
+		data-subtitle="1.9km | 7min"
+		data-line-height="140"
+		ath="-80.574"
+		atv="9.084"
+	/>
+
+	<hotspot
+		name="spot2079151478"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Sân bay Quốc tế [br] Đà Nẵng"
+		data-subtitle="38km | 60min"
+		data-line-height="80"
+		ath="-106.446"
+		atv="0.359"
+	/>
+
+	<hotspot
+		name="spot2079151480"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Phố cổ Hội An"
+		data-line-height="160"
+		data-subtitle="11.7km | 20min"
+		ath="-120.446"
+		atv="0.359"
+	/>
+
+	<hotspot
+		name="spot2079151864"
+		style="overview_hotspot_tag"
+		keep="true"
+		html="Di sản văn hóa thế giới [br] Mỹ Sơn"
+		data-subtitle="45.2km | 73min"
+		data-line-height="80"
+		ath="-142.261"
+		atv="0.646"
+	/>
+
 	<action name="overview_hotspot_tag_setup" type="Javascript"><![CDATA[
+
 		var lineHeight = caller["data-line-height"] || "80";
 		lineHeight = String(lineHeight).replace("px", "").trim();
+
 		var lineHeightNumber = parseFloat(lineHeight) || 80;
+
 		var title = caller.html || "";
 		var subtitle = caller["data-subtitle"] || "";
-		var subtitleHeight = subtitle ? (caller["data-subtitle-height"] || "22") : "0";
-		subtitleHeight = String(subtitleHeight).replace("px", "").trim();
-		var subtitleHeightNumber = parseFloat(subtitleHeight) || 0;
-		var tagHalfHeight = caller["data-tag-half-height"] || "19";
-		tagHalfHeight = String(tagHalfHeight).replace("px", "").trim();
-		var tagHalfHeightNumber = parseFloat(tagHalfHeight) || 19;
-		caller.oy = -(lineHeightNumber - subtitleHeightNumber) + tagHalfHeightNumber;
-		caller.html = '<span class="overview-hotspot-title">' + title + '</span>' +
-			(subtitle ? '<span class="overview-hotspot-subtitle">' + subtitle + '</span>' : '');
 
-		var hotspotElement = caller.sprite || caller.htmlsprite || caller.element;
-		var tagElement = hotspotElement && hotspotElement.querySelector
-			? (hotspotElement.querySelector(".overview-hotspot-tag") || hotspotElement)
-			: hotspotElement;
+		var subtitleHeight =
+			subtitle
+				? (caller["data-subtitle-height"] || "22")
+				: "0";
 
-		if (tagElement && tagElement.style) {
-			tagElement.style.setProperty("--overview-line-height", lineHeight + "px");
-			tagElement.setAttribute("data-line-height", lineHeight);
-		}
+		subtitleHeight =
+			String(subtitleHeight)
+				.replace("px", "")
+				.trim();
+
+		var subtitleHeightNumber =
+			parseFloat(subtitleHeight) || 0;
+
+		// giá trị fallback ban đầu
+		var tagHalfHeightNumber = 19;
+
+		caller.oy =
+		-(lineHeightNumber - subtitleHeightNumber)
+		+ tagHalfHeightNumber;
+
+		caller.html =
+			'<span class="overview-hotspot-title">'
+			+ title
+			+ '</span>'
+			+
+			(
+				subtitle
+					? '<span class="overview-hotspot-subtitle">'
+						+ subtitle
+						+ '</span>'
+					: ''
+			);
+
+		setTimeout(function () {
+		var hotspotElement =
+			caller.sprite ||
+			caller.htmlsprite ||
+			caller.element;
+
+		if (!hotspotElement) return;
+
+		var titleElement =
+			hotspotElement.querySelector(
+			".overview-hotspot-title"
+			);
+
+		if (!titleElement) return;
+
+		var titleHeight =
+			titleElement.getBoundingClientRect().height;
+
+		var realHalfHeight = titleHeight / 2;
+
+		caller.oy =
+			-(lineHeightNumber - subtitleHeightNumber)
+			+ realHalfHeight;
+		}, 0);
+
+
+		// ==============================
+		// LINE
+		// ==============================
 
 		var lineName = caller.name + "_line";
+
 		if (!krpano.get("hotspot[" + lineName + "]")) {
 			krpano.call("addhotspot(" + lineName + ");");
 		}
 
-		krpano.set("hotspot[" + lineName + "].ath", caller.ath);
-		krpano.set("hotspot[" + lineName + "].atv", caller.atv);
-		krpano.set("hotspot[" + lineName + "].height", lineHeightNumber);
-		krpano.call("hotspot[" + lineName + "].loadstyle(overview_hotspot_line);");
-		krpano.set("hotspot[" + lineName + "].height", lineHeightNumber);
-		krpano.set("hotspot[" + lineName + "].visible", true);
+		krpano.set(
+			"hotspot[" + lineName + "].ath",
+			caller.ath
+		);
+
+		krpano.set(
+			"hotspot[" + lineName + "].atv",
+			caller.atv
+		);
+
+		krpano.call(
+		"hotspot[" + lineName + "].loadstyle(overview_hotspot_line);"
+		);
+
+		// bắt buộc set lại vì style có height="80"
+		krpano.set(
+		"hotspot[" + lineName + "].height",
+		lineHeightNumber
+		);
+
+		// QUAN TRỌNG
+		krpano.set(
+			"hotspot[" + lineName + "].keep",
+			true
+		);
+
+		krpano.set(
+			"hotspot[" + lineName + "].visible",
+			true
+		);
+
+
+		// ==============================
+		// DOT
+		// ==============================
 
 		var dotName = caller.name + "_dot";
+
 		if (!krpano.get("hotspot[" + dotName + "]")) {
 			krpano.call("addhotspot(" + dotName + ");");
 		}
 
-		krpano.set("hotspot[" + dotName + "].ath", caller.ath);
-		krpano.set("hotspot[" + dotName + "].atv", caller.atv);
-		krpano.call("hotspot[" + dotName + "].loadstyle(overview_hotspot_dot);");
-		krpano.set("hotspot[" + dotName + "].visible", true);
+		krpano.set(
+			"hotspot[" + dotName + "].ath",
+			caller.ath
+		);
+
+		krpano.set(
+			"hotspot[" + dotName + "].atv",
+			caller.atv
+		);
+
+		krpano.call(
+			"hotspot[" + dotName + "].loadstyle(overview_hotspot_dot);"
+		);
+
+		// QUAN TRỌNG
+		krpano.set(
+			"hotspot[" + dotName + "].keep",
+			true
+		);
+
+		krpano.set(
+			"hotspot[" + dotName + "].visible",
+			true
+		);
+
 	]]></action>
 
 	<action name="overview_hotspot_open_info" type="Javascript"><![CDATA[
@@ -298,16 +497,40 @@
 		<image>
 			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.webp" multires="512,640,1280" />
 		</image>
+	</scene>
 
-		<hotspot name="spot2079149186" style="overview_hotspot_tag" html="Hoiana Shores Golf Club" data-subtitle="1.7km | 4min" data-subtitle-height="22" data-line-height="80" ath="155.272" atv="17.667" />
-		<hotspot name="spot2079150631" style="overview_hotspot_tag" html="New World [br] Hoiana Hotel" data-subtitle="850m | 3min" data-line-height="100" ath="-115.233" atv="13.851" />
-		<hotspot name="spot2079150740" style="overview_hotspot_tag" html="Hoiana Residence" data-line-height="40" data-subtitle="500m | 2min" ath="-107.655" atv="15.753" />
-		<hotspot name="spot2079150960" style="overview_hotspot_tag" html="Cù Lao Chàm" data-line-height="80" data-subtitle="14.2km | 23min" ath="-43.344" atv="0.554" />
-		<hotspot name="spot2079151143" style="overview_hotspot_tag" html="Hoiana [br] Resorts &amp; Golf" data-subtitle="650m | 3min" data-line-height="80" ath="-84.992" atv="15.017" />
-		<hotspot name="spot2079151263" style="overview_hotspot_tag" html="Bãi biển Duy Hải" data-subtitle="1.9km | 7min" data-line-height="140" ath="-80.574" atv="9.084" />
-		<hotspot name="spot2079151478" style="overview_hotspot_tag" html="Sân bay Quốc tế [br] Đà Nẵng" data-subtitle="38km | 60min" data-line-height="80" ath="-106.446" atv="0.359" />
-		<hotspot name="spot2079151480" style="overview_hotspot_tag" html="Phố cổ Hội An" data-line-height="160" data-subtitle="11.7km | 20min" ath="-120.446" atv="0.359" />
-		<hotspot name="spot2079151864" style="overview_hotspot_tag" html="Di sản văn hóa thế giới [br] Mỹ Sơn" data-subtitle="45.2km | 73min" data-line-height="80" ath="-142.261" atv="0.646" />
+	<scene
+		name="scene_overview_vr360_afternoon"
+		title="overview_VR360_afternoon"
+		onstart=""
+		thumburl="panos/overview_VR360_afternoon.tiles/thumb.webp"
+		lat=""
+		lng=""
+		alt=""
+		heading=""
+	>
+
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view
+			hlookat="-90.775"
+			vlookat="10"
+			fovtype="MFOV"
+			fov="110"
+			maxpixelzoom="2.0"
+			fovmin="70"
+			fovmax="140"
+			limitview="auto"
+		/>
+
+		<preview url="panos/overview_VR360_afternoon.tiles/preview.webp" />
+
+		<image>
+			<cube
+				url="panos/overview_VR360_afternoon.tiles/%s/l%l/%v/l%l_%s_%v_%h.webp"
+				multires="512,640,1280"
+			/>
+		</image>
 	</scene>
 
 </krpano>

@@ -71,16 +71,16 @@
 	
 
 	
-	<scene name="scene_overview_vr360" title="overview_VR360" onstart="" thumburl="panos/overview_VR360.tiles/thumb.webp" lat="" lng="" alt="" heading="">
+	<scene name="scene_overview_vr360_afternoon" title="overview_VR360_afternoon" onstart="" thumburl="panos/overview_VR360_afternoon.tiles/thumb.webp" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/overview_VR360.tiles/preview.webp" />
+		<preview url="panos/overview_VR360_afternoon.tiles/preview.webp" />
 
 		<image>
-			<cube url="panos/overview_VR360.tiles/%s/l%l/%v/l%l_%s_%v_%h.webp" multires="512,640,1280" />
+			<cube url="panos/overview_VR360_afternoon.tiles/%s/l%l/%v/l%l_%s_%v_%h.webp" multires="512,640,1280" />
 		</image>
 
 	</scene>
