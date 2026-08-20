@@ -1148,3 +1148,149 @@
     }
   }
 }
+
+.share-villa {
+  min-height: 100dvh;
+  // overflow: hidden;
+  padding: 16px;
+  background:
+    linear-gradient(rgba(32, 79, 75, 0.88), rgba(32, 79, 75, 0.88)),
+    url(../../images/bg-contact.avif) center / cover no-repeat;
+
+  .modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-height: 100vh;
+    max-height: none;
+    max-width: 1100px;
+  }
+
+  .title {
+    color: rgb(228, 174, 110);
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 58px;
+    text-align: center;
+  }
+
+  .filter-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .filter-list-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .filter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+
+  .filter-button.active,
+  .filter-button:hover {
+    border-color: #dfa95f;
+    background-color: #dfa95f;
+    color: #ffffff;
+  }
+
+  .filter-section-result {
+    width: 100%;
+    max-height: calc(100vh - 190px);
+    overflow: auto;
+  }
+
+  .box {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    border-radius: 18px;
+  }
+
+  .box-item {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  }
+
+  .box-item > .name {
+    padding: 16px 16px 0;
+    color: #003f46;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  .box-item > .subname {
+    padding: 2px 16px 12px;
+    color: #6d9695;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .box-item > .image {
+    padding: 0 12px 12px;
+  }
+
+  .box-item > .image img {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .filter-item.type-1 .box-item {
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .zoning-compare-card-body {
+    padding: 16px;
+  }
+
+  .zoning-compare-card .villa-card__title {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .zoning-compare-card .villa-card__footer {
+    padding: 32px;
+  }
+
+  @media (max-width: 991px) {
+    .modal-wrapper {
+      max-width: calc(100% - 32px);
+    }
+
+    .box {
+      grid-template-columns: 1fr;
+    }
+  }
+}
