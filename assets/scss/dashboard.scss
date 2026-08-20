@@ -1,9 +1,11 @@
 .dashboard-page {
   display: flex;
   width: 100%;
-  min-height: 100dvh;
   background-color: #f8f6f1;
   color: #1f4f4b;
+
+  height: calc(100dvh - 63px);
+  margin-bottom: 63px;
 }
 
 .dashboard-sidebar {

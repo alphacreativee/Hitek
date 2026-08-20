@@ -1610,7 +1610,7 @@ button.aloading::after {
   border: 1px solid transparent;
   border-bottom: 0;
 }
-.header-menu .login:hover {
+.header-menu .login:hover, .header-menu .login.active {
   background-color: #387873;
   border: 1px solid #7aeae5;
   border-bottom: 0;

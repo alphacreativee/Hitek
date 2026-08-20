@@ -14,6 +14,60 @@
   </head>
 
   <body>
+    <script>
+      fetch("./components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+          const currentPath = window.location.pathname || "/";
+
+          const navLinks = document.querySelectorAll(".header-menu ul>li>a");
+          navLinks.forEach((link) => {
+            const linkPath = link.getAttribute("href");
+
+            // Normalize paths for comparison
+            let normalizedCurrentPath = currentPath;
+            let normalizedLinkPath = linkPath;
+
+            // Remove leading "./" from link path
+            if (normalizedLinkPath.startsWith("./")) {
+              normalizedLinkPath = normalizedLinkPath.substring(1);
+            }
+
+            // Get the last segment of the path
+            const currentSegment = normalizedCurrentPath.split("/").pop() || "";
+            const linkSegment = normalizedLinkPath.split("/").pop() || "";
+
+            // Check if current path is root or ends with /
+            const isRootPath =
+              currentPath === "/" ||
+              currentPath.endsWith("/") ||
+              currentSegment === "";
+
+            // Check if link is home/index
+            const isHomeLink =
+              linkPath === "/" ||
+              linkPath === "./" ||
+              linkPath === "./index.html" ||
+              linkPath === "index.html" ||
+              linkSegment === "index.html";
+
+            // Match logic
+            const isMatch =
+              normalizedLinkPath === normalizedCurrentPath || // Exact match
+              currentSegment === linkSegment || // Segment match
+              (isRootPath && isHomeLink) || // Root path matches home link
+              (currentPath.endsWith(normalizedLinkPath) &&
+                normalizedLinkPath !== "/");
+
+            if (isMatch) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
+    <header id="header" class="header position-fixed"></header>
+
     <main class="dashboard-page">
       <aside class="dashboard-sidebar">
         <div class="dashboard-account">
