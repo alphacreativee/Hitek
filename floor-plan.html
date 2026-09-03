@@ -86,6 +86,42 @@
     <header id="header" class="header position-fixed"></header>
 
     <main>
+      <div
+        class="index-login-modal desktop-experience-modal"
+        data-desktop-experience-modal
+      >
+        <div
+          class="index-login-modal__overlay"
+          data-desktop-experience-close
+        ></div>
+        <div
+          class="index-login-modal__dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="desktop-experience-title"
+        >
+          <button
+            class="index-login-modal__close"
+            type="button"
+            aria-label="Close desktop suggestion popup"
+            data-desktop-experience-close
+          ></button>
+          <div class="index-login-modal__title" id="desktop-experience-title">
+            Best experience
+          </div>
+          <p class="desktop-experience-modal__copy">
+            Please use the desktop interface to fully explore the content and
+            interactive features.
+          </p>
+          <button
+            class="index-login-modal__skip"
+            type="button"
+            data-desktop-experience-close
+          >
+            Got it
+          </button>
+        </div>
+      </div>
       <section class="floor-plan-page is-filter-collapsed">
         <div class="floor-plan-page__viewer">
           <div

@@ -850,6 +850,83 @@ function indexLoginModal() {
   });
 }
 
+function desktopExperienceModal() {
+  const modal = document.querySelector("[data-desktop-experience-modal]");
+  if (!modal) return;
+
+  const desktopQuery = window.matchMedia("(min-width: 1024px)");
+  if (desktopQuery.matches) return;
+
+  const showTimer = window.setTimeout(() => {
+    modal.classList.add("show");
+  }, 1000);
+
+  const closeModal = () => {
+    window.clearTimeout(showTimer);
+    modal.classList.remove("show");
+  };
+
+  modal
+    .querySelectorAll("[data-desktop-experience-close]")
+    .forEach((button) => {
+      button.addEventListener("click", closeModal);
+    });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
+}
+
+function headerMenuToggle() {
+  document.addEventListener("click", (event) => {
+    const toggle = event.target.closest("[data-header-menu-toggle]");
+    const headerMenu = event.target.closest(".header-menu");
+
+    if (toggle) {
+      const menu = toggle.closest(".header-menu");
+      const isOpen = toggle.getAttribute("aria-expanded") !== "true";
+      menu.classList.toggle("is-menu-open", isOpen);
+      menu.closest(".header")?.classList.toggle("is-menu-open", isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      return;
+    }
+
+    if (!headerMenu) {
+      document.querySelectorAll(".header-menu.is-menu-open").forEach((menu) => {
+        menu.classList.remove("is-menu-open");
+        menu.closest(".header")?.classList.remove("is-menu-open");
+        const menuToggle = menu.querySelector("[data-header-menu-toggle]");
+        menuToggle?.setAttribute("aria-expanded", "false");
+        menuToggle?.setAttribute("aria-label", "Open menu");
+      });
+      return;
+    }
+
+    if (event.target.closest(".header-menu ul a")) {
+      headerMenu.classList.remove("is-menu-open");
+      headerMenu.closest(".header")?.classList.remove("is-menu-open");
+      const menuToggle = headerMenu.querySelector("[data-header-menu-toggle]");
+      menuToggle?.setAttribute("aria-expanded", "false");
+      menuToggle?.setAttribute("aria-label", "Open menu");
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+
+    document.querySelectorAll(".header-menu.is-menu-open").forEach((menu) => {
+      menu.classList.remove("is-menu-open");
+      menu.closest(".header")?.classList.remove("is-menu-open");
+      const menuToggle = menu.querySelector("[data-header-menu-toggle]");
+      menuToggle?.setAttribute("aria-expanded", "false");
+      menuToggle?.setAttribute("aria-label", "Open menu");
+    });
+  });
+}
+
 function init() {
   gsap.registerPlugin(ScrollTrigger);
   createFilterTab();
@@ -860,6 +937,8 @@ function init() {
   villaShareModal();
   bannerIntroTextAnimation();
   indexLoginModal();
+  desktopExperienceModal();
+  headerMenuToggle();
   // getDateLightPick();
 }
 

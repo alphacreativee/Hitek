@@ -112,6 +112,11 @@
     opacity: 1;
     visibility: visible;
   }
+
+  .login .login-wrapper {
+    min-height: unset;
+    padding: 0;
+  }
 }
 
 .index-login-modal__overlay {
@@ -279,4 +284,22 @@
   &:hover {
     background-color: rgba(224, 221, 214, 0.2);
   }
+}
+
+.desktop-experience-modal__copy {
+  margin: 0 0 22px;
+  color: #1e4842;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: center;
+}
+
+.desktop-experience-modal {
+  z-index: 9997;
+}
+
+.desktop-experience-modal .index-login-modal__dialog {
+  padding-top: 36px;
 }

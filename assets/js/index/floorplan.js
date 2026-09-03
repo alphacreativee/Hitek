@@ -489,6 +489,7 @@ function floorPlan() {
     krpano.set("layer[skin_control_bar].alpha", 1);
     krpano.set("layer[skin_control_bar_buttons].visible", true);
     krpano.set("layer[skin_btn_navi].visible", true);
+    applyFloorplanControlLayout();
   }
 
   function setControlIcon(layerName, iconUrl) {
@@ -501,8 +502,102 @@ function floorPlan() {
     krpano.set(`layer[${layerName}].scale`, 1);
   }
 
+  function applyFloorplanControlLayout() {
+    if (!krpano) return;
+
+    const isMobile = window.matchMedia("(max-width: 575px)").matches;
+
+    if (!isMobile) {
+      setControlLayerWidth(-24);
+      setControlButtonVisibility(
+        [
+          "skin_btn_navi",
+          "skin_btn_left",
+          "skin_btn_right",
+          "skin_btn_up",
+          "skin_btn_down",
+          "skin_btn_in",
+          "skin_btn_out",
+          "skin_btn_fs",
+          "skin_btn_hide"
+        ],
+        true
+      );
+      setControlButtonPosition("skin_btn_prev", "left", 5);
+      setControlButtonPosition("skin_btn_thumbs", "left", 50);
+      setControlButtonPosition("skin_btn_navi", "center", 0);
+      krpano.set("layer[skin_btn_navi].width", 240);
+      setControlButtonPosition("skin_btn_left", "center", -100);
+      setControlButtonPosition("skin_btn_right", "center", -60);
+      setControlButtonPosition("skin_btn_up", "center", -20);
+      setControlButtonPosition("skin_btn_down", "center", 20);
+      setControlButtonPosition("skin_btn_in", "center", 60);
+      setControlButtonPosition("skin_btn_out", "center", 100);
+      setControlButtonPosition("skin_btn_fs", "right", 90);
+      setControlButtonPosition("skin_btn_hide", "right", 50);
+      setControlButtonPosition("skin_btn_next", "right", 5);
+      return;
+    }
+
+    const controlWidth = Math.min(270, Math.max(232, window.innerWidth - 16));
+    const iconSize = 23;
+    const outerPadding = 8;
+    const gap = 9;
+    const step = iconSize + gap;
+    const buttonCount = 7;
+    const buttonGroupWidth = iconSize * buttonCount + gap * (buttonCount - 1);
+    const firstButtonX = Math.max(outerPadding, (controlWidth - buttonGroupWidth) / 2);
+    const navStart = firstButtonX + step * 2;
+    const rightStart = firstButtonX + step * 4;
+    const navWidth = iconSize * 2 + gap;
+    const panButtonNames = [
+      "skin_btn_left",
+      "skin_btn_right",
+      "skin_btn_up",
+      "skin_btn_down",
+      "skin_btn_map",
+      "skin_btn_gyro",
+      "skin_btn_vr"
+    ];
+
+    setControlLayerWidth(controlWidth);
+    setControlButtonVisibility(panButtonNames, false);
+    setControlButtonPosition("skin_btn_prev", "left", firstButtonX);
+    setControlButtonPosition("skin_btn_thumbs", "left", firstButtonX + step);
+    setControlButtonPosition("skin_btn_navi", "left", navStart);
+    krpano.set("layer[skin_btn_navi].width", navWidth);
+
+    setControlButtonPosition("skin_btn_in", "center", -step / 2);
+    setControlButtonPosition("skin_btn_out", "center", step / 2);
+
+    setControlButtonPosition("skin_btn_fs", "left", rightStart);
+    setControlButtonPosition("skin_btn_hide", "left", rightStart + step);
+    setControlButtonPosition("skin_btn_next", "left", rightStart + step * 2);
+  }
+
+  function setControlLayerWidth(width) {
+    krpano.set("skin_settings.controlbar_width", width);
+    krpano.set("layer[skin_scroll_layer].width", width);
+    krpano.set("layer[skin_control_bar_bg].width", width);
+    krpano.set("layer[skin_control_bar].width", width);
+    krpano.set("layer[skin_control_bar_buttons].width", "100%");
+    krpano.set("layer[skin_btn_show].width", "100%");
+  }
+
+  function setControlButtonPosition(layerName, align, x) {
+    krpano.set(`layer[${layerName}].align`, align);
+    krpano.set(`layer[${layerName}].x`, Math.round(x));
+  }
+
+  function setControlButtonVisibility(layerNames, isVisible) {
+    layerNames.forEach((layerName) => {
+      krpano.set(`layer[${layerName}].visible`, isVisible);
+    });
+  }
+
   function syncFullscreenIcon() {
     setControlIcon("skin_btn_fs", `${themeURL}/vtour/skin/icon/zoom.svg`);
+    applyFloorplanControlLayout();
   }
 
   function queueFullscreenIconSync() {
@@ -649,6 +744,10 @@ function floorPlan() {
     });
   }
 
+  $(window).on("resize.floorplanControl", function () {
+    applyFloorplanControlLayout();
+  });
+
   function toggleFilter() {
     const isCollapsed = $page.hasClass("is-filter-collapsed");
     const fromClass = isCollapsed
@@ -703,6 +802,85 @@ function floorPlan() {
   applyState({ shouldUpdateUrl: false });
 }
 
+function desktopExperienceModal() {
+  const modal = document.querySelector("[data-desktop-experience-modal]");
+  if (!modal) return;
+
+  const desktopQuery = window.matchMedia("(min-width: 1024px)");
+  if (desktopQuery.matches) return;
+
+  const showTimer = window.setTimeout(() => {
+    modal.classList.add("show");
+  }, 1000);
+
+  const closeModal = () => {
+    window.clearTimeout(showTimer);
+    modal.classList.remove("show");
+  };
+
+  modal
+    .querySelectorAll("[data-desktop-experience-close]")
+    .forEach((button) => {
+      button.addEventListener("click", closeModal);
+    });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
+}
+
+function headerMenuToggle() {
+  document.addEventListener("click", (event) => {
+    const toggle = event.target.closest("[data-header-menu-toggle]");
+    const headerMenu = event.target.closest(".header-menu");
+
+    if (toggle) {
+      const menu = toggle.closest(".header-menu");
+      const isOpen = toggle.getAttribute("aria-expanded") !== "true";
+      menu.classList.toggle("is-menu-open", isOpen);
+      menu.closest(".header")?.classList.toggle("is-menu-open", isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      return;
+    }
+
+    if (!headerMenu) {
+      document.querySelectorAll(".header-menu.is-menu-open").forEach((menu) => {
+        menu.classList.remove("is-menu-open");
+        menu.closest(".header")?.classList.remove("is-menu-open");
+        const menuToggle = menu.querySelector("[data-header-menu-toggle]");
+        menuToggle?.setAttribute("aria-expanded", "false");
+        menuToggle?.setAttribute("aria-label", "Open menu");
+      });
+      return;
+    }
+
+    if (event.target.closest(".header-menu ul a")) {
+      headerMenu.classList.remove("is-menu-open");
+      headerMenu.closest(".header")?.classList.remove("is-menu-open");
+      const menuToggle = headerMenu.querySelector("[data-header-menu-toggle]");
+      menuToggle?.setAttribute("aria-expanded", "false");
+      menuToggle?.setAttribute("aria-label", "Open menu");
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+
+    document.querySelectorAll(".header-menu.is-menu-open").forEach((menu) => {
+      menu.classList.remove("is-menu-open");
+      menu.closest(".header")?.classList.remove("is-menu-open");
+      const menuToggle = menu.querySelector("[data-header-menu-toggle]");
+      menuToggle?.setAttribute("aria-expanded", "false");
+      menuToggle?.setAttribute("aria-label", "Open menu");
+    });
+  });
+}
+
 $(function () {
   floorPlan();
+  desktopExperienceModal();
+  headerMenuToggle();
 });

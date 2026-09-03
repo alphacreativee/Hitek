@@ -227,3 +227,63 @@
     }
   }
 }
+
+@media (max-width: 1023px) {
+  .login {
+    &-inner,
+    .section-login.register &-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .cover {
+      display: none;
+    }
+
+    .login-wrapper {
+      min-height: 100svh;
+      padding: 40px 24px;
+    }
+
+    .login-wrapper .box-login {
+      width: min(100%, 420px);
+    }
+
+    .login-wrapper .box-login .btn-google-login,
+    .login-wrapper .box-login .login-divider,
+    .login-wrapper .box-login .box-form {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  .section-login.register {
+    .login-wrapper .box-login {
+      width: min(100%, 520px);
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .login {
+    .login-wrapper {
+      align-items: flex-start;
+      padding: 40px 16px 88px;
+    }
+  }
+
+  .section-login.register {
+    height: auto;
+    min-height: 100svh;
+
+    .box-form {
+      grid-template-columns: 1fr;
+
+      .form-row {
+        &:nth-child(3),
+        &:nth-child(4) {
+          grid-column: auto;
+        }
+      }
+    }
+  }
+}
