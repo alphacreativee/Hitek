@@ -223,9 +223,10 @@
     <script src="./assets/libs/glightbox.min.js"></script>
     <script>
       (function () {
-        var sectionHeight =
-          document.querySelector(".brochure-section")?.getBoundingClientRect()
-            .height || window.innerHeight;
+        var brochureEl = document.getElementById("dflip_brochure");
+        var wrapperHeight =
+          brochureEl?.parentElement?.getBoundingClientRect().height || 0;
+        var sectionHeight = wrapperHeight || window.innerHeight;
         var pdfHeight = Math.min(500, Math.round(sectionHeight * 0.62));
         var verticalPadding = Math.max(
           0,
@@ -262,7 +263,7 @@
     <script type="module" src="./assets/main/js/script.min.js"></script>
     <script
       type="module"
-      src="./assets/main/js/brochure.min.js?v=brochure-share-1"
+      src="./assets/main/js/brochure.min.js?v=brochure-share-2"
     ></script>
     <!-- <script type="module" src="./assets/main/js/home.min.js"></script> -->
 

@@ -281,8 +281,8 @@
 
   &__marker {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     border: 0;
     border-radius: 50%;
     background-color: transparent;
@@ -300,14 +300,14 @@
   &__marker::before {
     top: 50%;
     left: 50%;
-    width: 90px;
-    height: 90px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: conic-gradient(
       from -45deg,
-      #1f4f4b 0deg 1deg,
-      rgba(31, 79, 75, 0.6) 1deg 89deg,
-      #1f4f4b 89deg 91deg,
+      rgba(31, 79, 75, 0.94) 0deg 1deg,
+      rgba(31, 79, 75, 0.94) 1deg 89deg,
+      rgba(31, 79, 75, 0.94) 89deg 91deg,
       rgba(31, 79, 75, 0) 91deg 360deg
     );
     opacity: 0;
@@ -319,11 +319,11 @@
   &__marker::after {
     top: 50%;
     left: 50%;
-    width: 17px;
-    height: 17px;
+    width: 10px;
+    height: 10px;
     border: 1px solid #ffffff;
     border-radius: 50%;
-    background-color: #6d9695;
+    background-color: rgba(31, 79, 75, 0.94);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
     transform: translate(-50%, -50%);
     transition:

@@ -35,6 +35,62 @@ function floorPlan() {
     villa: "C",
     floor: "1"
   };
+  const villaSceneOrder = {
+    C: [1, 8, 9, 2, 5, 7],
+    D: [1, 2, 13, 12, 3, 4, 6, 7, 8, 9, 5, 10, 11, 14, 15, 16, 17, 18, 19, 20],
+    F: [13, 11, 12, 10, 7, 6, 9, 8, 5, 4, 2, 3, 19, 18, 20, 16, 17, 15, 14]
+  };
+
+  const getMarkerViewNumber = (marker) =>
+    Number.isFinite(marker.sortOrder) ? marker.sortOrder : 999;
+
+  function getVillaSceneOrderIndex(villa, marker) {
+    const order = villaSceneOrder[villa] || [];
+    const viewNumber = getMarkerViewNumber(marker);
+    const orderIndex = order.indexOf(viewNumber);
+
+    return orderIndex >= 0 ? orderIndex : order.length + viewNumber;
+  }
+
+  function sortMarkersForVilla(villa, markers = []) {
+    return markers.slice().sort((a, b) => {
+      const aOrder = getVillaSceneOrderIndex(villa, a);
+      const bOrder = getVillaSceneOrderIndex(villa, b);
+
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return getMarkerViewNumber(a) - getMarkerViewNumber(b);
+    });
+  }
+
+  function getSortedSceneNamesForVilla(villa) {
+    const seenScenes = new Set();
+    const entries = [];
+
+    Object.values(getVillaData(villa)).forEach((floorData) => {
+      sortMarkersForVilla(villa, floorData.markers).forEach((marker) => {
+        if (seenScenes.has(marker.scene)) return;
+        seenScenes.add(marker.scene);
+        entries.push(marker);
+      });
+    });
+
+    return entries
+      .sort((a, b) => {
+        const aOrder = getVillaSceneOrderIndex(villa, a);
+        const bOrder = getVillaSceneOrderIndex(villa, b);
+
+        if (aOrder !== bOrder) return aOrder - bOrder;
+        return getMarkerViewNumber(a) - getMarkerViewNumber(b);
+      })
+      .map((marker) => marker.scene);
+  }
+
+  function getInitialSceneForFloor(villa, floorData) {
+    return (
+      sortMarkersForVilla(villa, floorData.markers)[0]?.scene || floorData.scene
+    );
+  }
+
   const floorplanData = {
     C: {
       1: {
@@ -46,6 +102,7 @@ function floorPlan() {
             x: 50,
             y: 90,
             radar: 0,
+            sortOrder: 1,
             scene: "scene_floorplan_villa_c_floor_1" // 360_View01_Mat Tien
           },
           {
@@ -53,13 +110,15 @@ function floorPlan() {
             x: 50.33,
             y: 66.54,
             radar: 0,
+            sortOrder: 9,
             scene: "scene_floorplan_villa_c_floor_1_front" // 360_View09_Tien sanh
           },
           {
             id: "c-1-living",
-            x: 42,
-            y: 37.78,
+            x: 37.2,
+            y: 51.07,
             radar: -180,
+            sortOrder: 2,
             scene: "scene_floorplan_villa_c_floor_1_living" // 360_View02_Phong khach
           },
           {
@@ -67,6 +126,7 @@ function floorPlan() {
             x: 62.33,
             y: 55.54,
             radar: 0,
+            sortOrder: 5,
             scene: "scene_floorplan_villa_c_floor_1_05" // 360_View09_Tien sanh
           },
           {
@@ -74,7 +134,16 @@ function floorPlan() {
             x: 55,
             y: 15.78,
             radar: -160,
+            sortOrder: 7,
             scene: "scene_floorplan_villa_c_floor_1_07" // 360_View02_Phong khach
+          },
+          {
+            id: "c-1-08",
+            x: 49.6,
+            y: 75.68,
+            radar: 0,
+            sortOrder: 8,
+            scene: "scene_360_view08_c_san_truoc" // Villa C Floor 1 View 08
           }
         ]
       },
@@ -87,6 +156,7 @@ function floorPlan() {
             x: 38,
             y: 49.57,
             radar: 0,
+            sortOrder: 4,
             scene: "scene_floorplan_villa_c_floor_2" // 360_View04_Phong master
           },
           {
@@ -94,6 +164,7 @@ function floorPlan() {
             x: 62.33,
             y: 54.28,
             radar: 0,
+            sortOrder: 6,
             scene: "scene_floorplan_villa_c_floor_2_bed" // 360_View06_Phong ngu tang 2
           },
           {
@@ -101,7 +172,16 @@ function floorPlan() {
             x: 38.33,
             y: 39.67,
             radar: 0,
+            sortOrder: 10,
             scene: "scene_floorplan_villa_c_floor_2_balcony" // 360_View10_Ban cong tang 2
+          },
+          {
+            id: "c-2-03",
+            x: 35.6,
+            y: 64.37,
+            radar: 0,
+            sortOrder: 3,
+            scene: "scene_360_view03_c_phong_master_wc" // Villa C Floor 2 View 03
           }
         ]
       }
@@ -116,6 +196,7 @@ function floorPlan() {
             x: 50,
             y: 90,
             radar: 0,
+            sortOrder: 1,
             scene: "scene_260619_vr360_villad1_11_v01" // 260619_VR360_VillaD1.11_V01
           },
           {
@@ -123,6 +204,7 @@ function floorPlan() {
             x: 50.67,
             y: 68.42,
             radar: 0,
+            sortOrder: 3,
             scene: "scene_260619_vr360_villad1_11_v03" // 260619_VR360_VillaD1.11_V03
           },
           {
@@ -130,6 +212,7 @@ function floorPlan() {
             x: 41.67,
             y: 58.05,
             radar: 180,
+            sortOrder: 7,
             scene: "scene_260619_vr360_villad1_11_v07" // 260619_VR360_VillaD1.11_V07
           },
           {
@@ -137,6 +220,7 @@ function floorPlan() {
             x: 37.67,
             y: 49.57,
             radar: 180,
+            sortOrder: 8,
             scene: "scene_260619_vr360_villad1_11_v08" // 260619_VR360_VillaD1.11_V08
           },
           {
@@ -144,6 +228,7 @@ function floorPlan() {
             x: 60.67,
             y: 35.32,
             radar: 210,
+            sortOrder: 10,
             scene: "scene_260617_vr360_villad1_11_v10" // 260619_VR360_VillaD1.11_V10
           },
           {
@@ -151,7 +236,64 @@ function floorPlan() {
             x: 62,
             y: 54.18,
             radar: 0,
+            sortOrder: 11,
             scene: "scene_260619_vr360_villad1_11_v11" // 260619_VR360_VillaD1.11_V11
+          },
+          {
+            id: "d-1-02",
+            x: 49.2,
+            y: 76.24,
+            radar: 180,
+            sortOrder: 2,
+            scene: "scene_vr360_villad1_11_v02" // Villa D Floor 1 View 02
+          },
+          {
+            id: "d-1-04",
+            x: 51.2,
+            y: 58.71,
+            radar: 0,
+            sortOrder: 4,
+            scene: "scene_vr360_villad1_11_v04" // Villa D Floor 1 View 04
+          },
+          {
+            id: "d-1-05",
+            x: 50.8,
+            y: 11.76,
+            radar: 180,
+            sortOrder: 5,
+            scene: "scene_vr360_villad1_11_v05" // Villa D Floor 1 View 05
+          },
+          {
+            id: "d-1-06",
+            x: 37.6,
+            y: 64.37,
+            radar: 180,
+            sortOrder: 6,
+            scene: "scene_vr360_villad1_11_v06" // Villa D Floor 1 View 06
+          },
+          {
+            id: "d-1-09",
+            x: 39.6,
+            y: 24.77,
+            radar: -180,
+            sortOrder: 9,
+            scene: "scene_vr360_villad1_11_v09" // Villa D Floor 1 View 09
+          },
+          {
+            id: "d-1-12",
+            x: 59.2,
+            y: 73.42,
+            radar: 180,
+            sortOrder: 12,
+            scene: "scene_vr360_villad1_11_v12" // Villa D Floor 1 View 12
+          },
+          {
+            id: "d-1-13",
+            x: 62,
+            y: 81.22,
+            radar: 180,
+            sortOrder: 13,
+            scene: "scene_vr360_villad1_11_v13" // Villa D Floor 1 View 13
           }
         ]
       },
@@ -163,14 +305,16 @@ function floorPlan() {
             id: "d-2-master",
             x: 51.33,
             y: 68.66,
-            radar: 0,
+            radar: 250,
+            sortOrder: 14,
             scene: "scene_260619_vr360_villad1_11_v14" // 260619_VR360_VillaD1.11_V14
           },
           {
             id: "d-2-bath",
             x: 41.33,
             y: 78.32,
-            radar: 0,
+            radar: 180,
+            sortOrder: 15,
             scene: "scene_260619_vr360_villad1_11_v15" // 260619_VR360_VillaD1.11_V15
           },
           {
@@ -178,6 +322,7 @@ function floorPlan() {
             x: 37.33,
             y: 61.59,
             radar: 0,
+            sortOrder: 16,
             scene: "scene_260619_vr360_villad1_11_v16" // 260619_VR360_VillaD1.11_V16
           },
           {
@@ -185,6 +330,7 @@ function floorPlan() {
             x: 42,
             y: 46.55,
             radar: 0,
+            sortOrder: 18,
             scene: "scene_260617_vr360_villad1_11_v18" // 260619_VR360_VillaD1.11_V18
           },
           {
@@ -192,7 +338,24 @@ function floorPlan() {
             x: 62.4,
             y: 56.16,
             radar: 0,
+            sortOrder: 19,
             scene: "scene_260619_vr360_villad1_11_v19" // 260619_VR360_VillaD1.11_V19
+          },
+          {
+            id: "d-2-17",
+            x: 40,
+            y: 52.49,
+            radar: 90,
+            sortOrder: 17,
+            scene: "scene_vr360_villad1_11_v17" // Villa D Floor 2 View 17
+          },
+          {
+            id: "d-2-20",
+            x: 64,
+            y: 64.93,
+            radar: 0,
+            sortOrder: 20,
+            scene: "scene_vr360_villad1_11_v20" // Villa D Floor 2 View 20
           }
         ]
       }
@@ -207,6 +370,7 @@ function floorPlan() {
             x: 55,
             y: 85,
             radar: 90,
+            sortOrder: 11,
             scene: "scene_360_villaf_view11_lanscape_truoc_nha_copy" // 360_VillaF_View11_Lanscape truoc nha copy
           },
           {
@@ -214,6 +378,7 @@ function floorPlan() {
             x: 42,
             y: 61.25,
             radar: 40,
+            sortOrder: 5,
             scene: "scene_360_villaf_view05_phong_bep_copy" // 360_VillaF_View05_Phong Bep copy
           },
           {
@@ -221,28 +386,88 @@ function floorPlan() {
             x: 42.8,
             y: 49.94,
             radar: -90,
+            sortOrder: 4,
             scene: "scene_360_villaf_view04_phong_khach_copy" // 360_VillaF_View04_Phong Khach copy
           },
           {
             id: "f-1-gym",
-            x: 66.33,
-            y: 78.32,
+            x: 66.4,
+            y: 83.03,
             radar: 180,
+            sortOrder: 12,
             scene: "scene_360_villaf_view12_p_gym_copy" // 360_VillaF_View12_P gym copy
           },
           {
             id: "f-1-3",
             x: 63.6,
             y: 37.78,
-            radar: 0,
+            radar: 235,
+            sortOrder: 3,
             scene: "scene_360_villaf_view3_vuon_canh_be_boi_copy" // 360_VillaF_View12_P gym copy
           },
           {
             id: "f-1-7",
+            x: 54,
+            y: 70.02,
+            radar: 255,
+            sortOrder: 7,
+            scene: "scene_360_villaf_view07_sanh_truoc_copy" // 360_VillaF_View12_P gym copy
+          },
+          {
+            id: "f-1-01",
+            x: 55.2,
+            y: 13.74,
+            radar: 0,
+            sortOrder: 1,
+            scene: "scene_360_villaf_view01_khu_camping_copy" // Villa F Floor 1 View 01
+          },
+          {
+            id: "f-1-02",
+            x: 47.2,
+            y: 24.21,
+            radar: 90,
+            sortOrder: 2,
+            scene: "scene_360_villaf_view02_khu_bbq_copy" // Villa F Floor 1 View 02
+          },
+          {
+            id: "f-1-06",
             x: 54.8,
             y: 63.8,
             radar: 0,
-            scene: "scene_360_villaf_view07_sanh_truoc_copy" // 360_VillaF_View12_P gym copy
+            sortOrder: 6,
+            scene: "scene_360_villaf_view06_canh_ho_boi_copy" // Villa F Floor 1 View 06
+          },
+          {
+            id: "f-1-08",
+            x: 64,
+            y: 65.5,
+            radar: 90,
+            sortOrder: 8,
+            scene: "scene_360_villaf_view08_p_ngu_tang_1_copy" // Villa F Floor 1 View 08
+          },
+          {
+            id: "f-1-09",
+            x: 64,
+            y: 72,
+            radar: 90,
+            sortOrder: 9,
+            scene: "scene_360_villaf_view09_wc_p_ngu_tang_1_copy" // Villa F Floor 1 View 09
+          },
+          {
+            id: "f-1-10",
+            x: 53.6,
+            y: 75.98,
+            radar: 90,
+            sortOrder: 10,
+            scene: "scene_360_villaf_view10_sanh_sau_copy" // Villa F Floor 1 View 10
+          },
+          {
+            id: "f-1-13",
+            x: 52,
+            y: 94.06,
+            radar: 0,
+            sortOrder: 13,
+            scene: "scene_360_villaf_view13_ngoai_duong_copy" // Villa F Floor 1 View 13
           }
         ]
       },
@@ -255,20 +480,23 @@ function floorPlan() {
             x: 66,
             y: 60,
             radar: 180,
+            sortOrder: 18,
             scene: "scene_360_villaf_view18_pngu_tang2_2" // 360_VillaF_View18_Pngu_Tang2_2
           },
           {
             id: "f-2-family",
             x: 53,
             y: 64,
-            radar: 0,
+            radar: 180,
+            sortOrder: 19,
             scene: "scene_360_villaf_view19_p_family_room_tang2" // 360_VillaF_View19_P Family room_Tang2
           },
           {
             id: "f-2-16",
-            x: 40,
-            y: 53.62,
+            x: 38.4,
+            y: 67.48,
             radar: 0,
+            sortOrder: 16,
             scene: "scene_360_villaf_view16_p_thay_do" // 360_VillaF_View19_P Family room_Tang2
           },
           {
@@ -276,14 +504,32 @@ function floorPlan() {
             x: 46,
             y: 57.88,
             radar: 0,
+            sortOrder: 17,
             scene: "scene_360_villaf_view17_p_ngu_master" // 360_VillaF_View19_P Family room_Tang2
           },
           {
             id: "f-2-20",
             x: 43.6,
             y: 76.24,
-            radar: 0,
+            radar: 180,
+            sortOrder: 20,
             scene: "scene_360_villaf_view20_p_ngu_2_tang2" // 360_VillaF_View19_P Family room_Tang2
+          },
+          {
+            id: "f-2-14",
+            x: 44.04,
+            y: 46.55,
+            radar: 0,
+            sortOrder: 14,
+            scene: "scene_360_villaf_view14_ban_cong_tang2_copy" // Villa F Floor 2 View 14
+          },
+          {
+            id: "f-2-15",
+            x: 40,
+            y: 53.62,
+            radar: 0,
+            sortOrder: 15,
+            scene: "scene_360_villaf_view15_wc_p_ngu_master" // Villa F Floor 2 View 15
           }
         ]
       }
@@ -367,7 +613,7 @@ function floorPlan() {
   }
 
   function renderPlan(floorData) {
-    const markers = floorData.markers || [];
+    const markers = sortMarkersForVilla(state.villa, floorData.markers);
     const $markerList = $page.find("[data-floorplan-markers]");
 
     $page.find("[data-floorplan-image]").attr("src", floorData.image);
@@ -489,6 +735,14 @@ function floorPlan() {
     krpano.set("layer[skin_control_bar].alpha", 1);
     krpano.set("layer[skin_control_bar_buttons].visible", true);
     krpano.set("layer[skin_btn_navi].visible", true);
+    krpano.set(
+      "layer[skin_btn_prev].onclick",
+      "js(window.floorplanGoSibling(-1));"
+    );
+    krpano.set(
+      "layer[skin_btn_next].onclick",
+      "js(window.floorplanGoSibling(1));"
+    );
     applyFloorplanControlLayout();
   }
 
@@ -546,7 +800,10 @@ function floorPlan() {
     const step = iconSize + gap;
     const buttonCount = 7;
     const buttonGroupWidth = iconSize * buttonCount + gap * (buttonCount - 1);
-    const firstButtonX = Math.max(outerPadding, (controlWidth - buttonGroupWidth) / 2);
+    const firstButtonX = Math.max(
+      outerPadding,
+      (controlWidth - buttonGroupWidth) / 2
+    );
     const navStart = firstButtonX + step * 2;
     const rightStart = firstButtonX + step * 4;
     const navWidth = iconSize * 2 + gap;
@@ -611,7 +868,10 @@ function floorPlan() {
     loadScene(sceneName);
 
     sceneActivationTimer = setTimeout(() => {
-      const currentScene = getFloorData(state.villa, state.floor).scene;
+      const currentScene = getInitialSceneForFloor(
+        state.villa,
+        getFloorData(state.villa, state.floor)
+      );
       if (currentScene === sceneName) loadScene(sceneName);
     }, 300);
   }
@@ -633,6 +893,47 @@ function floorPlan() {
     krpano.call(
       "skin_addthumbs(); skin_onresize(); skin_updatethumbsview(false);"
     );
+    sortControlThumbs();
+    setTimeout(sortControlThumbs, 80);
+    setTimeout(sortControlThumbs, 240);
+  }
+
+  function sortControlThumbs() {
+    if (!krpano) return;
+
+    const orderedScenes = getSortedSceneNamesForVilla(state.villa);
+    const thumbWidth =
+      parseFloat(krpano.get("skin_settings.thumbs_width")) || 120;
+    const thumbPadding =
+      parseFloat(krpano.get("skin_settings.thumbs_padding")) || 10;
+    const thumbXOffset = thumbWidth + thumbPadding;
+    const thumbXCenter = thumbXOffset * 0.5;
+
+    orderedScenes.forEach((sceneName, index) => {
+      const scene = krpano.get(`scene[${sceneName}]`);
+      const thumbUrl = krpano.get(`scene[${sceneName}].thumburl`);
+      if (!scene || !thumbUrl) return;
+
+      const thumbLayer = `skin_thumb_${index}`;
+      const x = thumbPadding + index * thumbXOffset;
+      krpano.set(`thumbarray[${index}]`, scene);
+      krpano.set(`thumbarray[${index}].name`, sceneName);
+      krpano.set(`scene[${sceneName}].thumbindex`, index);
+      krpano.set(`layer[${thumbLayer}].x`, x);
+      krpano.set(`layer[${thumbLayer}].url`, thumbUrl);
+      krpano.set(`layer[${thumbLayer}].linkedscene`, sceneName);
+      krpano.set(`layer[${thumbLayer}].visible`, true);
+      krpano.set(`scene[${sceneName}].thumbx`, x + thumbXCenter);
+      krpano.set(`scene[${sceneName}].thumby`, thumbPadding);
+
+      const thumbTextLayer = `skin_thumbtext_${index}`;
+      if (krpano.get(`layer[${thumbTextLayer}]`)) {
+        krpano.set(
+          `layer[${thumbTextLayer}].html`,
+          krpano.get(`scene[${sceneName}].title`)
+        );
+      }
+    });
   }
 
   function syncGalleryThumbs({ force = false } = {}) {
@@ -642,15 +943,17 @@ function floorPlan() {
     const activeScenes = new Set();
     Object.values(getVillaData(state.villa)).forEach((floorData) => {
       activeScenes.add(floorData.scene);
-      (floorData.markers || []).forEach((marker) => {
+      sortMarkersForVilla(state.villa, floorData.markers).forEach((marker) => {
         activeScenes.add(marker.scene);
       });
     });
 
-    Object.values(floorplanData).forEach((villaData) => {
+    Object.entries(floorplanData).forEach(([villa, villaData]) => {
       Object.values(villaData).forEach((floorData) => {
         const scenes = [floorData.scene].concat(
-          (floorData.markers || []).map((marker) => marker.scene)
+          sortMarkersForVilla(villa, floorData.markers).map(
+            (marker) => marker.scene
+          )
         );
 
         scenes.forEach((sceneName) => {
@@ -697,6 +1000,22 @@ function floorPlan() {
       queueFullscreenIconSync();
     };
 
+    window.floorplanGoSibling = function (indexAdd) {
+      const orderedScenes = getSortedSceneNamesForVilla(state.villa);
+      const currentScene = krpano.get("xml.scene");
+      const currentIndex = orderedScenes.indexOf(currentScene);
+      const fallbackIndex = indexAdd > 0 ? -1 : 0;
+      const sceneIndex = currentIndex >= 0 ? currentIndex : fallbackIndex;
+      const nextIndex =
+        (sceneIndex + indexAdd + orderedScenes.length) % orderedScenes.length;
+      const nextScene = orderedScenes[nextIndex];
+
+      if (nextScene) {
+        loadScene(nextScene);
+        syncFloorplanFromScene(nextScene);
+      }
+    };
+
     krpano.set("events[floorplan_events].keep", true);
     krpano.set(
       "events[floorplan_events].onnewscene",
@@ -714,11 +1033,12 @@ function floorPlan() {
 
   function applyState({ shouldUpdateUrl = true } = {}) {
     const floorData = getFloorData(state.villa, state.floor);
+    const sceneName = getInitialSceneForFloor(state.villa, floorData);
 
     updateButtons();
     renderPlan(floorData);
     syncGalleryThumbs();
-    queueSceneActivation(floorData.scene);
+    queueSceneActivation(sceneName);
 
     if (shouldUpdateUrl) updateUrl();
   }
@@ -728,15 +1048,19 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-13`,
+      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-19`,
       html5: "only",
       mobilescale: 1,
       vars: {
-        startscene: getFloorData(state.villa, state.floor).scene
+        startscene: getInitialSceneForFloor(
+          state.villa,
+          getFloorData(state.villa, state.floor)
+        )
       },
       passQueryParameters: false,
       onready(pano) {
         krpano = pano;
+        window.floorplanKrpano = krpano;
         bindKrpanoSceneSync();
         startRadar();
         applyState({ shouldUpdateUrl: false });
