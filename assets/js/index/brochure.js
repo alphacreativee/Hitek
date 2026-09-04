@@ -1,4 +1,4 @@
-function shareBrochure(platform) {
+function shareBrochure(platform, triggerEl) {
   const brochureShare = document.querySelector(".brochure-share");
 
   if (!platform) {
@@ -17,7 +17,9 @@ function shareBrochure(platform) {
       button.addEventListener("click", function () {
         const sharePlatform = this.getAttribute("data-share-platform");
 
-        shareBrochure(sharePlatform).finally(() => {
+        shareBrochure(sharePlatform, this).finally(() => {
+          if (sharePlatform === "copy") return;
+
           brochureShare.classList.remove("is-open");
           brochureShareToggle?.setAttribute("aria-expanded", "false");
         });
@@ -70,8 +72,28 @@ function shareBrochure(platform) {
     window.open(url, "_blank", "noopener,noreferrer,width=720,height=620");
   }
 
+  function showCopiedTag(button) {
+    if (!button) return;
+
+    let copiedTag = button.querySelector(".brochure-share__copied");
+    if (!copiedTag) {
+      copiedTag = document.createElement("span");
+      copiedTag.className = "brochure-share__copied";
+      copiedTag.textContent = "Copied";
+      button.appendChild(copiedTag);
+    }
+
+    window.clearTimeout(button.brochureCopiedTimer);
+    button.classList.add("is-copied");
+    button.brochureCopiedTimer = window.setTimeout(() => {
+      button.classList.remove("is-copied");
+    }, 3000);
+  }
+
   if (platform === "copy") {
-    return copyBrochureLink(shareData.url);
+    return copyBrochureLink(shareData.url).then(() => {
+      showCopiedTag(triggerEl);
+    });
   }
 
   if (platform === "facebook") {

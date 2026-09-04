@@ -330,8 +330,8 @@
     left: 8px;
     z-index: 7;
     width: 320px;
-    height: 520px;
-    padding: 40px 20px 30px;
+    height: 545px;
+    padding: 66px 20px 30px;
     border: 1px solid transparent;
     border-radius: 20px;
     // background:
@@ -377,10 +377,61 @@
     transition: opacity 0.2s ease;
   }
 
+  .zoning-filter-reset,
   .zoning-filter-close,
   .zoning-filter-search {
     position: absolute;
     z-index: 2;
+  }
+
+  .zoning-filter-reset {
+    top: 14px;
+    left: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px 0 10px;
+    border: 1px solid #8db4bf;
+    border-radius: 999px;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .zoning-filter-reset span:first-child {
+    flex: 0 0 auto;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .zoning-filter-reset:hover {
+    border-color: transparent;
+    background:
+      linear-gradient(#387873, #387873) padding-box,
+      linear-gradient(
+          90deg,
+          #69bcb1 0%,
+          #7aeae5 51%,
+          rgba(105, 188, 177, 0.88) 100%
+        )
+        border-box;
+    background-color: #387873;
+    color: #ffffff;
+  }
+
+  .zoning-filter-close,
+  .zoning-filter-search {
     width: 26px;
     height: 26px;
     border: 1px solid #fff;
@@ -645,12 +696,15 @@
 
   &.is-filter-expanding .zoning-filter-scroll,
   &.is-filter-expanding .zoning-filter-content,
+  &.is-filter-expanding .zoning-filter-reset,
   &.is-filter-expanding .zoning-filter-close,
   &.is-filter-collapsing .zoning-filter-scroll,
   &.is-filter-collapsing .zoning-filter-content,
+  &.is-filter-collapsing .zoning-filter-reset,
   &.is-filter-collapsing .zoning-filter-close,
   &.is-filter-collapsed .zoning-filter-scroll,
   &.is-filter-collapsed .zoning-filter-content,
+  &.is-filter-collapsed .zoning-filter-reset,
   &.is-filter-collapsed .zoning-filter-close {
     pointer-events: none;
     opacity: 0;
@@ -702,10 +756,15 @@
     line-height: 1;
   }
 
+  .zoning-controls button:hover {
+    background-color: rgba(31, 79, 75, 0.94);
+  }
+
   .zoning-controls button svg {
     display: block;
     margin: 0 auto;
-    width: 12px;
+    width: 14px;
+    height: 14px;
   }
 
   .zoning-controls button.is-audio-playing .line-muted {

@@ -1034,6 +1034,24 @@ function zoningFilter(zoningEl) {
 
     expand: expandFilter,
 
+    reset() {
+      filterFields.forEach((filterField) => {
+        activeFilters[filterField] = filterField === "direction" ? "" : "all";
+      });
+
+      zoningEl.classList.add("is-sector-mode");
+      zoningEl.classList.remove("is-detail-mode", "is-card-open");
+      overlay?.querySelectorAll("path.is-selected").forEach((path) => {
+        path.classList.remove("is-selected");
+      });
+      labels?.querySelectorAll("span.is-selected").forEach((label) => {
+        label.classList.remove("is-selected");
+      });
+
+      updateFilterButtons();
+      updateFilterScrollbar();
+    },
+
     init(villas = []) {
       villaDataById = new Map(villas.map((villa) => [String(villa.id), villa]));
 
@@ -1710,6 +1728,22 @@ function zoningScale(zoningEl) {
   window.addEventListener("resize", updateZoom);
 
   updateZoom();
+
+  return {
+    reset() {
+      setZoom(minZoom);
+    }
+  };
+}
+
+function zoningReset(zoningEl, filterApi, scaleApi) {
+  const resetBtn = zoningEl.querySelector("[data-zoning-reset]");
+  if (!resetBtn) return;
+
+  resetBtn.addEventListener("click", () => {
+    filterApi?.reset();
+    scaleApi?.reset();
+  });
 }
 
 function zoningAudio(zoningEl) {
@@ -1813,7 +1847,8 @@ function zoning() {
   const filterApi = zoningFilter(zoningEl);
   zoningSectors(zoningEl, filterApi);
   zoningLots(zoningEl, filterApi);
-  zoningScale(zoningEl);
+  const scaleApi = zoningScale(zoningEl);
+  zoningReset(zoningEl, filterApi, scaleApi);
   zoningAudio(zoningEl);
   zoningCompareModal(zoningEl);
   zoningGuide(zoningEl);
