@@ -519,7 +519,7 @@ function floorPlan() {
             id: "f-2-14",
             x: 44.04,
             y: 46.55,
-            radar: 0,
+            radar: 90,
             sortOrder: 14,
             scene: "scene_360_villaf_view14_ban_cong_tang2_copy" // Villa F Floor 2 View 14
           },
@@ -1049,7 +1049,7 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-19`,
+      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-21`,
       html5: "only",
       mobilescale: 1,
       vars: {
@@ -1111,14 +1111,18 @@ function floorPlan() {
     activeMarkerId = null;
     applyState();
     $page.find("[data-floorplan-dropdown]").removeClass("is-open");
-    $page.find("[data-floorplan-dropdown-toggle]").attr("aria-expanded", "false");
+    $page
+      .find("[data-floorplan-dropdown-toggle]")
+      .attr("aria-expanded", "false");
   });
 
   $(document).on("click.floorplanDropdown", function (event) {
     if ($(event.target).closest("[data-floorplan-dropdown]").length) return;
 
     $page.find("[data-floorplan-dropdown]").removeClass("is-open");
-    $page.find("[data-floorplan-dropdown-toggle]").attr("aria-expanded", "false");
+    $page
+      .find("[data-floorplan-dropdown-toggle]")
+      .attr("aria-expanded", "false");
   });
 
   $page.on("click", "[data-floorplan-marker]", function () {

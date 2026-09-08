@@ -720,9 +720,9 @@
 		<hotspot name="spot2106169963" style="floorplan_hotspotstyle" ath="10.111" atv="17.001" depth="1000.0" linkedscene="scene_360_villaf_view14_ban_cong_tang2_copy" linkedscene_hoffset="0.0" use3dtransition="false" />
 	</scene>
 
-<scene name="scene_360_villaf_view14_ban_cong_tang2_copy" title="Ban cong tang 2" onstart="" thumburl="panos/360_VillaF_View14_Ban_Cong_Tang2_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_360_villaf_view14_ban_cong_tang2_copy" title="Ban cong tang 2" onstart="" thumburl="panos/360_VillaF_View14_Ban_Cong_Tang2_copy.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="-90.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/360_VillaF_View14_Ban_Cong_Tang2_copy.tiles/preview.jpg" />
 		<image>
 			<cube url="panos/360_VillaF_View14_Ban_Cong_Tang2_copy.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048" />

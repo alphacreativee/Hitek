@@ -72,9 +72,9 @@
 			overflow: visible;
 			color: #FFFFFF;
 			font-family: "Montserrat", sans-serif;
-			font-size: 14px;
+			font-size: 11px;
 			font-weight: 600;
-			line-height: 20px;
+			line-height: 16px;
 			white-space: nowrap;
 			box-sizing: border-box;
 			pointer-events: none;
@@ -84,7 +84,7 @@
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			padding: 8px 30px;
+			padding: 8px 20px;
 			border: 1px solid transparent;
 			border-radius: 999px;
 			background:
@@ -96,7 +96,7 @@
 
 		.overview-hotspot-subtitle {
 			position: absolute;
-			left: calc(30px + var(--overview-tag-offset-x));
+			left: calc(20px + var(--overview-tag-offset-x));
 			top: calc(100% + 8px);
 			display: inline-flex;
 			align-items: center;
