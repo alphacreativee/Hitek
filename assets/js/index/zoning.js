@@ -1084,6 +1084,7 @@ function zoningSectors(zoningEl, filterApi) {
     String(value || "")
       .trim()
       .toUpperCase();
+  let lastPointerPosition = null;
 
   const showSector = (sector, isHovered) => {
     sectorLayer
@@ -1109,6 +1110,14 @@ function zoningSectors(zoningEl, filterApi) {
     zoningEl.classList.add("is-detail-mode");
     zoningEl.classList.remove("is-card-open");
     filterApi?.selectSector(sector);
+
+    zoningEl.dispatchEvent(
+      new CustomEvent("zoning:sector-opened", {
+        detail: {
+          pointer: lastPointerPosition
+        }
+      })
+    );
   };
 
   const createSectorLabels = (svg) => {
@@ -1253,6 +1262,10 @@ function zoningSectors(zoningEl, filterApi) {
         path.addEventListener("mouseleave", () => showSector(sector, false));
         path.addEventListener("click", (event) => {
           event.stopPropagation();
+          lastPointerPosition = {
+            clientX: event.clientX,
+            clientY: event.clientY
+          };
           openSector(sector);
         });
         path.addEventListener("keydown", (event) => {
@@ -1264,6 +1277,13 @@ function zoningSectors(zoningEl, filterApi) {
       });
 
       sectorLayer.appendChild(createSectorLabels(svg));
+
+      sectorLayer.addEventListener("pointermove", (event) => {
+        lastPointerPosition = {
+          clientX: event.clientX,
+          clientY: event.clientY
+        };
+      });
     })
     .catch((error) => {
       console.warn(error);
@@ -1368,6 +1388,99 @@ function zoningLots(zoningEl, filterApi) {
       : [];
   const getVillaByPath = (path) =>
     villaDataById.get(String(path?.dataset.id || ""));
+  let hoveredPath = null;
+
+  const setHoveredPath = (path) => {
+    if (hoveredPath === path) return;
+
+    if (hoveredPath) {
+      hoveredPath.classList.remove("is-hovered");
+      getPathLabels(hoveredPath).forEach((label) => {
+        label.classList.remove("is-hovered");
+      });
+    }
+
+    hoveredPath = path;
+
+    if (!hoveredPath) return;
+
+    hoveredPath.classList.add("is-hovered");
+    getPathLabels(hoveredPath).forEach((label) => {
+      label.classList.add("is-hovered");
+    });
+  };
+
+  const syncHoveredPathAtPoint = (point) => {
+    if (!point || !zoningEl.classList.contains("is-detail-mode")) return;
+
+    const path = getPathAtPoint(point);
+
+    setHoveredPath(path);
+  };
+
+  const getPathAtPoint = (point) => {
+    if (!point) return null;
+
+    return (
+      document
+      .elementsFromPoint(point.clientX, point.clientY)
+      .find(
+        (element) =>
+          element.matches?.("path[data-id]") &&
+          overlay.contains(element) &&
+          !element.classList.contains("is-filter-hidden")
+      ) || null
+    );
+  };
+
+  const shouldIgnoreMapPoint = (target) =>
+    target.closest?.(
+      ".zoning-filter, .zoning-card, .zoning-compare, .zoning-compare__modal, .zoning-controls, .zoning-guide"
+    );
+
+  const getPointerPoint = (event) => ({
+    clientX: event.clientX,
+    clientY: event.clientY
+  });
+
+  const handleDetailPointerMove = (event) => {
+    if (!zoningEl.classList.contains("is-detail-mode")) return;
+    if (!zoningEl.contains(event.target)) return;
+    if (shouldIgnoreMapPoint(event.target)) return;
+
+    syncHoveredPathAtPoint(getPointerPoint(event));
+  };
+
+  const handleDetailClick = (event) => {
+    if (!zoningEl.classList.contains("is-detail-mode")) return;
+    if (!zoningEl.contains(event.target)) return;
+    if (shouldIgnoreMapPoint(event.target)) return;
+    if (event.target.closest?.("path[data-id]")) return;
+
+    const path = getPathAtPoint(getPointerPoint(event));
+    if (!path) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    selectLot(path);
+  };
+
+  document.addEventListener("pointermove", handleDetailPointerMove, {
+    passive: true
+  });
+  document.addEventListener("click", handleDetailClick, true);
+  window.addEventListener("pagehide", () => {
+    document.removeEventListener("pointermove", handleDetailPointerMove);
+    document.removeEventListener("click", handleDetailClick, true);
+  });
+
+  zoningEl.addEventListener("zoning:sector-opened", (event) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        syncHoveredPathAtPoint(event.detail?.pointer);
+      });
+    });
+  });
 
   const selectLot = (path) => {
     const id = path.dataset.id;
@@ -1603,17 +1716,13 @@ function zoningLots(zoningEl, filterApi) {
         path.setAttribute("aria-label", villaData?.name || title);
 
         path.addEventListener("mouseenter", () => {
-          path.classList.add("is-hovered");
-          getPathLabels(path).forEach((label) => {
-            label.classList.add("is-hovered");
-          });
+          setHoveredPath(path);
         });
 
         path.addEventListener("mouseleave", () => {
-          path.classList.remove("is-hovered");
-          getPathLabels(path).forEach((label) => {
-            label.classList.remove("is-hovered");
-          });
+          if (hoveredPath === path) {
+            setHoveredPath(null);
+          }
         });
 
         path.addEventListener("click", (event) => {
