@@ -254,7 +254,7 @@
   left: 8px;
   z-index: 7;
   width: 320px;
-  height: 545px;
+  height: 520px;
   padding: 66px 20px 30px;
   border: 1px solid transparent;
   border-radius: 20px;
@@ -297,7 +297,7 @@
   border-radius: 999px;
   background-color: transparent;
   color: #ffffff;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
@@ -421,7 +421,7 @@
   margin-bottom: 8px;
   color: #7ff8e8;
   font-family: "Boska", var(--font-heading);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 16px;
 }
@@ -436,14 +436,14 @@
   justify-content: center;
   flex-direction: column;
   gap: 4px;
-  min-width: 40px;
-  height: 40px;
+  min-width: 35px;
+  height: 35px;
   padding: 0 10px;
   border: 1px solid #8db4bf;
   border-radius: 999px;
   background-color: transparent;
   color: #fff;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 15px;
   letter-spacing: 0.14em;
@@ -466,7 +466,7 @@
   text-transform: unset !important;
 }
 .zoning .zoning-filter-group[data-filter-group=view] .zoning-filter-options button span {
-  font-weight: 400;
+  font-weight: 600;
 }
 .zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-options {
   display: grid;
@@ -479,7 +479,7 @@
 .zoning .zoning-filter-group[data-filter-group=direction] .zoning-filter-options button {
   min-width: 0;
   width: 100%;
-  height: 40px;
+  height: 35px;
   padding: 0 22px;
   border-radius: 999px;
   letter-spacing: 0;
@@ -669,7 +669,7 @@
   top: 10px;
   right: 8px;
   z-index: 4;
-  width: 350px;
+  width: 330px;
   pointer-events: none;
   opacity: 0;
   transform: translateX(16px);
@@ -689,12 +689,12 @@
   padding: 16px;
 }
 .zoning .zoning-card .villa-card__title {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 20px;
+  line-height: 24px;
 }
 .zoning .zoning-card-footer {
   margin: 0 -16px -16px;
-  padding: 32px;
+  padding: 16px;
 }
 .zoning .zoning-card-footer > button {
   border: 1px solid #e6fff6;
@@ -708,6 +708,95 @@
   border-radius: 18px;
   background-color: #ffffff;
   color: #003f46;
+  clip-path: inset(0 0 0 0 round 18px);
+  transition: clip-path 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.28s ease;
+}
+.zoning .zoning-compare.is-collapsing,
+.zoning .zoning-compare.is-collapsed {
+  clip-path: inset(calc(100% - 45px) 0 0 calc(100% - 45px) round 12px);
+  border-radius: 12px;
+}
+.zoning .zoning-compare.is-collapsing p,
+.zoning .zoning-compare.is-collapsing .zoning-compare-row,
+.zoning .zoning-compare.is-collapsing .zoning-compare-close,
+.zoning .zoning-compare.is-collapsed p,
+.zoning .zoning-compare.is-collapsed .zoning-compare-row,
+.zoning .zoning-compare.is-collapsed .zoning-compare-close {
+  pointer-events: none;
+  opacity: 0;
+}
+.zoning .zoning-compare-close {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #1f4f4b;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+.zoning .zoning-compare-close:hover {
+  background-color: #1f4f4b;
+}
+.zoning .zoning-compare-close::before,
+.zoning .zoning-compare-close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  width: 10px;
+  height: 1px;
+  background-color: #1f4f4b;
+}
+.zoning .zoning-compare-close:hover::before,
+.zoning .zoning-compare-close:hover::after {
+  background-color: #ffffff;
+}
+.zoning .zoning-compare-close::before {
+  transform: rotate(45deg);
+}
+.zoning .zoning-compare-close::after {
+  transform: rotate(-45deg);
+}
+.zoning .zoning-compare-open {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(31, 79, 75, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.24s ease;
+}
+.zoning .zoning-compare.is-collapsed .zoning-compare-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  transition-delay: 0.16s;
+}
+.zoning .zoning-compare-open span {
+  display: block;
+  width: 29px;
+  height: 29px;
+  background-color: #ffffff;
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M27 8h20l9 9v30H39'/%3E%3Cpath d='M47 8v9h9'/%3E%3Cpath d='M8 19h25l10 10v27H8V19Z'/%3E%3Cpath d='M33 19v10h10'/%3E%3Cpath d='M15 32h13M15 40h22M15 48h17M47 25h8M47 33h8M47 41h8'/%3E%3C/svg%3E");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M27 8h20l9 9v30H39'/%3E%3Cpath d='M47 8v9h9'/%3E%3Cpath d='M8 19h25l10 10v27H8V19Z'/%3E%3Cpath d='M33 19v10h10'/%3E%3Cpath d='M15 32h13M15 40h22M15 48h17M47 25h8M47 33h8M47 41h8'/%3E%3C/svg%3E");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
 }
 .zoning .zoning-compare p {
   margin-bottom: 12px;
@@ -732,7 +821,7 @@
 }
 .zoning .zoning-compare-item strong {
   color: #000000;
-  font-size: 13px;
+  font-size: 11px;
   line-height: 15px;
 }
 .zoning .zoning-compare-item span {
@@ -768,9 +857,9 @@
 .zoning .zoning-compare-submit,
 .zoning .zoning-compare-cancel {
   height: 36px;
-  padding: 0 20px;
+  padding: 0 12px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 16px;
   letter-spacing: 0.16em;
@@ -868,6 +957,11 @@
   width: 100%;
   border-radius: 18px;
 }
+.zoning-compare__modal .box:has(> .box-item:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: calc((100% - 24px) / 3 * 2 + 12px);
+  margin: 0 auto;
+}
 .zoning-compare__modal .box-item {
   min-width: 0;
   overflow: hidden;
@@ -905,15 +999,28 @@
   background-color: transparent;
   box-shadow: none;
 }
+.zoning-compare__modal .filter-item.type-2 .box-item > .image,
+.zoning-compare__modal .filter-item.type-3 .box-item > .image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zoning-compare__modal .filter-item.type-2 .box-item > .image img,
+.zoning-compare__modal .filter-item.type-3 .box-item > .image img {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 400px);
+  object-fit: contain;
+}
 .zoning-compare__modal .zoning-compare-card-body {
   padding: 16px;
 }
 .zoning-compare__modal .zoning-compare-card .villa-card__title {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 20px;
+  line-height: 24px;
 }
 .zoning-compare__modal .zoning-compare-card .villa-card__footer {
-  padding: 32px;
+  padding: 16px;
 }
 .zoning-compare__modal .btn-wrapper {
   display: flex;
@@ -943,6 +1050,9 @@
   }
   .zoning-compare__modal .box {
     grid-template-columns: 1fr;
+  }
+  .zoning-compare__modal .box:has(> .box-item:nth-child(2):last-child) {
+    width: 100%;
   }
 }
 
@@ -1055,11 +1165,11 @@
   padding: 16px;
 }
 .share-villa .zoning-compare-card .villa-card__title {
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 20px;
+  line-height: 24px;
 }
 .share-villa .zoning-compare-card .villa-card__footer {
-  padding: 32px;
+  padding: 16px;
 }
 @media (max-width: 991px) {
   .share-villa .modal-wrapper {

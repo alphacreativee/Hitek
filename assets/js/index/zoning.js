@@ -1820,6 +1820,54 @@ function zoningCompareModal(zoningEl) {
   });
 }
 
+function zoningComparePanelCollapse(zoningEl) {
+  const comparePanel = zoningEl.querySelector(".zoning-compare");
+  const compareClose = comparePanel?.querySelector(
+    "[data-zoning-compare-panel-close]"
+  );
+  const compareOpen = comparePanel?.querySelector(
+    "[data-zoning-compare-panel-open]"
+  );
+  if (!comparePanel || !compareClose || !compareOpen) return;
+
+  let collapseTimer = null;
+
+  const clearCollapseTimer = () => {
+    if (!collapseTimer) return;
+    window.clearTimeout(collapseTimer);
+    collapseTimer = null;
+  };
+
+  const openPanel = () => {
+    clearCollapseTimer();
+    comparePanel.classList.remove("is-collapsing", "is-collapsed");
+    comparePanel.classList.add("is-expanding");
+
+    window.setTimeout(() => {
+      comparePanel.classList.remove("is-expanding");
+    }, 520);
+  };
+
+  const collapsePanel = () => {
+    clearCollapseTimer();
+    comparePanel.classList.remove("is-expanding", "is-collapsed");
+    comparePanel.classList.add("is-collapsing");
+
+    collapseTimer = window.setTimeout(() => {
+      comparePanel.classList.remove("is-collapsing");
+      comparePanel.classList.add("is-collapsed");
+      collapseTimer = null;
+    }, 520);
+  };
+
+  compareClose.addEventListener("click", collapsePanel);
+
+  compareOpen?.addEventListener("click", (event) => {
+    event.preventDefault();
+    openPanel();
+  });
+}
+
 function zoningGuide(zoningEl) {
   const guide = zoningEl.querySelector("[data-zoning-guide]");
   const closeBtn = zoningEl.querySelector("[data-zoning-guide-close]");
@@ -1851,6 +1899,7 @@ function zoning() {
   zoningReset(zoningEl, filterApi, scaleApi);
   zoningAudio(zoningEl);
   zoningCompareModal(zoningEl);
+  zoningComparePanelCollapse(zoningEl);
   zoningGuide(zoningEl);
 }
 

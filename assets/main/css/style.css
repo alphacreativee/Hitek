@@ -1196,7 +1196,7 @@ button.aloading::after {
 .villa-card__media {
   position: relative;
   width: 100%;
-  height: var(--villa-card-media-height, 235px);
+  height: var(--villa-card-media-height, 210px);
   overflow: hidden;
   border-radius: 0;
   background-color: #1f4f4b;
@@ -1347,10 +1347,10 @@ button.aloading::after {
   border-bottom: 0;
   color: #1f4f4b;
   font-family: var(--font-heading);
-  font-size: 28px;
+  font-size: 20px;
   font-style: italic;
   font-weight: 700;
-  line-height: 32px;
+  line-height: 24px;
 }
 
 .villa-card__title a {
@@ -1370,7 +1370,7 @@ button.aloading::after {
 .villa-card__meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 20px 8px;
+  gap: 16px;
   padding-top: 16px;
   border-top: 1px solid #c4d2d2;
 }
@@ -1403,9 +1403,9 @@ button.aloading::after {
 .villa-card__meta strong {
   display: block;
   color: #1f4f4b;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 20px;
+  line-height: 18px;
 }
 
 .villa-card__meta span {
