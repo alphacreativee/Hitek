@@ -610,6 +610,7 @@ function floorPlan() {
 
     $page.find("[data-floorplan-floor]").removeClass("active");
     $page.find(`[data-floorplan-floor="${state.floor}"]`).addClass("active");
+    $page.find("[data-floorplan-floor-label]").text(`Floor ${state.floor}`);
   }
 
   function renderPlan(floorData) {
@@ -1089,6 +1090,15 @@ function floorPlan() {
 
   $page.on("click", "[data-floorplan-filter-toggle]", toggleFilter);
 
+  $page.on("click", "[data-floorplan-dropdown-toggle]", function (event) {
+    event.stopPropagation();
+    const $dropdown = $(this).closest("[data-floorplan-dropdown]");
+    const isOpen = !$dropdown.hasClass("is-open");
+
+    $dropdown.toggleClass("is-open", isOpen);
+    $(this).attr("aria-expanded", String(isOpen));
+  });
+
   $page.on("click", "[data-floorplan-villa]", function () {
     state.villa = normalizeVilla($(this).data("floorplanVilla"));
     state.floor = normalizeFloor(state.villa, defaultState.floor);
@@ -1100,6 +1110,15 @@ function floorPlan() {
     state.floor = normalizeFloor(state.villa, $(this).data("floorplanFloor"));
     activeMarkerId = null;
     applyState();
+    $page.find("[data-floorplan-dropdown]").removeClass("is-open");
+    $page.find("[data-floorplan-dropdown-toggle]").attr("aria-expanded", "false");
+  });
+
+  $(document).on("click.floorplanDropdown", function (event) {
+    if ($(event.target).closest("[data-floorplan-dropdown]").length) return;
+
+    $page.find("[data-floorplan-dropdown]").removeClass("is-open");
+    $page.find("[data-floorplan-dropdown-toggle]").attr("aria-expanded", "false");
   });
 
   $page.on("click", "[data-floorplan-marker]", function () {

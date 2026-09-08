@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./assets/libs/lenis.css" />
     <link rel="stylesheet" href="./assets/libs/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./assets/libs/lightpick.min.css" />
-    <link rel="stylesheet" href="./assets/main/css/style.min.css" />
+    <link rel="stylesheet" href="./assets/main/css/style.min.css?v=floorplan-floor-dropdown-12" />
     <script>
       if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
@@ -149,13 +149,6 @@
               </div>
             </div>
 
-            <div class="floor-plan-page__filter-group">
-              <p>Floor</p>
-              <div class="floor-plan-page__filter-options">
-                <button type="button" data-floorplan-floor="1">Floor 1</button>
-                <button type="button" data-floorplan-floor="2">Floor 2</button>
-              </div>
-            </div>
           </div>
 
           <button
@@ -181,6 +174,21 @@
           >
             <img src="./assets/images/icon-floorplan.svg" alt="" />
           </button>
+          <div class="floor-plan-page__floor-dropdown" data-floorplan-dropdown>
+            <button
+              class="floor-plan-page__floor-toggle"
+              type="button"
+              aria-label="Choose floor"
+              aria-expanded="false"
+              data-floorplan-dropdown-toggle
+            >
+              <span data-floorplan-floor-label>Floor 1</span>
+            </button>
+            <div class="floor-plan-page__floor-menu">
+              <button type="button" data-floorplan-floor="1">Floor 1</button>
+              <button type="button" data-floorplan-floor="2">Floor 2</button>
+            </div>
+          </div>
           <div class="floor-plan-page__plan-figure">
             <img
               class="floor-plan-page__plan-image"
@@ -211,7 +219,7 @@
     <script src="./assets/libs/bootstrap.bundle.min.js"></script>
     <script
       type="module"
-      src="./assets/main/js/floorplan.min.js?v=floorplan-scenes-17"
+      src="./assets/main/js/floorplan.min.js?v=floorplan-floor-dropdown-12"
     ></script>
   </body>
 </html>
