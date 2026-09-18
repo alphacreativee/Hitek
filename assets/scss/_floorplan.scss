@@ -22,6 +22,10 @@
     background-color: #204f4b;
   }
 
+  &.is-intro-playing &__vtour {
+    visibility: hidden;
+  }
+
   &__intro {
     position: absolute;
     inset: 0;

@@ -2876,6 +2876,9 @@ button.aloading::after {
 .floor-plan-page__vtour {
   background-color: #204f4b;
 }
+.floor-plan-page.is-intro-playing .floor-plan-page__vtour {
+  visibility: hidden;
+}
 .floor-plan-page__intro {
   position: absolute;
   inset: 0;
