@@ -230,6 +230,7 @@
 		data-subtitle="1.7km | 4min"
 		data-subtitle-height="22"
 		data-line-height="80"
+		data-line-overlap="22"
 		ath="155.272"
 		atv="17.667"
 	/>
@@ -328,6 +329,9 @@
 		lineHeight = String(lineHeight).replace("px", "").trim();
 
 		var lineHeightNumber = parseFloat(lineHeight) || 80;
+		var lineOverlap = caller["data-line-overlap"] || "0";
+		lineOverlap = String(lineOverlap).replace("px", "").trim();
+		var lineOverlapNumber = parseFloat(lineOverlap) || 0;
 
 		var title = caller.html || "";
 		var subtitle = caller["data-subtitle"] || "";
@@ -418,7 +422,7 @@
 		// bắt buộc set lại vì style có height="80"
 		krpano.set(
 		"hotspot[" + lineName + "].height",
-		lineHeightNumber
+		lineHeightNumber + lineOverlapNumber
 		);
 
 		// QUAN TRỌNG

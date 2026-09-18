@@ -103,7 +103,8 @@ function floorPlan() {
             y: 90,
             radar: 0,
             sortOrder: 1,
-            scene: "scene_floorplan_villa_c_floor_1" // 360_View01_Mat Tien
+            scene: "scene_floorplan_villa_c_floor_1", // 360_View01_Mat Tien
+            introVideo: `${themeURL}/assets/images/floorplan/video/360_View01_Mat Tien_intro_10s_final.mp4?v=web-2`
           },
           {
             id: "c-1-front",
@@ -543,6 +544,22 @@ function floorPlan() {
   let sceneActivationTimer = null;
   let radarFrame = null;
   let galleryVilla = null;
+  let introPlaybackId = 0;
+  let introStartTimer = null;
+  let introHideTimer = null;
+  let introActiveScene = null;
+
+  const introVideo = document.createElement("video");
+  introVideo.className = "floor-plan-page__intro";
+  introVideo.muted = true;
+  introVideo.playsInline = true;
+  introVideo.preload = "auto";
+  introVideo.setAttribute("muted", "");
+  introVideo.setAttribute("playsinline", "");
+  introVideo.setAttribute("webkit-playsinline", "");
+  introVideo.setAttribute("aria-hidden", "true");
+  introVideo.disablePictureInPicture = true;
+  $page.find(".floor-plan-page__viewer").append(introVideo);
 
   const getVillaData = (villa) =>
     floorplanData[villa] || floorplanData[defaultState.villa];
@@ -581,6 +598,85 @@ function floorPlan() {
     }
 
     return null;
+  }
+
+  function clearIntroVideo() {
+    introPlaybackId += 1;
+    clearTimeout(introStartTimer);
+    clearTimeout(introHideTimer);
+    introStartTimer = null;
+    introHideTimer = null;
+    introActiveScene = null;
+    introVideo.oncanplaythrough = null;
+    introVideo.onended = null;
+    introVideo.onerror = null;
+    introVideo.pause();
+    introVideo.classList.remove("is-active", "is-fading");
+
+    if (introVideo.hasAttribute("src")) {
+      introVideo.removeAttribute("src");
+      introVideo.load();
+    }
+  }
+
+  function playSceneIntro(sceneName) {
+    const introSrc = findMarkerByScene(sceneName)?.marker?.introVideo;
+
+    if (!introSrc) {
+      clearIntroVideo();
+      return;
+    }
+
+    if (introActiveScene === sceneName) return;
+
+    clearIntroVideo();
+    const playbackId = introPlaybackId;
+    let hasStarted = false;
+    introActiveScene = sceneName;
+    introVideo.src = introSrc;
+
+    const startIntro = () => {
+      if (playbackId !== introPlaybackId || hasStarted) return;
+
+      hasStarted = true;
+      clearTimeout(introStartTimer);
+      introStartTimer = null;
+      introVideo.oncanplaythrough = null;
+      introVideo.currentTime = 0;
+      introVideo.classList.add("is-active");
+
+      const playPromise = introVideo.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch((error) => {
+          if (error?.name !== "AbortError" && playbackId === introPlaybackId) {
+            clearIntroVideo();
+          }
+        });
+      }
+    };
+
+    const finishIntro = () => {
+      if (playbackId !== introPlaybackId) return;
+
+      introVideo.classList.add("is-fading");
+      introHideTimer = window.setTimeout(() => {
+        if (playbackId !== introPlaybackId) return;
+        clearIntroVideo();
+      }, 800);
+    };
+
+    introVideo.onended = finishIntro;
+    introVideo.onerror = () => {
+      if (playbackId === introPlaybackId) clearIntroVideo();
+    };
+    introVideo.oncanplaythrough = startIntro;
+    introVideo.load();
+
+    if (introVideo.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+      startIntro();
+    } else {
+      introStartTimer = window.setTimeout(startIntro, 2500);
+    }
   }
 
   function syncStateFromUrl() {
@@ -644,6 +740,7 @@ function floorPlan() {
   function loadScene(sceneName) {
     if (!krpano || !sceneName) return;
 
+    playSceneIntro(sceneName);
     krpano.call(
       `skin_loadscene(${sceneName}, get(skin_settings.loadscene_blend))`
     );
@@ -994,7 +1091,9 @@ function floorPlan() {
     if (!krpano) return;
 
     window.floorplanHandleSceneChange = function () {
-      syncFloorplanFromScene(krpano.get("xml.scene"));
+      const sceneName = krpano.get("xml.scene");
+      syncFloorplanFromScene(sceneName);
+      playSceneIntro(sceneName);
     };
 
     window.floorplanHandleFullscreenChange = function () {
