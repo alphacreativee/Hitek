@@ -104,7 +104,7 @@ function floorPlan() {
             radar: 0,
             sortOrder: 1,
             scene: "scene_floorplan_villa_c_floor_1", // 360_View01_Mat Tien
-            introVideo: `${themeURL}/assets/images/floorplan/video/360_View01_Mat Tien_intro_10s_final.mp4?v=web-2`
+            introVideo: `${themeURL}/assets/images/floorplan/video/360_View01_Mat Tien_intro_10s_final.mp4?v=web-3`
           },
           {
             id: "c-1-front",
@@ -548,6 +548,7 @@ function floorPlan() {
   let introStartTimer = null;
   let introHideTimer = null;
   let introActiveScene = null;
+  const introVideoCache = new Map();
 
   const introVideo = document.createElement("video");
   introVideo.className = "floor-plan-page__intro";
@@ -557,6 +558,7 @@ function floorPlan() {
   introVideo.setAttribute("muted", "");
   introVideo.setAttribute("playsinline", "");
   introVideo.setAttribute("webkit-playsinline", "");
+  introVideo.setAttribute("fetchpriority", "high");
   introVideo.setAttribute("aria-hidden", "true");
   introVideo.disablePictureInPicture = true;
   $page.find(".floor-plan-page__viewer").append(introVideo);
@@ -612,11 +614,31 @@ function floorPlan() {
     introVideo.onerror = null;
     introVideo.pause();
     introVideo.classList.remove("is-active", "is-fading");
+    $page.removeClass("is-intro-playing");
 
     if (introVideo.hasAttribute("src")) {
       introVideo.removeAttribute("src");
       introVideo.load();
     }
+  }
+
+  function preloadIntroVideo(src) {
+    if (!src) return Promise.resolve(null);
+    if (introVideoCache.has(src)) return introVideoCache.get(src);
+
+    const videoPromise = fetch(src, {
+      cache: "force-cache",
+      priority: "high"
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Intro video HTTP ${response.status}`);
+        return response.blob();
+      })
+      .then((blob) => URL.createObjectURL(blob))
+      .catch(() => src);
+
+    introVideoCache.set(src, videoPromise);
+    return videoPromise;
   }
 
   function playSceneIntro(sceneName) {
@@ -633,7 +655,6 @@ function floorPlan() {
     const playbackId = introPlaybackId;
     let hasStarted = false;
     introActiveScene = sceneName;
-    introVideo.src = introSrc;
 
     const startIntro = () => {
       if (playbackId !== introPlaybackId || hasStarted) return;
@@ -643,6 +664,7 @@ function floorPlan() {
       introStartTimer = null;
       introVideo.oncanplaythrough = null;
       introVideo.currentTime = 0;
+      $page.addClass("is-intro-playing");
       introVideo.classList.add("is-active");
 
       const playPromise = introVideo.play();
@@ -658,25 +680,37 @@ function floorPlan() {
     const finishIntro = () => {
       if (playbackId !== introPlaybackId) return;
 
-      introVideo.classList.add("is-fading");
-      introHideTimer = window.setTimeout(() => {
-        if (playbackId !== introPlaybackId) return;
-        clearIntroVideo();
-      }, 800);
+      $page.removeClass("is-intro-playing");
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (playbackId !== introPlaybackId) return;
+
+          introVideo.classList.add("is-fading");
+          introHideTimer = window.setTimeout(() => {
+            if (playbackId !== introPlaybackId) return;
+            clearIntroVideo();
+          }, 800);
+        });
+      });
     };
 
     introVideo.onended = finishIntro;
     introVideo.onerror = () => {
       if (playbackId === introPlaybackId) clearIntroVideo();
     };
-    introVideo.oncanplaythrough = startIntro;
-    introVideo.load();
+    preloadIntroVideo(introSrc).then((playableSrc) => {
+      if (playbackId !== introPlaybackId || !playableSrc) return;
 
-    if (introVideo.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-      startIntro();
-    } else {
-      introStartTimer = window.setTimeout(startIntro, 2500);
-    }
+      introVideo.src = playableSrc;
+      introVideo.oncanplaythrough = startIntro;
+      introVideo.load();
+
+      if (introVideo.readyState >= introVideo.HAVE_ENOUGH_DATA) {
+        startIntro();
+      } else {
+        introStartTimer = window.setTimeout(startIntro, 2500);
+      }
+    });
   }
 
   function syncStateFromUrl() {
@@ -783,7 +817,7 @@ function floorPlan() {
   }
 
   function updateRadarAngle() {
-    if (krpano) {
+    if (krpano && !introActiveScene) {
       const hlookat = parseFloat(krpano.get("view.hlookat")) || 0;
       const $activeMarker = $page.find("[data-floorplan-marker].active");
       const radarOffset = parseFloat($activeMarker.data("radar")) || 0;
@@ -989,8 +1023,9 @@ function floorPlan() {
     }
 
     krpano.call(
-      "skin_addthumbs(); skin_onresize(); skin_updatethumbsview(false);"
+      "delete(thumbarray); skin_addthumbs(); skin_onresize(); skin_updatethumbsview(false);"
     );
+    krpano.set("layer[skin_btn_thumbs].visible", true);
     sortControlThumbs();
     setTimeout(sortControlThumbs, 80);
     setTimeout(sortControlThumbs, 240);
@@ -1037,6 +1072,10 @@ function floorPlan() {
   function syncGalleryThumbs({ force = false } = {}) {
     if (!krpano) return;
     if (!force && galleryVilla === state.villa) return;
+
+    // The skin starts with thumbnails disabled so it doesn't request every
+    // scene thumbnail before the active villa is known.
+    krpano.set("skin_settings.thumbs", true);
 
     const activeScenes = new Set();
     Object.values(getVillaData(state.villa)).forEach((floorData) => {
@@ -1148,7 +1187,7 @@ function floorPlan() {
 
     embedpano({
       target: "floorplan-vtour",
-      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-21`,
+      xml: `${themeURL}/vtour/floorplan.xml?v=floorplan-scenes-22`,
       html5: "only",
       mobilescale: 1,
       vars: {
@@ -1244,6 +1283,14 @@ function floorPlan() {
   });
 
   syncStateFromUrl();
+  preloadIntroVideo(
+    findMarkerByScene(
+      getInitialSceneForFloor(
+        state.villa,
+        getFloorData(state.villa, state.floor)
+      )
+    )?.marker?.introVideo
+  );
   embedFloorplan();
   applyState({ shouldUpdateUrl: false });
 }

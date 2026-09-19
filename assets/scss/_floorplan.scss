@@ -20,6 +20,13 @@
 
   &__vtour {
     background-color: #204f4b;
+    contain: strict;
+    will-change: opacity;
+  }
+
+  &.is-intro-playing &__vtour {
+    opacity: 0;
+    pointer-events: none;
   }
 
   &__intro {
@@ -33,6 +40,10 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    contain: strict;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: opacity;
     transition:
       opacity 0.8s ease,
       visibility 0s linear 0.8s;
